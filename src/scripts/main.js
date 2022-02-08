@@ -1,6 +1,9 @@
 import Phaser from 'phaser';
 import MenuScene from './Scenes/MenuScene';
 import GameScene from './Scenes/GameScene';
+import MapScene from './Scenes/MapScene';
+import BossScene from './Scenes/BossScene';
+import TutorialScene from './Scenes/TutorialScene';
 
 // Set configuration for phaser game instance
 const config = {
@@ -13,12 +16,12 @@ const config = {
     default: 'arcade',
     arcade: {
       gravity: {
-        y: 1000,
+        y: 0,
       },
-      debug: false,
+      debug: true,
     },
   },
-  scene: [MenuScene, GameScene],
+  scene: [MenuScene, GameScene, MapScene, BossScene, TutorialScene],
   audio: {
     disableWebAudio: true,
   },
