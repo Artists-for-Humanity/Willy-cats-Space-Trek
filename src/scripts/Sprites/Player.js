@@ -35,13 +35,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.y += 5;
       //down and walking down animation//
     }
-    
+    //if toggleshoot is on//
+     //make a function for the bullet moveing towards the player cursor= 'fire'//
+      //if saftey is off -->
+      //when player left mouse is down
+      //read player position
+      //read mouse position
+      //calculate angle from player and mouse postion with tangent
   }
 
-  //make a function for the bullet moveing towards the player cursor= 'fire'//
-  //if saftey is off -->
-  //when player left mouse is down
-  //read player position
-  //read mouse position
-  //calculate angle from player and mouse postion with tangent
+ 
 }
