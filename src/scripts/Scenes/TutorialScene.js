@@ -5,10 +5,14 @@ export default class GameScene extends Phaser.Scene {
             key: 'Tutorial'
         });
     //variable for amount of enemies// 
+    let enemies = 4;
     //variable for tutorial text, size and font = css//
     //variable for toggleMove = off
+    this.toggleMove = false;
     //variable for toggleShoot = off
+    this.toggleShoot = off;
     }
+    
     Preload(){
         //tutorial map image//
         //enemy files enemy//
@@ -18,10 +22,16 @@ export default class GameScene extends Phaser.Scene {
         //text for controls, toggleMove on
         //text to enter door//
         //load into tutorial map
-        //load enemies
+
+        //load enemies (one by one)
+        this.SpawnEnemy(Math.floor((Math.random() * 1181 - 590)), Math.floor((Math.random() * 621 - 310)));
+
         //text for shooting, toggleShoot on
     }
 
+    SpawnEnemy(x, y){
 
+        enemies--;
+    }
 
 }
