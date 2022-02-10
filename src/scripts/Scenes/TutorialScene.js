@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 export default class GameScene extends Phaser.Scene {
     constructor() {
         super ({
-            key: 'Tutorial'
+            key: 'TutorialScene'
         });
     //variable for amount of enemies// 
     let enemies = 4;
@@ -10,7 +10,7 @@ export default class GameScene extends Phaser.Scene {
     //variable for toggleMove = off
     this.toggleMove = false;
     //variable for toggleShoot = off
-    this.toggleShoot = off;
+    this.toggleShoot = false;
     }
     
     Preload(){

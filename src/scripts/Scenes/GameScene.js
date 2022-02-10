@@ -13,7 +13,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('willy', new URL('../../assets/spraycan.png', import.meta.url).href);
+    this.load.image('willy', new URL('../../assets/PlaceholderWilly.png', import.meta.url).href);
   }
 
   create() {
