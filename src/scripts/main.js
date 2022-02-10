@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import MenuScene from './Scenes/MenuScene';
-import GameScene from './Scenes/GameScene';
-import MapScene from './Scenes/MapScene';
-import BossScene from './Scenes/BossScene';
+import BunkerScene from './Scenes/BunkerScene';
+//import MapScene from './Scenes/MapScene';
+// import BossScene from './Scenes/BossScene';
 import TutorialScene from './Scenes/TutorialScene';
 
 // Set configuration for phaser game instance
@@ -21,7 +21,7 @@ const config = {
       debug: true,
     },
   },
-  scene: [MenuScene, GameScene, MapScene, BossScene, TutorialScene],
+  scene: [MenuScene, BunkerScene, ],
   audio: {
     disableWebAudio: true,
   },

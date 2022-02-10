@@ -24,7 +24,7 @@ export default class GameScene extends Phaser.Scene {
         //load into tutorial map
 
         //load enemies (one by one)
-        this.SpawnEnemy(Math.floor((Math.random() * 1181 - 590)), Math.floor((Math.random() * 621 - 310)));
+        //this.SpawnEnemy(Math.floor((Math.random() * 1181 - 590)), Math.floor((Math.random() * 621 - 310)));
 
         //text for shooting, toggleShoot on
     }

@@ -49,7 +49,7 @@ export default class GameScene extends Phaser.Scene {
 
     this.input.keyboard.on('keydown-SPACE', () => {
       //switches scene to tutorial //
-      this.scene.start('TutorialScene');
+      this.scene.start('BunkerScene');
     });
   }
 }

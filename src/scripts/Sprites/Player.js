@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { colors } from '../constants';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {

@@ -8,7 +8,7 @@ export default class GameScene extends Phaser.Scene {
 
   constructor() {
     super({
-      key: 'GameScene',
+      key: 'BunkerScene',
     });
   }
 
@@ -18,7 +18,7 @@ export default class GameScene extends Phaser.Scene {
 
   create() {
     this.player = new Player(this, this.game.config.width / 2, this.game.config.height / 2);
-    this.player.setTint(colors.white);
+    
   }
 
   update() {
