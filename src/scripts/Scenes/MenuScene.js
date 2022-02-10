@@ -26,7 +26,7 @@ export default class GameScene extends Phaser.Scene {
     this.add.image(this.game.config.width / 2, this.game.config.height / 2, 'start-screen');
     
     //add start button
-    const gameStartBtnX = this.game.config.width / 2 -240;
+    const gameStartBtnX = this.game.config.width / 2 - 320;
     const gameStartBtnY = this.game.config.height / 2 + 160;
     const startButton = this.add.image(gameStartBtnX, gameStartBtnY, 'start-button')
     .setInteractive({ useHandCursor: true })

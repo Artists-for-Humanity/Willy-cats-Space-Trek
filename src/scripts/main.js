@@ -8,7 +8,7 @@ import TutorialScene from './Scenes/TutorialScene';
 // Set configuration for phaser game instance
 const config = {
   type: Phaser.AUTO,
-  width: 960,
+  width: 1280,
   height: 720,
 
   // Add physics, arcade, scene, and audio
