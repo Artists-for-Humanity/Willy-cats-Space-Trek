@@ -16,8 +16,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('willy', new URL('../../assets/PlaceholderWilly2.png', import.meta.url).href);
-    this.load.image('background', new URL('../../assets/BunkerSceneHolder2.png', import.meta.url).href);
+    this.load.image('willy', new URL('../../assets/PlayerHolder.png', import.meta.url).href);
+    this.load.image('background', new URL('../../assets/BunkerSceneHolder.png', import.meta.url).href);
     
   }
 
