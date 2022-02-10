@@ -2,6 +2,7 @@
 import Phaser from 'phaser';
 import WebFont from 'webfontloader';
 import { colors } from '../constants';
+import TutorialScene from './BunkerScene'
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -50,6 +51,10 @@ export default class GameScene extends Phaser.Scene {
     this.input.keyboard.on('keydown-SPACE', () => {
       //switches scene to tutorial //
       this.scene.start('BunkerScene');
+      console.log(this.updownlock);
+      console.log(this.togglemove);
+      this.updownlock = true;
+      this.togglemove = true;
     });
   }
 }

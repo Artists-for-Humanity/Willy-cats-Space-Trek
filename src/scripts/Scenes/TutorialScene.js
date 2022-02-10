@@ -8,7 +8,7 @@ export default class GameScene extends Phaser.Scene {
     let enemies = 4;
     //variable for tutorial text, size and font = css//
     //variable for toggleMove = off
-    this.toggleMove = false;
+    
     //variable for toggleShoot = off
     this.toggleShoot = false;
     }
@@ -29,9 +29,9 @@ export default class GameScene extends Phaser.Scene {
         //text for shooting, toggleShoot on
     }
 
-    SpawnEnemy(x, y){
+    //SpawnEnemy(x, y){
 
-        enemies--;
-    }
+      //  enemies--;
+    //}
 
 }

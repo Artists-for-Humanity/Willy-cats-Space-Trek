@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import TutorialScene from '../Scenes/TutorialScene';
 import { colors } from '../constants';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
@@ -16,7 +17,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   //player movement//
   update() {
-    //If togglemovement is on
+
       if (this.cursors.left.isDown) {
         this.x -= 5;
         //left and walking left animation//
@@ -36,13 +37,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.y += 5;
       //down and walking down animation//
     }
-    //if toggleshoot is on//
-     //make a function for the bullet moveing towards the player cursor= 'fire'//
-      //if saftey is off -->
-      //when player left mouse is down
-      //read player position
-      //read mouse position
-      //calculate angle from player and mouse postion with tangent
+
   }
 
  
