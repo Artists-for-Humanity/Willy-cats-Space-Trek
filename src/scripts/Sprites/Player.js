@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import TutorialScene from '../Scenes/TutorialScene';
 import { colors } from '../constants';
-
+import GameRule from '../GameRule';
 export default class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'willy');
@@ -11,13 +11,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.setCollideWorldBounds(true);
 
     this.cursors = scene.input.keyboard.createCursorKeys();
-
+    this.rule = GameRule; 
+    
     return this;
   }
 
   //player movement//
   update() {
-
+    this.resetPlayerPosition();
       if (this.cursors.left.isDown) {
         this.x -= 5;
         //left and walking left animation//
@@ -39,6 +40,22 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
   }
-
- 
+  resetPlayerPosition(){
+    // console.log(this.x,this.y)
+    if (this.rule.toggleBorder === true) {
+      if (this.y <= 80){
+        this.y = 85;
+      }
+      if (this.y >= 650){
+        this.y = 645;
+      }
+      if (this.x <= 95){
+        this.x = 100;
+  
+      }
+      if (this.x >= 1185){
+        this.x = 1180;
+      }
+    }
+  }
 }

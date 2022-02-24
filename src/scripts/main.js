@@ -4,7 +4,7 @@ import BunkerScene from './Scenes/BunkerScene';
 //import MapScene from './Scenes/MapScene';
 // import BossScene from './Scenes/BossScene';
 import TutorialScene from './Scenes/TutorialScene';
-
+import GameRule from './GameRule';
 // Set configuration for phaser game instance
 const config = {
   type: Phaser.AUTO,
@@ -21,11 +21,14 @@ const config = {
       debug: true,
     },
   },
-  scene: [MenuScene, BunkerScene, ],
+  scene: [MenuScene, BunkerScene, TutorialScene,],
   audio: {
     disableWebAudio: true,
   },
-};
+  Plugins: {
+    global: [{ key: 'GameRule', plugin: GameRule, start: false, mapping: 'GameRule'}],
+    },
+  };
 
 // Initialize game instance
 new Phaser.Game(config);
