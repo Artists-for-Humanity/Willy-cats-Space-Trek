@@ -24,7 +24,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       if (this.cursors.left.isDown) {
         this.x -= 5;
         //left and walking left animation//
-      }
+        
+      } 
     
       if (this.cursors.right.isDown) {
         this.x += 5;
