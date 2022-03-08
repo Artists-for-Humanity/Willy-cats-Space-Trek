@@ -2,7 +2,8 @@ import Phaser from 'phaser';
 import Player from '../Sprites/Player';
 import alien1 from '../Sprites/alien1';
 export default class TutorialScene extends Phaser.Scene {
-   player; 
+   player;
+
     constructor() {
         super ({
             key: 'TutorialScene'

@@ -38,6 +38,7 @@ export default class BunkerScene extends Phaser.Scene {
   update() {
     this.player.update();
   }
+  
   playerdoordetect(){
 
     this.scene.start('TutorialScene');

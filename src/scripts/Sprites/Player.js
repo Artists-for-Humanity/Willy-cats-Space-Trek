@@ -19,6 +19,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   //player movement//
   update() {
     this.resetPlayerPosition();
+    // this.getPosition();
+    // console.log(getPosition());
       if (this.cursors.left.isDown) {
         this.x -= 5;
         //left and walking left animation//
@@ -38,10 +40,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.y += 5;
       //down and walking down animation//
     }
-
   }
+  // getPosition(){ 
+
+  
   resetPlayerPosition(){
-    // console.log(this.x,this.y)
+   //console.log(this.x,this.y)
     if (this.rule.toggleBorder === true) {
       if (this.y <= 80){
         this.y = 85;
@@ -58,4 +62,5 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       }
     }
   }
+
 }

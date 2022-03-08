@@ -5,6 +5,8 @@ import BunkerScene from './Scenes/BunkerScene';
 // import BossScene from './Scenes/BossScene';
 import TutorialScene from './Scenes/TutorialScene';
 import GameRule from './GameRule';
+import BunkerScene from './Scenes/BunkerScene';
+import MenuScene from './Scenes/MenuScene';
 // Set configuration for phaser game instance
 const config = {
   type: Phaser.AUTO,
