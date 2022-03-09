@@ -12,43 +12,47 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     this.cursors = scene.input.keyboard.createCursorKeys();
     this.rule = GameRule; 
-    
+    this.up = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    this.left = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    this.down = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    this.right = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     return this;
   }
 
   //player movement//
   update() {
-    this.resetPlayerPosition();
-    this.move();
+
+  this.resetPlayerPosition();  
+  this.move();
   }
-
-  move() {
-    //walking left
-    if (this.cursors.left.isDown) {
-      this.x -= 5
-      this.flipX = true;
-      this.anims.play('run', true);
-      return;
-    }
-    //walking right
-    if (this.cursors.right.isDown) {
-      this.x += 5
-      this.flipX = false;
-      this.anims.play('run', true);
-      return;
-    }
-    //walking up
-    if (this.cursors.up.isDown) {
-      this.y -= 5;
-      return;
-    }
-    //walking down
-    if (this.cursors.down.isDown) {
-      this.y += 5;
-      return;
-    }
-
-    this.anims.play('idle', true);
+  
+  move() {      
+      if (this.up.isDown) {
+        this.y -= 5;
+        return;
+        //up and walking up animation//
+      }
+      if (this.left.isDown) {
+        this.x -= 5;
+        this.flipX = true;
+        this.anims.play('run', true);
+        return;
+        //left and walking left animation//
+      }
+      if (this.down.isDown) {
+        this.y += 5;
+        return;
+      //down and walking down animation//
+      }
+      if (this.right.isDown) {
+        this.x += 5;
+        this.flipX = false;
+        this.anims.play('run', true);
+        return;
+      //right and walking right animation//
+      }
+    
+     this.anims.play('idle', true);
   }
 
   // getPosition(){ 
