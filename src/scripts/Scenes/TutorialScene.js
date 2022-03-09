@@ -42,7 +42,7 @@ export default class TutorialScene extends Phaser.Scene {
         // this.border5.visible = false;
         // this.physics.add.overlap(this.player, this.border5, this.playerXRborder)
         
-        this.physics.add.overlap(this.projectileImg, this.enemies, this.onProjectileHitalien1, null, this);
+        this.physics.add.overlap(this.projectileImg, this.enemies, this.onProjectileHitalien1(), null, this);
 
     }
 
@@ -91,14 +91,17 @@ export default class TutorialScene extends Phaser.Scene {
         this.projectileImg.body.enable = true;
         this.projectileImg.x = this.player.x;
         this.projectileImg.y = this.player.y;
-        this.projectileImg.setVelocityY(-600);
+        // this.projectileImg.setVelocityY(-600);
+        this.physics.moveTo(this.projectileImg, this.game.input.mousePointer.x,
+            this.game.input.mousePointer.y, 500);
     }
-    onProjectileHitalien1(projectileImg, alien1) {
-        alien1.disableBody(true, true);
-        projectileImg.body.enable = false;
+    onProjectileHitalien1() {
+        console.log('hello')
+        // alien1.disableBody(true, true);
+        // projectileImg.body.enable = false;
         this.resetProjectile();
         this.score += 1;
-        this.scoreText.setText(`Score: ${this.score}`);
+        // this.scoreText.setText(`Score: ${this.score}`);
     }
     resetProjectile() {
         if (this.projectileState === 'ready') {
