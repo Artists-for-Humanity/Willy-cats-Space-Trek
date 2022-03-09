@@ -11,8 +11,8 @@ export default class TutorialScene extends Phaser.Scene {
         });
         this.projectileImg;
         this.projectileState = 'ready';  
-    enemies;
-    let enemies;
+    // enemies;
+    // let enemies;
     //variable for toggleMove = off
     
     //variable for toggleShoot = off
@@ -38,12 +38,18 @@ export default class TutorialScene extends Phaser.Scene {
         this.alien1 = new alien1(this, 300, 400);
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
         this.projectileImg.visible = false
-
-        // this.border5 = this.physics.add.sprite(1250, 360, 'border').setSize(72,640)
-        // this.border5.visible = false;
-        // this.physics.add.overlap(this.player, this.border5, this.playerXRborder)
         
-        this.physics.add.overlap(this.projectileImg, this.enemies, this.onProjectileHitalien1(), null, this);
+        // this.physics.add.collider(this.projectileImg, this.alien1, this.onProjectileHitalien1);
+        this.physics.add.collider(this.projectileImg, this.alien1, () => {
+            console.log('hello', this.alien1);
+            // this.alien1.getChildren().map(child => child.destroy())
+            this.alien1.destroyAliens();
+            // alien1.disableBody(true, true);
+            // projectileImg.body.enable = false;
+            this.resetProjectile();
+            this.score += 1;
+            // this.scoreText.setText(`Score: ${this.score}`);
+        });
 
     }
 
@@ -55,18 +61,12 @@ export default class TutorialScene extends Phaser.Scene {
             if (this.projectileState == 'ready') {
                 this.fireProjectile();
             }
-            if (this.projectileImg.y <= -16) {
+            if (this.projectileImg.y <= 25 || this.projectileImg.y >= 695 || this.projectileImg.x <= 25 || this.projectileImg.x >= 1255 ) {
                 this.resetProjectile();
             }
-            
-        
-       
           })
     }
-    //SpawnEnemy(x, y){
 
-      //  enemies--;
-    //}
     playerXH1border(player){
         player.y = 90;
         }
@@ -92,18 +92,18 @@ export default class TutorialScene extends Phaser.Scene {
         this.projectileImg.body.enable = true;
         this.projectileImg.x = this.player.x;
         this.projectileImg.y = this.player.y;
-        // this.projectileImg.setVelocityY(-600);
         this.physics.moveTo(this.projectileImg, this.game.input.mousePointer.x,
-            this.game.input.mousePointer.y, 500);
+            this.game.input.mousePointer.y, 800);
     }
-    onProjectileHitalien1() {
-        console.log('hello')
-        // alien1.disableBody(true, true);
-        // projectileImg.body.enable = false;
-        this.resetProjectile();
-        this.score += 1;
-        // this.scoreText.setText(`Score: ${this.score}`);
-    }
+    // onProjectileHitalien1() {
+    //     console.log('hello', this.alien1);
+    //     this.alien1.destroy();
+    //     // alien1.disableBody(true, true);
+    //     // projectileImg.body.enable = false;
+    //     this.resetProjectile();
+    //     this.score += 1;
+    //     // this.scoreText.setText(`Score: ${this.score}`);
+    // }
     resetProjectile() {
         if (this.projectileState === 'ready') {
             return;
