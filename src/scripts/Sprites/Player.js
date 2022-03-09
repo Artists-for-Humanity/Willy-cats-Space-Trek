@@ -21,25 +21,40 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   //player movement//
   update() {
-    this.resetPlayerPosition();      
+
+  this.resetPlayerPosition();  
+  this.move();
+  }
+  
+  move() {      
       if (this.up.isDown) {
         this.y -= 5;
+        return;
         //up and walking up animation//
       }
       if (this.left.isDown) {
         this.x -= 5;
+        this.flipX = true;
+        this.anims.play('run', true);
+        return;
         //left and walking left animation//
       }
       if (this.down.isDown) {
         this.y += 5;
+        return;
       //down and walking down animation//
       }
       if (this.right.isDown) {
         this.x += 5;
+        this.flipX = false;
+        this.anims.play('run', true);
+        return;
       //right and walking right animation//
       }
-
+    
+     this.anims.play('idle', true);
   }
+
   // getPosition(){ 
 
   
