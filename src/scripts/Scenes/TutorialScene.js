@@ -11,12 +11,8 @@ export default class TutorialScene extends Phaser.Scene {
         });
         this.projectileImg;
         this.projectileState = 'ready';  
-    enemies;
-    let enemies;
-    //variable for toggleMove = off
-    
-    //variable for toggleShoot = off
-    //this.toggleShoot = false;
+        this.enemies = [];
+        this.numEnemy = 3;
     }
 
     
@@ -35,7 +31,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.l1bg = this.add.sprite((this.game.config.width / 2) , (this.game.config.height /2), 'L1' );
         this.player = new Player(this, 1000, 380);
         this.borders = this.physics.add.staticGroup();
-        this.alien1 = new alien1(this, 300, 400);
+        this.SpawnEnemy();
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
         this.projectileImg.visible = false
 
@@ -50,7 +46,10 @@ export default class TutorialScene extends Phaser.Scene {
     
     update(){ 
         this.player.update();
-        this.alien1.update();
+        this.enemies.map((enemy) => {
+            enemy.update();
+        });
+
         this.input.on('pointerdown', pointer =>{
             if (this.projectileState == 'ready') {
                 this.fireProjectile();
@@ -63,10 +62,32 @@ export default class TutorialScene extends Phaser.Scene {
        
           })
     }
-    //SpawnEnemy(x, y){
+    getRandomPosition(){
+        const position = {
+            x: Math.floor(Phaser.Math.Between(100, 860)),
+            y: Math.floor(Phaser.Math.Between(100, 720)),
+        };
+        return position;
+    }
 
-      //  enemies--;
-    //}
+    SpawnEnemy(){
+        const enemyPosition = [];
+        for (let i = 0; i < this.numEnemy; i ++){
+            const position = this.getRandomPosition();
+            console.log(position);
+            
+            enemyPosition.push({
+                x: position.x,
+                y: position.y,
+            });
+        }
+        console.log(enemyPosition)
+        for (let i = 0; i < this.numEnemy; i++) {
+            const enemy = new alien1 (this, enemyPosition[i].x, enemyPosition[i].y, 'alien1');
+            this.enemies.push(enemy);
+        }
+    }
+   
     playerXH1border(player){
         player.y = 90;
         }
@@ -97,7 +118,7 @@ export default class TutorialScene extends Phaser.Scene {
             this.game.input.mousePointer.y, 500);
     }
     onProjectileHitalien1() {
-        console.log('hello')
+
         // alien1.disableBody(true, true);
         // projectileImg.body.enable = false;
         this.resetProjectile();
