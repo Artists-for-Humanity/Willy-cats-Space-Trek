@@ -14,11 +14,16 @@ export default class alien1 extends Phaser.Physics.Arcade.Sprite {
     return this;
   }
 
-  
-  
   //movement ai for the enemies
   update(){
     this.scene.physics.moveToObject(this, this.scene.player, 175);
+    
+    // this.timer++;
+  }
 
+  destroyAliens(){
+    this.body.destroy(true);
+    this.disableBody(true, true);
+    // this.body.visible = false;
   }
 }
