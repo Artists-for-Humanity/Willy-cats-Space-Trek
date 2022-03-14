@@ -18,12 +18,12 @@ export default class alien1 extends Phaser.Physics.Arcade.Sprite {
   update(){
     this.scene.physics.moveToObject(this, this.scene.player, 175);
     
-    // this.timer++;
+    // this.timer++;wd
   }
 
   destroyAliens(){
-    this.body.destroy(true);
-    this.disableBody(true, true);
-    // this.body.visible = false;
+    console.log('reachme 00', this)
+    this.body.destroy();
+    this.setVisible(false);
   }
 }
