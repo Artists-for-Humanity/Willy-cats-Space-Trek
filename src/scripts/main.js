@@ -7,6 +7,8 @@ import TutorialScene from './Scenes/TutorialScene';
 import GameRule from './GameRule';
 import BunkerScene from './Scenes/BunkerScene';
 import MenuScene from './Scenes/MenuScene';
+import LevelClear from './Scenes/LevelClear';
+import GameOver from './Scenes/gameOver';
 // Set configuration for phaser game instance
 const config = {
   type: Phaser.AUTO,
@@ -23,7 +25,7 @@ const config = {
       debug: true,
     },
   },
-  scene: [MenuScene, BunkerScene, TutorialScene,],
+  scene: [MenuScene, BunkerScene, TutorialScene, LevelClear, GameOver],
   audio: {
     disableWebAudio: true,
   },

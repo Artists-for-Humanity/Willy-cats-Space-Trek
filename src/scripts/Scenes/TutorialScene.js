@@ -11,7 +11,7 @@ export default class TutorialScene extends Phaser.Scene {
         });
         this.projectileImg;
         this.projectileState = 'ready';  
-
+        this.deadThings = 0
         this.enemies = [];
         this.numEnemy = 6;
         this.score = 0;
@@ -40,6 +40,7 @@ export default class TutorialScene extends Phaser.Scene {
             b.destroyAliens();
             this.resetProjectile();
             this.score += 1;
+            this.deadThings += 1;
             console.log(this.score);
         });
 
@@ -62,10 +63,11 @@ export default class TutorialScene extends Phaser.Scene {
 
     update(){ 
         this.player.update();
+        console.log(this.enemies, 'enemies')
         this.enemies.map((enemy) => {
             enemy.update();
         });
-
+        console.log(this.deadThings ,'deadthings')
         this.input.on('pointerdown', pointer =>{
             if (this.projectileState == 'ready') {
                 this.fireProjectile();
@@ -74,6 +76,12 @@ export default class TutorialScene extends Phaser.Scene {
                 this.resetProjectile();
             }
           })
+        if (this.deadThings === this.numEnemy){
+            this.enemies = [];
+            this.deadThings = 0;
+            this.scene.start('LevelClear');
+        }
+        
     }
 
     getRandomPosition(){
