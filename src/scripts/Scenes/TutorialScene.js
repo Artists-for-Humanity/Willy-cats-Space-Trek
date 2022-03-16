@@ -11,17 +11,15 @@ export default class TutorialScene extends Phaser.Scene {
         });
         this.projectileImg;
         this.projectileState = 'ready';  
-
+        this.deadThings = 0
         this.enemies = [];
-        this.numEnemy = 3;
+        this.numEnemy = 6;
+        this.score = 0;
 
     }
-
-    
     
     preload(){
         this.load.image('willy', new URL('../../assets/PlayerHolder.png', import.meta.url).href);    
-        // console.log('REACHME 00')
         this.load.image('L1', new URL('../../assets/LevelOne.png', import.meta.url).href);
         this.load.image('border', new URL ('../../assets/Hborder.png', import.meta.url).href);
         //enemy files enemy//
@@ -36,28 +34,40 @@ export default class TutorialScene extends Phaser.Scene {
         this.SpawnEnemy();
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
         this.projectileImg.visible = false
-        
-        // this.physics.add.collider(this.projectileImg, this.alien1, this.onProjectileHitalien1);
-        this.physics.add.collider(this.projectileImg, this.alien1, () => {
-            console.log('hello', this.alien1);
-            // this.alien1.getChildren().map(child => child.destroy())
-            this.alien1.destroyAliens();
-            // alien1.disableBody(true, true);
-            // projectileImg.body.enable = false;
+
+        this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
+            // console.log(a, b);
+            b.destroyAliens();
             this.resetProjectile();
             this.score += 1;
-            // this.scoreText.setText(`Score: ${this.score}`);
+            this.deadThings += 1;
+            console.log(this.score);
         });
+
+        
+        // this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
+        //     this.enemies.map(child => {
+        //         console.log(a, b)
+        //         if (this.physics.add.overlap(this.projectileImg, child, () => {
+        //             child.destroyAliens();
+                    // this.resetProjectile();
+                    // this.score += 1;
+
+        //         }));
+        //     });
+            // this.scoreText.setText(`Score: ${this.score}`);
+        // });
+
 
     }
 
-    
     update(){ 
         this.player.update();
+        console.log(this.enemies, 'enemies')
         this.enemies.map((enemy) => {
             enemy.update();
         });
-
+        console.log(this.deadThings ,'deadthings')
         this.input.on('pointerdown', pointer =>{
             if (this.projectileState == 'ready') {
                 this.fireProjectile();
@@ -66,7 +76,14 @@ export default class TutorialScene extends Phaser.Scene {
                 this.resetProjectile();
             }
           })
+        if (this.deadThings === this.numEnemy){
+            this.enemies = [];
+            this.deadThings = 0;
+            this.scene.start('LevelClear');
+        }
+        
     }
+
     getRandomPosition(){
         const position = {
             x: Math.floor(Phaser.Math.Between(100, 860)),
@@ -79,14 +96,12 @@ export default class TutorialScene extends Phaser.Scene {
         const enemyPosition = [];
         for (let i = 0; i < this.numEnemy; i ++){
             const position = this.getRandomPosition();
-            console.log(position);
             
             enemyPosition.push({
                 x: position.x,
                 y: position.y,
             });
         }
-        console.log(enemyPosition)
         for (let i = 0; i < this.numEnemy; i++) {
             const enemy = new alien1 (this, enemyPosition[i].x, enemyPosition[i].y, 'alien1');
             this.enemies.push(enemy);
@@ -122,23 +137,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.physics.moveTo(this.projectileImg, this.game.input.mousePointer.x,
         this.game.input.mousePointer.y, 500);
     }
-    onProjectileHitalien1() {
 
-        // alien1.disableBody(true, true);
-        // projectileImg.body.enable = false;
-        this.resetProjectile();
-        this.score += 1;
-        // this.scoreText.setText(`Score: ${this.score}`);
-    }
-    // onProjectileHitalien1() {
-    //     console.log('hello', this.alien1);
-    //     this.alien1.destroy();
-    //     // alien1.disableBody(true, true);
-    //     // projectileImg.body.enable = false;
-    //     this.resetProjectile();
-    //     this.score += 1;
-    //     // this.scoreText.setText(`Score: ${this.score}`);
-    // }
     resetProjectile() {
         if (this.projectileState === 'ready') {
             return;
@@ -146,6 +145,8 @@ export default class TutorialScene extends Phaser.Scene {
         this.projectileState = 'ready';
         this.projectileImg.setVelocityY(0);
         this.projectileImg.visible = false;
+        this.projectileImg.disableBody(true, true);
+
     }
 
 }

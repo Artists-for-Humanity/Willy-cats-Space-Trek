@@ -79,8 +79,10 @@ export default class BunkerScene extends Phaser.Scene {
     
     //tutorial door physics + creation
     this.tdoor = this.physics.add.image( 300, 100, 'tutorialdoor');
-    this.physics.add.overlap(this.player, this.tdoor, () => this.playerdoordetect())
     this.tdoor.visible = false;
+
+    this.physics.add.overlap(this.player, this.tdoor, () => this.playerdoordetect())
+
     // borders
     this.border = this.physics.add.sprite(640,50,'border', );
     this.border.scaleX = 2;
@@ -94,9 +96,11 @@ export default class BunkerScene extends Phaser.Scene {
   }
   
   playerdoordetect(){
-
+    console.log('reachme 00');
     this.scene.start('TutorialScene');
     GameRule.toggleBorder = true; 
+    console.log('reachme 01');
+
   }
 
   playerXborder(player,){
