@@ -1,12 +1,13 @@
 import Phaser from 'phaser';
 import MenuScene from './Scenes/MenuScene';
 import BunkerScene from './Scenes/BunkerScene';
-//import MapScene from './Scenes/MapScene';
 // import BossScene from './Scenes/BossScene';
 import TutorialScene from './Scenes/TutorialScene';
 import GameRule from './GameRule';
 import BunkerScene from './Scenes/BunkerScene';
 import MapScene from './Scenes/MapScene';
+import LevelClear from './Scenes/LevelClear';
+import GameOver from './Scenes/gameOver';
 // Set configuration for phaser game instance
 const config = {
   type: Phaser.AUTO,
@@ -20,10 +21,10 @@ const config = {
       gravity: {
         y: 0,
       },
-      debug: false,
+      debug: true,
     },
   },
-  scene: [MenuScene, BunkerScene, TutorialScene, MapScene],
+  scene: [MenuScene, BunkerScene, TutorialScene, LevelClear, GameOver, MapScene],
   audio: {
     disableWebAudio: true,
   },
