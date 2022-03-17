@@ -15,6 +15,8 @@ export default class TutorialScene extends Phaser.Scene {
         this.enemies = [];
         this.numEnemy = 6;
         this.score = 0;
+        this.iFrames = false; 
+        this.iFramesTime = 10;
 
     }
     
@@ -41,33 +43,38 @@ export default class TutorialScene extends Phaser.Scene {
             this.resetProjectile();
             this.score += 1;
             this.deadThings += 1;
-            console.log(this.score);
+            // console.log(this.score);
         });
 
-        
-        // this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
-        //     this.enemies.map(child => {
-        //         console.log(a, b)
-        //         if (this.physics.add.overlap(this.projectileImg, child, () => {
-        //             child.destroyAliens();
-                    // this.resetProjectile();
-                    // this.score += 1;
+        this.physics.add.overlap(this.player, this.enemies, () => {
+            // console.log(this.iFrames)
+            console.log(this.iFramesTime, 'iframestime')
 
-        //         }));
-        //     });
-            // this.scoreText.setText(`Score: ${this.score}`);
-        // });
+            if (this.iFrames === false ){
+                this.player.pHealth -= 1; 
+                this.iFrames = true; 
+            } 
+           if (this.iFrames === true){ 
+               this.iFramesTime -= 0.1;
+            }
+            if (this.iFramesTime === 0){
+                this.iFramesTime = 10;
+                console.log('hello')
+                this.iFrames = false;
+            }
+            
 
+        });
 
     }
 
     update(){ 
         this.player.update();
-        console.log(this.enemies, 'enemies')
+        // console.log(this.enemies, 'enemies')
         this.enemies.map((enemy) => {
             enemy.update();
         });
-        console.log(this.deadThings ,'deadthings')
+        // console.log(this.deadThings ,'deadthings')
         this.input.on('pointerdown', pointer =>{
             if (this.projectileState == 'ready') {
                 this.fireProjectile();
@@ -81,7 +88,9 @@ export default class TutorialScene extends Phaser.Scene {
             this.deadThings = 0;
             this.scene.start('LevelClear');
         }
-        
+        // if (this.iFrames = true){
+        //     this.iframes()
+        // }
     }
 
     getRandomPosition(){
@@ -149,4 +158,7 @@ export default class TutorialScene extends Phaser.Scene {
 
     }
 
+ 
+        
+    
 }

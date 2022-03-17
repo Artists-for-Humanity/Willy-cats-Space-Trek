@@ -9,9 +9,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     scene.add.existing(this);
     scene.physics.world.enableBody(this);
     this.setCollideWorldBounds(true);
-
     this.cursors = scene.input.keyboard.createCursorKeys();
-    this.rule = GameRule; 
+    this.rule = GameRule;
+    this.pHealth = 9;
+
     this.up = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.left = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.down = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
