@@ -1,12 +1,11 @@
 import Phaser from 'phaser';
 import MenuScene from './Scenes/MenuScene';
 import BunkerScene from './Scenes/BunkerScene';
-//import MapScene from './Scenes/MapScene';
 // import BossScene from './Scenes/BossScene';
 import TutorialScene from './Scenes/TutorialScene';
 import GameRule from './GameRule';
 import BunkerScene from './Scenes/BunkerScene';
-import MenuScene from './Scenes/MenuScene';
+import MapScene from './Scenes/MapScene';
 import LevelClear from './Scenes/LevelClear';
 import GameOver from './Scenes/gameOver';
 // Set configuration for phaser game instance
@@ -25,7 +24,7 @@ const config = {
       debug: true,
     },
   },
-  scene: [MenuScene, BunkerScene, TutorialScene, LevelClear, GameOver],
+  scene: [MenuScene, BunkerScene, TutorialScene, LevelClear, GameOver, MapScene],
   audio: {
     disableWebAudio: true,
   },

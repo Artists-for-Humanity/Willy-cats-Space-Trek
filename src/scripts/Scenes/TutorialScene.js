@@ -19,11 +19,11 @@ export default class TutorialScene extends Phaser.Scene {
     }
     
     preload(){
-        this.load.image('willy', new URL('../../assets/PlayerHolder.png', import.meta.url).href);    
         this.load.image('L1', new URL('../../assets/LevelOne.png', import.meta.url).href);
         this.load.image('border', new URL ('../../assets/Hborder.png', import.meta.url).href);
-        //enemy files enemy//
+        //aliens
         this.load.image('alien1', new URL('../../assets/alien1.png',import.meta.url).href);
+        //bullets
         this.load.image('projectile', new URL('../../assets/projectile.png', import.meta.url).href);
     }
     
