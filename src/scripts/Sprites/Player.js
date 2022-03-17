@@ -29,7 +29,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   move() {      
       if (this.up.isDown) {
         this.y -= 5;
-        console.log('hello')
         return;
         //up and walking up animation//
       }
