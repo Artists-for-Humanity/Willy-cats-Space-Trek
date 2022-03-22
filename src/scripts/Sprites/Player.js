@@ -3,7 +3,7 @@ import TutorialScene from '../Scenes/TutorialScene';
 import { colors } from '../constants';
 import GameRule from '../GameRule';
 export default class Player extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y) {
+  constructor(scene, x, y, vertMovement = true, mapBorder = true) {
     super(scene, x, y, 'willy');
 
     scene.add.existing(this);
@@ -11,6 +11,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.setCollideWorldBounds(true);
 
     this.cursors = scene.input.keyboard.createCursorKeys();
+    this.vertMovement = vertMovement;
+    this.mapBorder = mapBorder;
     this.rule = GameRule; 
     this.up = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.left = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -21,18 +23,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   //player movement//
   update() {
-
-  this.resetPlayerPosition();  
-  this.move();
+    this.resetPlayerPosition();  
+    this.move();
   }
   
   move() {      
-      if (this.up.isDown) {
+      if (this.up.isDown && this.vertMovement) {
         this.y -= 5;
         return;
         //up and walking up animation//
       }
-      if (this.down.isDown) {
+      if (this.down.isDown && this.vertMovement) {
         this.y += 5;
         return;
       //down and walking down animation//
@@ -60,7 +61,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   
   resetPlayerPosition(){
    //console.log(this.x,this.y)
-    if (this.rule.toggleBorder === true) {
+    if (this.mapBorder) {
       if (this.y <= 80){
         this.y = 85;
       }
@@ -75,5 +76,4 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       }
     }
   }
-
 }
