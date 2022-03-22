@@ -16,7 +16,8 @@ export default class TutorialScene extends Phaser.Scene {
         this.numEnemy = 6;
         this.score = 0;
         this.iFrames = false; 
-        this.iFramesTime = 10;
+        this.iFramesTime = 100;
+        
 
     }
     
@@ -35,7 +36,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.borders = this.physics.add.staticGroup();
         this.SpawnEnemy();
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
-        this.projectileImg.visible = false
+        this.projectileImg.visible = false;
 
         this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
             // console.log(a, b);
@@ -51,18 +52,12 @@ export default class TutorialScene extends Phaser.Scene {
             console.log(this.iFramesTime, 'iframestime')
 
             if (this.iFrames === false ){
-                this.player.pHealth -= 1; 
+                this.player.pHealth -= 1;
                 this.iFrames = true; 
+                this.timer();
+
+
             } 
-           if (this.iFrames === true){ 
-               this.iFramesTime -= 0.1;
-            }
-            if (this.iFramesTime === 0){
-                this.iFramesTime = 10;
-                console.log('hello')
-                this.iFrames = false;
-            }
-            
 
         });
 
@@ -88,11 +83,18 @@ export default class TutorialScene extends Phaser.Scene {
             this.deadThings = 0;
             this.scene.start('LevelClear');
         }
-        // if (this.iFrames = true){
-        //     this.iframes()
-        // }
-    }
+        // if (this.iFrames === true){ 
+        //     this.iFramesTime -= 1;
+        
+       
 
+        // if (this.iFramesTime === 0){
+        //     this.iFrames = false;
+        //     this.iFramesTime = 100;
+        //     console.log('hello')
+            
+        // }  
+    }
     getRandomPosition(){
         const position = {
             x: Math.floor(Phaser.Math.Between(100, 860)),
@@ -117,6 +119,15 @@ export default class TutorialScene extends Phaser.Scene {
         }
     }
    
+    timer(){
+        while(this.iFramesTime != 0){
+            this.iFramesTime -= 1;
+            console.log(this.iFramesTime)
+        }
+        this.iframesTime = 100;
+        this.iFrames = false;
+
+    }
 
     playerXH1border(player){
         player.y = 90;
