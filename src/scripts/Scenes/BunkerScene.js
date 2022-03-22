@@ -106,7 +106,7 @@ export default class BunkerScene extends Phaser.Scene {
   playerdoordetect(){
     this.scene.start('TutorialScene');
     GameRule.toggleBorder = true; 
-    console.log('reachme 01');
+    // console.log('reachme 01');
 
   }
 

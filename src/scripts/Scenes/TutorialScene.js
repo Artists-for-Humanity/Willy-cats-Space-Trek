@@ -41,7 +41,7 @@ export default class TutorialScene extends Phaser.Scene {
             this.resetProjectile();
             this.score += 1;
             this.deadThings += 1;
-            console.log(this.score);
+            // console.log(this.score);
         });
 
         
@@ -63,11 +63,11 @@ export default class TutorialScene extends Phaser.Scene {
 
     update(){ 
         this.player.update();
-        console.log(this.enemies, 'enemies')
+        // console.log(this.enemies, 'enemies')
         this.enemies.map((enemy) => {
             enemy.update();
         });
-        console.log(this.deadThings ,'deadthings')
+        // console.log(this.deadThings ,'deadthings')
         this.input.on('pointerdown', pointer =>{
             if (this.projectileState == 'ready') {
                 this.fireProjectile();
