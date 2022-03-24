@@ -16,6 +16,14 @@ export default class TutorialScene extends Phaser.Scene {
         super ({
             key: 'TutorialScene'
         });
+        this.projectileImg;
+        this.projectileState = 'ready';  
+        this.deadThings = 0
+        this.enemies = [];
+        this.numEnemy = 6;
+        this.score = 0;
+        this.iFrames = false; 
+        this.iFramesTime = 0;
     }
     
     preload(){
@@ -27,12 +35,15 @@ export default class TutorialScene extends Phaser.Scene {
         this.load.image('projectile', new URL('../../assets/projectile.png', import.meta.url).href);
     }
     
-    create(){
+    create(time, delta){
         this.l1bg = this.add.sprite((this.game.config.width / 2) , (this.game.config.height /2), 'L1' );
         this.borders = this.physics.add.staticGroup();
 
         this.player = new Player(this, 1000, 380);
         this.SpawnEnemy();
+        this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
+        this.projectileImg.visible = false;
+
 
         this.scoreText = this.add.text(16, 12, '', {
             fontFamily: 'Space Mono',
@@ -55,15 +66,22 @@ export default class TutorialScene extends Phaser.Scene {
             this.globalState.incrementScore();
             this.setScoreText();
             this.deadThings += 1;
+            // console.log(this.score);
         });
+
+
     }
 
-    update(){ 
+    update(time, delta){ 
+        this.iFramesTime += delta;
+        this.timer();
+        
         this.player.update();
+        // console.log(this.enemies, 'enemies')
         this.enemies.map((enemy) => {
             enemy.update();
         });
-    
+
         this.input.on('pointerdown', pointer =>{
             if (this.projectileState == 'ready') {
                 this.fireProjectile();
@@ -78,7 +96,9 @@ export default class TutorialScene extends Phaser.Scene {
             this.deadThings = 0;
             this.scene.start('LevelClear');
         }
-        
+        if (this.player.pHealth === 0){
+            this.gameOver()
+        }
     }
 
     setScoreText() {
@@ -108,8 +128,25 @@ export default class TutorialScene extends Phaser.Scene {
             this.enemies.push(enemy);
         }
     }
-   
-    //
+     timer(){
+        this.physics.add.overlap(this.player, this.enemies, () => {
+            if (this.iFrames === false){
+                console.log(this.player.pHealth)
+                this.player.pHealth -= 1;
+                this.iFrames = true;
+            }
+            if(this.iFrames === true){
+                // console.log('REACHME 00')
+                while (this.iFramesTime > 1000){
+                    this.iFramesTime -= 2000;
+                    this.iFrames = false;
+                    // console.log(this.iFramesTime, this.iFrames);
+                }
+            }
+        });
+
+    }
+
     playerXH1border(player){
         player.y = 90;
         }
@@ -152,6 +189,12 @@ export default class TutorialScene extends Phaser.Scene {
 
     }
 
+    gameOver(){
+    this.pHealth = 9;
+    this.scene.start ('Gameover');     
+    }
+        
+    
     projectileEnemyHit() {
         b.destroyAliens();
         this.resetProjectile();
