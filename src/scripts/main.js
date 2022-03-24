@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import MenuScene from './Scenes/MenuScene';
 import BunkerScene from './Scenes/BunkerScene';
 // import BossScene from './Scenes/BossScene';
+import GlobalState from './GlobalState';
 import TutorialScene from './Scenes/TutorialScene';
 import GameRule from './GameRule';
 import BunkerScene from './Scenes/BunkerScene';
@@ -28,10 +29,22 @@ const config = {
   audio: {
     disableWebAudio: true,
   },
-  Plugins: {
-    global: [{ key: 'GameRule', plugin: GameRule, start: false, mapping: 'GameRule'}],
-    },
-  };
+  plugins: {
+    global: [{
+        key: 'GameRule',
+        plugin: GameRule,
+        start: false,
+        mapping: 'GameRule'
+      },
+      {
+        key: 'GlobalState',
+        plugin: GlobalState,
+        start: true,
+        mapping: 'globalState'
+      }
+    ],
+  },
+};
 
 // Initialize game instance
 new Phaser.Game(config);
