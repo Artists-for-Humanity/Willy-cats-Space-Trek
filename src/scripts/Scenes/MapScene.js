@@ -1,17 +1,80 @@
 
 import Phaser from 'phaser';
-export default class GameScene extends Phaser.Scene {
+import Player from '../Sprites/Player';
+export default class MapScene extends Phaser.Scene {
+    player;
+    keySpace;
     constructor() {
         super ({
-            key: 'map'
-        });
- 
-    }
-    Preload(){
-
+            key: 'MapScene'
+        });   
     }
     
-    Create(){
-        
+    preload(){
+        this.load.image('mapscene', new URL('../../assets/Map.png',
+            import.meta.url).href);
+    }
+    
+    create(){
+        this.background = this.add.image((this.game.config.width / 2) , (this.game.config.height /2), 'mapscene' );
+        this.player = new Player(this, 50, 340, false, false);
+
+        this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+        this.anims.create({
+            key: 'run',
+            frames: [{
+                key: 'willy',
+                frame: 1
+              },
+              {
+                key: 'willy',
+                frame: 2
+              },
+              {
+                key: 'willy',
+                frame: 3
+              },
+              {
+                key: 'willy',
+                frame: 4
+              },
+              {
+                key: 'willy',
+                frame: 5
+              },
+              {
+                key: 'willy',
+                frame: 6
+              },
+              {
+                key: 'willy',
+                frame: 7
+              },
+              {
+                key: 'willy',
+                frame: 8
+              }
+            ],
+            frameRate: 20,
+            repeat: -1
+          })
+    }
+    
+    update(){
+        this.player.update();
+        if (this.player.x <= 50){
+            this.player.x = 50;
+        }
+        if (this.keySpace.isDown){
+            this.select();
+        }
+    }
+
+    select(){
+        if (this.player.x < 100){
+            this.scene.start("BunkerScene");
+            console.log('selected');
+        } else console.log('not available');
     }
 }

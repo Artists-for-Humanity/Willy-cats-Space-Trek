@@ -5,6 +5,7 @@ class GameRule extends Phaser.Plugins.BasePlugin {
         this.toggleshoot = false; 
         this.toggleMovement = false;
         this.toggleBorder = false; 
+
     }
 }
 export default GameRule;

@@ -3,7 +3,7 @@ import TutorialScene from '../Scenes/TutorialScene';
 import { colors } from '../constants';
 import GameRule from '../GameRule';
 export default class Player extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y) {
+  constructor(scene, x, y, vertMovement = true, mapBorder = true) {
     super(scene, x, y, 'willy');
 
     scene.add.existing(this);
@@ -12,6 +12,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.cursors = scene.input.keyboard.createCursorKeys();
     this.rule = GameRule;
     this.pHealth = 9;
+
 
     this.up = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.left = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -22,18 +23,22 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   //player movement//
   update() {
-
-  this.resetPlayerPosition();  
-  this.move();
+    this.resetPlayerPosition();  
+    this.move();
   }
   
   move() {      
-      if (this.up.isDown) {
+      if (this.up.isDown && this.vertMovement) {
         this.y -= 5;
         this.anims.play('run', true);
 
         return;
         //up and walking up animation//
+      }
+      if (this.down.isDown && this.vertMovement) {
+        this.y += 5;
+        return;
+      //down and walking down animation//
       }
       if (this.left.isDown) {
         this.x -= 5;
@@ -49,6 +54,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         return;
       //down and walking down animation//
       }
+
       if (this.right.isDown) {
         this.x += 5;
         this.flipX = false;
@@ -65,7 +71,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   
   resetPlayerPosition(){
    //console.log(this.x,this.y)
-    if (this.rule.toggleBorder === true) {
+    if (this.mapBorder) {
       if (this.y <= 80){
         this.y = 85;
       }
@@ -74,12 +80,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       }
       if (this.x <= 95){
         this.x = 100;
-  
       }
       if (this.x >= 1185){
         this.x = 1180;
       }
     }
   }
-
 }

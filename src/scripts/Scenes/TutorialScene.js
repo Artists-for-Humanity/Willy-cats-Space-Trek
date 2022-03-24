@@ -1,9 +1,16 @@
 import Phaser from 'phaser';
+import { colors } from '../constants';
 import Player from '../Sprites/Player';
 import alien1 from '../Sprites/alien1';
 
 export default class TutorialScene extends Phaser.Scene {
-   player;
+    player;
+    scoreText;
+    numEnemy = 6;
+    deadThings = 0
+    projectileState = 'ready';
+    projectileImg;
+    enemies = [];
 
     constructor() {
         super ({
@@ -17,35 +24,51 @@ export default class TutorialScene extends Phaser.Scene {
         this.score = 0;
         this.iFrames = false; 
         this.iFramesTime = 0;
-        
-
     }
     
     preload(){
-        this.load.image('willy', new URL('../../assets/PlayerHolder.png', import.meta.url).href);    
         this.load.image('L1', new URL('../../assets/LevelOne.png', import.meta.url).href);
         this.load.image('border', new URL ('../../assets/Hborder.png', import.meta.url).href);
-        //enemy files enemy//
+        //aliens
         this.load.image('alien1', new URL('../../assets/alien1.png',import.meta.url).href);
+        //bullets
         this.load.image('projectile', new URL('../../assets/projectile.png', import.meta.url).href);
     }
     
     create(time, delta){
         this.l1bg = this.add.sprite((this.game.config.width / 2) , (this.game.config.height /2), 'L1' );
-        this.player = new Player(this, 1000, 380);
         this.borders = this.physics.add.staticGroup();
+
+        this.player = new Player(this, 1000, 380);
         this.SpawnEnemy();
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
         this.projectileImg.visible = false;
 
+
+        this.scoreText = this.add.text(16, 12, '', {
+            fontFamily: 'Space Mono',
+            fontSize: '24px',
+            fontStyle: 'bold',
+            fill: colors.black,
+            align: 'center',
+          });
+        
+        this.globalState.resetScore();
+        this.setScoreText();
+
+        this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
+        this.projectileImg.visible = false;
+        
+        // bullet enemy collision
         this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
-            // console.log(a, b);
             b.destroyAliens();
             this.resetProjectile();
-            this.score += 1;
+            this.globalState.incrementScore();
+            this.setScoreText();
             this.deadThings += 1;
             // console.log(this.score);
         });
+
 
     }
 
@@ -58,6 +81,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.enemies.map((enemy) => {
             enemy.update();
         });
+
         this.input.on('pointerdown', pointer =>{
             if (this.projectileState == 'ready') {
                 this.fireProjectile();
@@ -66,6 +90,7 @@ export default class TutorialScene extends Phaser.Scene {
                 this.resetProjectile();
             }
           })
+        
         if (this.deadThings === this.numEnemy){
             this.enemies = [];
             this.deadThings = 0;
@@ -75,6 +100,11 @@ export default class TutorialScene extends Phaser.Scene {
             this.gameOver()
         }
     }
+
+    setScoreText() {
+        this.scoreText.setText(`SCORE: ${this.globalState.score}`);
+    }
+
     getRandomPosition(){
         const position = {
             x: Math.floor(Phaser.Math.Between(100, 860)),
@@ -136,6 +166,8 @@ export default class TutorialScene extends Phaser.Scene {
         }
 
     }
+
+    // weapon mechanics
     fireProjectile() {
         this.projectileState = 'fire';
         this.projectileImg.visible = true;
@@ -163,4 +195,11 @@ export default class TutorialScene extends Phaser.Scene {
     }
         
     
+    projectileEnemyHit() {
+        b.destroyAliens();
+        this.resetProjectile();
+        this.globalState.incrementScore();
+        this.setScoreText();
+        this.deadThings += 1;
+    }
 }
