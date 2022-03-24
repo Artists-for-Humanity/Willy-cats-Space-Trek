@@ -16,7 +16,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.numEnemy = 6;
         this.score = 0;
         this.iFrames = false; 
-        this.iFramesTime = 100;
+        this.iFramesTime = 0;
         
 
     }
@@ -30,7 +30,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.load.image('projectile', new URL('../../assets/projectile.png', import.meta.url).href);
     }
     
-    create(){
+    create(time, delta){
         this.l1bg = this.add.sprite((this.game.config.width / 2) , (this.game.config.height /2), 'L1' );
         this.player = new Player(this, 1000, 380);
         this.borders = this.physics.add.staticGroup();
@@ -47,29 +47,17 @@ export default class TutorialScene extends Phaser.Scene {
             // console.log(this.score);
         });
 
-        this.physics.add.overlap(this.player, this.enemies, () => {
-            // console.log(this.iFrames)
-            console.log(this.iFramesTime, 'iframestime')
-
-            if (this.iFrames === false ){
-                this.player.pHealth -= 1;
-                this.iFrames = true; 
-                this.timer();
-
-
-            } 
-
-        });
-
     }
 
-    update(){ 
+    update(time, delta){ 
+        this.iFramesTime += delta;
+        this.timer();
+        
         this.player.update();
         // console.log(this.enemies, 'enemies')
         this.enemies.map((enemy) => {
             enemy.update();
         });
-        // console.log(this.deadThings ,'deadthings')
         this.input.on('pointerdown', pointer =>{
             if (this.projectileState == 'ready') {
                 this.fireProjectile();
@@ -83,17 +71,9 @@ export default class TutorialScene extends Phaser.Scene {
             this.deadThings = 0;
             this.scene.start('LevelClear');
         }
-        // if (this.iFrames === true){ 
-        //     this.iFramesTime -= 1;
-        
-       
-
-        // if (this.iFramesTime === 0){
-        //     this.iFrames = false;
-        //     this.iFramesTime = 100;
-        //     console.log('hello')
-            
-        // }  
+        if (this.player.pHealth === 0){
+            this.gameOver()
+        }
     }
     getRandomPosition(){
         const position = {
@@ -118,14 +98,22 @@ export default class TutorialScene extends Phaser.Scene {
             this.enemies.push(enemy);
         }
     }
-   
-    timer(){
-        while(this.iFramesTime != 0){
-            this.iFramesTime -= 1;
-            console.log(this.iFramesTime)
-        }
-        this.iframesTime = 100;
-        this.iFrames = false;
+     timer(){
+        this.physics.add.overlap(this.player, this.enemies, () => {
+            if (this.iFrames === false){
+                console.log(this.player.pHealth)
+                this.player.pHealth -= 1;
+                this.iFrames = true;
+            }
+            if(this.iFrames === true){
+                // console.log('REACHME 00')
+                while (this.iFramesTime > 1000){
+                    this.iFramesTime -= 2000;
+                    this.iFrames = false;
+                    // console.log(this.iFramesTime, this.iFrames);
+                }
+            }
+        });
 
     }
 
@@ -169,7 +157,10 @@ export default class TutorialScene extends Phaser.Scene {
 
     }
 
- 
+    gameOver(){
+    this.pHealth = 9;
+    this.scene.start ('Gameover');     
+    }
         
     
 }
