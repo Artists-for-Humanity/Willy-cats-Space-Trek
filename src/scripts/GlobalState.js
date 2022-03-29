@@ -5,6 +5,7 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     super(pluginManager);
     this.score = 0;
     this.health = 9;
+    this.fish = 0
   }
 
   decreaseHealth() {
@@ -21,6 +22,9 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
 
   resetScore() {
     this.score = 0;
+  }
+  morefish(){
+    this.fish++;
   }
 }
 

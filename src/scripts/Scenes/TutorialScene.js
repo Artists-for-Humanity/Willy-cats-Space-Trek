@@ -76,7 +76,6 @@ export default class TutorialScene extends Phaser.Scene {
 
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
         this.projectileImg.visible = false;
-
     }
 
     update(time, delta) {
@@ -101,6 +100,7 @@ export default class TutorialScene extends Phaser.Scene {
         if (this.deadThings === this.numEnemy) {
             this.enemies = [];
             this.deadThings = 0;
+            console.log(this.globalState.fish, 'fish')
             this.scene.start('LevelClear');
         }
         if (this.globalState.health === 0) {
@@ -147,6 +147,7 @@ export default class TutorialScene extends Phaser.Scene {
             this.globalState.incrementScore();
             this.setScoreText();
             this.deadThings += 1;
+            this.globalState.morefish();
         });
     }
 
@@ -159,8 +160,8 @@ export default class TutorialScene extends Phaser.Scene {
                 this.iFrames = true;  
                 this.iFramesTime = 0;
             }
-            if (this.iFrames === true && this.iFramesTime > 2000) {
-                    this.iFramesTime -= 2000;
+            if (this.iFrames === true && this.iFramesTime > 1000) {
+                    this.iFramesTime -= 1000;
                     this.iFrames = false;
                 }
             });
@@ -210,9 +211,8 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     gameOver() {
-        this.scene.start('Gameover');
+        this.scene.start('GameOver');
     }
-
 
     projectileEnemyHit() {
         b.destroyAliens();
