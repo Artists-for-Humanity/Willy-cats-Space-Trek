@@ -11,9 +11,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.setCollideWorldBounds(true);
     this.cursors = scene.input.keyboard.createCursorKeys();
     this.rule = GameRule;
-    this.pHealth = 9;
-
-
+    this.vertMovement = vertMovement;
+    this.mapBorder = mapBorder;
     this.up = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.left = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.down = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -31,7 +30,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       if (this.up.isDown && this.vertMovement) {
         this.y -= 5;
         this.anims.play('run', true);
-
         return;
         //up and walking up animation//
       }
@@ -47,14 +45,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         return;
         //left and walking left animation//
       }
-      if (this.down.isDown) {
-        this.y += 5;
-        this.anims.play('run', true);
-
-        return;
-      //down and walking down animation//
-      }
-
       if (this.right.isDown) {
         this.x += 5;
         this.flipX = false;

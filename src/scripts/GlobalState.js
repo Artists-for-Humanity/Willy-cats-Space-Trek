@@ -4,6 +4,15 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
   constructor(pluginManager) {
     super(pluginManager);
     this.score = 0;
+    this.health = 9;
+  }
+
+  decreaseHealth() {
+      this.health--;
+  }
+
+  resetHealth() {
+      this.health = 9;
   }
 
   incrementScore() {
