@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import GlobalState from '../GlobalState';
+// import GlobalState from '../GlobalState';
 import {
     colors
 } from '../constants';
@@ -28,6 +28,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.score = 0;
         this.iFrames = false;
         this.iFramesTime = 0;
+
     }
 
     preload() {
@@ -67,10 +68,10 @@ export default class TutorialScene extends Phaser.Scene {
             fill: colors.black,
             align: 'center',
         });
-
+        console.log(this.globalState, 'global')
         this.globalState.resetHealth();
         this.setHealthText();
-
+        
         this.globalState.resetScore();
         this.setScoreText();
 
@@ -144,7 +145,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
             b.destroyAliens();
             this.resetProjectile();
-            this.globalState.incrementScore();
+            this.GlobalState.incrementScore();
             this.setScoreText();
             this.deadThings += 1;
             this.globalState.morefish();

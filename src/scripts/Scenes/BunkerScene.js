@@ -1,14 +1,18 @@
 import Phaser from 'phaser';
 import Player from '../Sprites/Player';
-import { colors } from '../constants';
+import {
+  colors
+} from '../constants';
 import GameRule from '../GameRule';
 export default class BunkerScene extends Phaser.Scene {
-  player; 
+  player;
+
   constructor() {
     super({
       key: 'BunkerScene',
     });
-    
+    // this.ratHBtxtOn = false;
+
   }
 
   preload() {
@@ -26,9 +30,9 @@ export default class BunkerScene extends Phaser.Scene {
   }
 
   create() {
-    this.background = this.add.image((this.game.config.width / 2) , (this.game.config.height /2), 'background' );
+    this.background = this.add.image((this.game.config.width / 2), (this.game.config.height / 2), 'background');
     this.player = new Player(this, this.game.config.width / 2, this.game.config.height / 2, true, false);
-   
+
     this.anims.create({
       key: 'idle',
       frames: [{
@@ -37,7 +41,7 @@ export default class BunkerScene extends Phaser.Scene {
       }],
       frameRate: 20
     })
-
+    //willy animation
     this.anims.create({
       key: 'run',
       frames: [{
@@ -76,9 +80,20 @@ export default class BunkerScene extends Phaser.Scene {
       frameRate: 20,
       repeat: -1
     })
-    
-    //tutorial door physics + creation
 
+    //rat speach and stuff
+    this.ratHB = this.physics.add.image(640, 100, 'tutorialdoor')
+    this.ratHB.visible = false;
+    this.ratHBtext = this.add.text(640, 450, 'interact', {
+      fontFamily: 'Space Mono',
+      fontSize: '24px',
+      fontStyle: 'bold',
+      fill: colors.white,
+      align: 'center',
+    })
+    this.ratHBtext.visible = false;
+
+    //tutorial door physics + creation
     this.tdoor = this.physics.add.image(300, 100, 'tutorialdoor');
     this.tdoor.visible = false;
 
@@ -89,35 +104,54 @@ export default class BunkerScene extends Phaser.Scene {
     //collision detection
     this.physics.add.overlap(this.player, this.tdoor, () => this.playerdoordetect())
     this.physics.add.overlap(this.player, this.mapDoor, () => this.mapDoorDetect())
-
+    this.ratHBtext.visible = false;
 
     // borders
-    this.border = this.physics.add.sprite(640,50,'border', );
+    this.border = this.physics.add.sprite(640, 50, 'border', );
     this.border.scaleX = 2;
     this.border.scaleY = 1.6;
     this.border.visible = false;
     this.physics.add.overlap(this.player, this.border, this.playerXborder);
+
   }
 
   update() {
     this.player.update();
+    this.ratmenu();
   }
-  
-  playerdoordetect(){
+
+  playerdoordetect() {
     // console.log('reachme 00');
     this.scene.start('TutorialScene');
-    GameRule.toggleBorder = true; 
+    GameRule.toggleBorder = true;
     // console.log('reachme 01');
   }
 
-  mapDoorDetect(){
+  mapDoorDetect() {
     this.scene.start('MapScene');
-    GameRule.toggleBorder = true;
   }
 
-  playerXborder(player,){
+  playerXborder(player, ) {
     player.y = 160
+
+  }
+
+  ratText() {
+    // console.log('here')
+    this.ratHBtext.visible = true;
+
+  }
+  ratmenu(){
+    this.physics.add.overlap(this.player, this.ratHB, () => {
+      if (this.ratHBtext.visible === false) {
+        console.log('hello')
+        this.ratText();
+      } 
+      if(this.ratHBtext.visible === true){
+        console.log('last')
+        this.ratHBtext.visible = false;
+      }
+    })
     
   }
-
 }
