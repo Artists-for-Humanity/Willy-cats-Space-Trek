@@ -28,7 +28,13 @@ export default class MenuScene extends Phaser.Scene {
       frameHeight: 90
     });
 
-    this.load.spritesheet('alien', new URL('../../assets/enemy-spritesheet.png',
+    this.load.spritesheet('alienRunFront', new URL('../../assets/alienRunFront.png',
+            import.meta.url).href, {
+            frameWidth: 52,
+            frameHeight: 62
+        });
+
+    this.load.spritesheet('alienRunBack', new URL('../../assets/alienRunBack.png',
             import.meta.url).href, {
             frameWidth: 52,
             frameHeight: 62
@@ -49,52 +55,7 @@ export default class MenuScene extends Phaser.Scene {
     .on('pointerdown', () => {
       this.scene.start('BunkerScene');
     });
-    //alien animations
-    this.anims.create({
-      key: 'alienIdle',
-      frames: [{
-        key:'alien',
-        frame: 4
-      }],
-      frameRate: 20
-    })
-    this.anims.create({
-      key: 'alienWalk',
-      frames: [{
-          key: 'alien',
-          frame: 0
-        },
-        {
-          key: 'alien',
-          frame: 1
-        },
-        {
-          key: 'alien',
-          frame: 2
-        },
-        {
-          key: 'alien',
-          frame: 3
-        },
-        {
-          key: 'alien',
-          frame: 4
-        },
-        {
-          key: 'alien',
-          frame: 5
-        },
-        {
-          key: 'alien',
-          frame: 6
-        } 
-      ],
-      frameRate: 20,
-      repeat: -1
-    })
     
-
-
     //willy animations
     this.anims.create({
       key: 'idle',
@@ -138,6 +99,85 @@ export default class MenuScene extends Phaser.Scene {
         {
           key: 'willy',
           frame: 8
+        }
+      ],
+      frameRate: 20,
+      repeat: -1
+    })
+
+    //alien animations
+    this.anims.create({
+      key: 'alienRunFront',
+      frames: [{
+          key: 'alienRunFront',
+          frame: 0
+        },
+        {
+          key: 'alienRunFront',
+          frame: 1
+        },
+        {
+          key: 'alienRunFront',
+          frame: 2
+        },
+        {
+          key: 'alienRunFront',
+          frame: 3
+        },
+        {
+          key: 'alienRunFront',
+          frame: 4
+        },
+        {
+          key: 'alienRunFront',
+          frame: 5
+        },
+        {
+          key: 'alienRunFront',
+          frame: 6
+        } ,
+        {
+          key: 'alienRunFront',
+          frame: 7
+        }
+      ],
+      frameRate: 20,
+      repeat: -1
+    })
+
+    this.anims.create({
+      key: 'alienRunBack',
+      frames: [{
+          key: 'alienRunBack',
+          frame: 0
+        },
+        {
+          key: 'alienRunBack',
+          frame: 1
+        },
+        {
+          key: 'alienRunBack',
+          frame: 2
+        },
+        {
+          key: 'alienRunBack',
+          frame: 3
+        },
+        {
+          key: 'alienRunBack',
+          frame: 4
+        },
+        {
+          key: 'alienRunBack',
+          frame: 5
+        },
+        {
+          key: 'alienRunBack',
+          frame: 6
+        } ,
+        {
+          key: 'alienRunBack',
+          frame: 7
         }
       ],
       frameRate: 20,

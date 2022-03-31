@@ -1,10 +1,9 @@
 import Phaser from 'phaser';
-import GlobalState from '../GlobalState';
 import {
     colors
 } from '../constants';
 import Player from '../Sprites/Player';
-import alien1 from '../Sprites/alien1';
+import alien from '../Sprites/alien';
 
 export default class TutorialScene extends Phaser.Scene {
     player;
@@ -131,7 +130,7 @@ export default class TutorialScene extends Phaser.Scene {
             });
         }
         for (let i = 0; i < this.numEnemy; i++) {
-            const enemy = new alien1(this, enemyPosition[i].x, enemyPosition[i].y, 'alien1');
+            const enemy = new alien(this, enemyPosition[i].x, enemyPosition[i].y, 'alien');
             this.enemies.push(enemy);
         }
     }
