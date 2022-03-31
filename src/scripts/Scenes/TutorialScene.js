@@ -79,7 +79,6 @@ export default class TutorialScene extends Phaser.Scene {
         this.iFramesTime += delta;
         this.timer();
         this.enemyBulletCollision();
-
         this.player.update();
         this.enemies.map((enemy) => {
             enemy.update();

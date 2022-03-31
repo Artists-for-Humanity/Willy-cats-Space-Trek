@@ -49,7 +49,53 @@ export default class MenuScene extends Phaser.Scene {
     .on('pointerdown', () => {
       this.scene.start('BunkerScene');
     });
+    //alien animations
+    this.anims.create({
+      key: 'alienIdle',
+      frames: [{
+        key:'alien',
+        frame: 4
+      }],
+      frameRate: 20
+    })
+    this.anims.create({
+      key: 'alienWalk',
+      frames: [{
+          key: 'alien',
+          frame: 0
+        },
+        {
+          key: 'alien',
+          frame: 1
+        },
+        {
+          key: 'alien',
+          frame: 2
+        },
+        {
+          key: 'alien',
+          frame: 3
+        },
+        {
+          key: 'alien',
+          frame: 4
+        },
+        {
+          key: 'alien',
+          frame: 5
+        },
+        {
+          key: 'alien',
+          frame: 6
+        } 
+      ],
+      frameRate: 20,
+      repeat: -1
+    })
     
+
+
+    //willy animations
     this.anims.create({
       key: 'idle',
       frames: [{
