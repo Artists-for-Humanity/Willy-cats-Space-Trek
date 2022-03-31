@@ -35,9 +35,6 @@ export default class TutorialScene extends Phaser.Scene {
             import.meta.url).href);
         this.load.image('border', new URL('../../assets/Hborder.png',
             import.meta.url).href);
-        //aliens
-        this.load.image('alien1', new URL('../../assets/alien1.png',
-            import.meta.url).href);
         //bullets
         this.load.image('projectile', new URL('../../assets/projectile.png',
             import.meta.url).href);
