@@ -68,7 +68,7 @@ export default class TutorialScene extends Phaser.Scene {
             fill: colors.black,
             align: 'center',
         });
-        console.log(this.globalState, 'global')
+        // console.log(this.globalState, 'global')
         this.globalState.resetHealth();
         this.setHealthText();
         
@@ -145,7 +145,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
             b.destroyAliens();
             this.resetProjectile();
-            this.GlobalState.incrementScore();
+            this.globalState.incrementScore();
             this.setScoreText();
             this.deadThings += 1;
             this.globalState.morefish();
@@ -212,6 +212,7 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     gameOver() {
+        this.enemies = []; 
         this.scene.start('GameOver');
     }
 

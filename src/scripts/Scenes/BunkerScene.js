@@ -6,13 +6,12 @@ import {
 import GameRule from '../GameRule';
 export default class BunkerScene extends Phaser.Scene {
   player;
-
   constructor() {
     super({
       key: 'BunkerScene',
-    });
-    // this.ratHBtxtOn = false;
 
+    });
+    this.interact = false;
   }
 
   preload() {
@@ -82,17 +81,9 @@ export default class BunkerScene extends Phaser.Scene {
     })
 
     //rat speach and stuff
-    this.ratHB = this.physics.add.image(640, 100, 'tutorialdoor')
+    this.ratHB = this.physics.add.staticImage(640, 100, 'tutorialdoor')
     this.ratHB.visible = false;
-    this.ratHBtext = this.add.text(640, 450, 'interact', {
-      fontFamily: 'Space Mono',
-      fontSize: '24px',
-      fontStyle: 'bold',
-      fill: colors.white,
-      align: 'center',
-    })
-    this.ratHBtext.visible = false;
-
+    
     //tutorial door physics + creation
     this.tdoor = this.physics.add.image(300, 100, 'tutorialdoor');
     this.tdoor.visible = false;
@@ -101,10 +92,12 @@ export default class BunkerScene extends Phaser.Scene {
     this.mapDoor = this.physics.add.image(640, 720, 'tutorialdoor');
     this.mapDoor.visible = false;
 
-    //collision detection
+    //collision detection 
     this.physics.add.overlap(this.player, this.tdoor, () => this.playerdoordetect())
     this.physics.add.overlap(this.player, this.mapDoor, () => this.mapDoorDetect())
-    this.ratHBtext.visible = false;
+
+    this.physics.add.overlap(this.player, this.ratHB, () => this.ratmenu())
+
 
     // borders
     this.border = this.physics.add.sprite(640, 50, 'border', );
@@ -117,7 +110,7 @@ export default class BunkerScene extends Phaser.Scene {
 
   update() {
     this.player.update();
-    this.ratmenu();
+    // this.ratmenu();ww
   }
 
   playerdoordetect() {
@@ -136,22 +129,7 @@ export default class BunkerScene extends Phaser.Scene {
 
   }
 
-  ratText() {
-    // console.log('here')
-    this.ratHBtext.visible = true;
-
-  }
-  ratmenu(){
-    this.physics.add.overlap(this.player, this.ratHB, () => {
-      if (this.ratHBtext.visible === false) {
-        console.log('hello')
-        this.ratText();
-      } 
-      if(this.ratHBtext.visible === true){
-        console.log('last')
-        this.ratHBtext.visible = false;
-      }
-    })
-    
+  ratmenu() {
+    this.scene.start('ShopScene')
   }
 }
