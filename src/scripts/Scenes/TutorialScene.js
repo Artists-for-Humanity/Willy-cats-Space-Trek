@@ -1,18 +1,12 @@
 import Phaser from 'phaser';
-import GlobalState from '../GlobalState';
 import {
     colors
 } from '../constants';
 import Player from '../Sprites/Player';
-import alien1 from '../Sprites/alien1';
+import alien from '../Sprites/alien';
 
 export default class TutorialScene extends Phaser.Scene {
     player;
-    numEnemy = 6;
-    deadThings = 0
-    projectileState = 'ready';
-    projectileImg;
-    enemies = [];
     scoreText;
     healthText;
 
@@ -34,9 +28,6 @@ export default class TutorialScene extends Phaser.Scene {
         this.load.image('L1', new URL('../../assets/LevelOne.png',
             import.meta.url).href);
         this.load.image('border', new URL('../../assets/Hborder.png',
-            import.meta.url).href);
-        //aliens
-        this.load.image('alien1', new URL('../../assets/alien1.png',
             import.meta.url).href);
         //bullets
         this.load.image('projectile', new URL('../../assets/projectile.png',
@@ -82,7 +73,6 @@ export default class TutorialScene extends Phaser.Scene {
         this.iFramesTime += delta;
         this.timer();
         this.enemyBulletCollision();
-
         this.player.update();
         this.enemies.map((enemy) => {
             enemy.update();
@@ -135,7 +125,7 @@ export default class TutorialScene extends Phaser.Scene {
             });
         }
         for (let i = 0; i < this.numEnemy; i++) {
-            const enemy = new alien1(this, enemyPosition[i].x, enemyPosition[i].y, 'alien1');
+            const enemy = new alien(this, enemyPosition[i].x, enemyPosition[i].y, 'alien');
             this.enemies.push(enemy);
         }
     }
@@ -212,6 +202,7 @@ export default class TutorialScene extends Phaser.Scene {
 
     gameOver() {
         this.scene.start('GameOver');
+        this.globalState.resetHealth();
     }
 
     projectileEnemyHit() {

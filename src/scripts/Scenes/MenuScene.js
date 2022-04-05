@@ -21,6 +21,30 @@ export default class MenuScene extends Phaser.Scene {
       new URL('../../assets/start-button.png',
         import.meta.url).href
     );
+
+    this.load.spritesheet('willyRunSide', new URL('../../assets/willyRunSide.png',
+      import.meta.url).href, {
+      frameWidth: 70,
+      frameHeight: 90
+    });
+
+    this.load.spritesheet('alienRunFront', new URL('../../assets/alienRunFront.png',
+            import.meta.url).href, {
+            frameWidth: 52,
+            frameHeight: 62
+        });
+
+    this.load.spritesheet('alienRunBack', new URL('../../assets/alienRunBack.png',
+            import.meta.url).href, {
+            frameWidth: 52,
+            frameHeight: 62
+        });
+
+    this.load.spritesheet('alienRunSide', new URL('../../assets/alienRunSide.png',
+            import.meta.url).href, {
+            frameWidth: 52,
+            frameHeight: 62
+        });
   }
 
   create() {
@@ -31,11 +55,178 @@ export default class MenuScene extends Phaser.Scene {
     const gameStartBtnX = this.game.config.width / 2 - 320;
     const gameStartBtnY = this.game.config.height / 2 + 160;
     const startButton = this.add.image(gameStartBtnX, gameStartBtnY, 'start-button')
-      .setInteractive({
-        useHandCursor: true
-      })
-      .on('pointerdown', () => {
-        this.scene.start('BunkerScene');
-      });
-  }
+    .setInteractive({
+      useHandCursor: true
+    })
+    .on('pointerdown', () => {
+      this.scene.start('BunkerScene');
+    });
+    
+    //willy animations
+    this.anims.create({
+      key: 'idle',
+      frames: [{
+        key: 'willyRunSide',
+        frame: 0
+      }],
+      frameRate: 20
+    })
+
+    this.anims.create({
+      key: 'run',
+      frames: [{
+          key: 'willyRunSide',
+          frame: 1
+        },
+        {
+          key: 'willyRunSide',
+          frame: 2
+        },
+        {
+          key: 'willyRunSide',
+          frame: 3
+        },
+        {
+          key: 'willyRunSide',
+          frame: 4
+        },
+        {
+          key: 'willyRunSide',
+          frame: 5
+        },
+        {
+          key: 'willyRunSide',
+          frame: 6
+        },
+        {
+          key: 'willyRunSide',
+          frame: 7
+        },
+        {
+          key: 'willyRunSide',
+          frame: 8
+        }
+      ],
+      frameRate: 20,
+      repeat: -1
+    })
+
+    //alien animations
+    this.anims.create({
+      key: 'alienRunFront',
+      frames: [{
+          key: 'alienRunFront',
+          frame: 0
+        },
+        {
+          key: 'alienRunFront',
+          frame: 1
+        },
+        {
+          key: 'alienRunFront',
+          frame: 2
+        },
+        {
+          key: 'alienRunFront',
+          frame: 3
+        },
+        {
+          key: 'alienRunFront',
+          frame: 4
+        },
+        {
+          key: 'alienRunFront',
+          frame: 5
+        },
+        {
+          key: 'alienRunFront',
+          frame: 6
+        } ,
+        {
+          key: 'alienRunFront',
+          frame: 7
+        }
+      ],
+      frameRate: 20,
+      repeat: -1
+    })
+
+    this.anims.create({
+      key: 'alienRunBack',
+      frames: [{
+          key: 'alienRunBack',
+          frame: 0
+        },
+        {
+          key: 'alienRunBack',
+          frame: 1
+        },
+        {
+          key: 'alienRunBack',
+          frame: 2
+        },
+        {
+          key: 'alienRunBack',
+          frame: 3
+        },
+        {
+          key: 'alienRunBack',
+          frame: 4
+        },
+        {
+          key: 'alienRunBack',
+          frame: 5
+        },
+        {
+          key: 'alienRunBack',
+          frame: 6
+        } ,
+        {
+          key: 'alienRunBack',
+          frame: 7
+        }
+      ],
+      frameRate: 20,
+      repeat: -1
+    })
+
+    this.anims.create({
+      key: 'alienRunSide',
+      frames: [{
+          key: 'alienRunSide',
+          frame: 0
+        },
+        {
+          key: 'alienRunSide',
+          frame: 1
+        },
+        {
+          key: 'alienRunSide',
+          frame: 2
+        },
+        {
+          key: 'alienRunSide',
+          frame: 3
+        },
+        {
+          key: 'alienRunSide',
+          frame: 4
+        },
+        {
+          key: 'alienRunSide',
+          frame: 5
+        },
+        {
+          key: 'alienRunSide',
+          frame: 6
+        } ,
+        {
+          key: 'alienRunSide',
+          frame: 7
+        }
+      ],
+      frameRate: 20,
+      repeat: -1
+    })
+    }
 }
