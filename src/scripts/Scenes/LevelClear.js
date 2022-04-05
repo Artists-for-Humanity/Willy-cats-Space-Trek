@@ -10,7 +10,7 @@ export default class LevelClear extends Phaser.Scene{
 
     preload(){
         this.load.image('LevelClearBG', new URL('../../assets/Level_Clear_Placeholder.png', import.meta.url).href);    
-        this.load.image('continue', new URL('../../assets/Button_Continue.png', import.meta.url).href);    
+        this.load.image('continue', new URL('../../assets/buttonContinue.png', import.meta.url).href);    
 
 
     }

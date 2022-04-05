@@ -38,6 +38,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       }
       if (this.down.isDown && this.vertMovement) {
         this.y += 5;
+        this.anims.play('run', true);
         return;
       //down and walking down animation//
       }

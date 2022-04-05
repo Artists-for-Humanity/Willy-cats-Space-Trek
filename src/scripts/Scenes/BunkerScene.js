@@ -21,64 +21,13 @@ export default class BunkerScene extends Phaser.Scene {
       import.meta.url).href);
     this.load.image('border', new URL('../../assets/Hborder.png',
       import.meta.url).href);
-    this.load.spritesheet('willy', new URL('../../assets/willy-sheet.png',
-      import.meta.url).href, {
-      frameWidth: 70,
-      frameHeight: 90
-    });
+    
   }
 
   create() {
     this.background = this.add.image((this.game.config.width / 2), (this.game.config.height / 2), 'background');
     this.player = new Player(this, this.game.config.width / 2, this.game.config.height / 2, true, false);
 
-    this.anims.create({
-      key: 'idle',
-      frames: [{
-        key: 'willy',
-        frame: 0
-      }],
-      frameRate: 20
-    })
-    //willy animation
-    this.anims.create({
-      key: 'run',
-      frames: [{
-          key: 'willy',
-          frame: 1
-        },
-        {
-          key: 'willy',
-          frame: 2
-        },
-        {
-          key: 'willy',
-          frame: 3
-        },
-        {
-          key: 'willy',
-          frame: 4
-        },
-        {
-          key: 'willy',
-          frame: 5
-        },
-        {
-          key: 'willy',
-          frame: 6
-        },
-        {
-          key: 'willy',
-          frame: 7
-        },
-        {
-          key: 'willy',
-          frame: 8
-        }
-      ],
-      frameRate: 20,
-      repeat: -1
-    })
 
     //rat speach and stuff
     this.ratHB = this.physics.add.staticImage(640, 100, 'tutorialdoor')
