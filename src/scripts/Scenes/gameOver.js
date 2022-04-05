@@ -20,6 +20,7 @@ export default class GameOver extends Phaser.Scene{
         .setInteractive({ useHandCursor: true })
         .on('pointerdown',  () => {
          this.scene.start('BunkerScene');
+
         })
     }
 }

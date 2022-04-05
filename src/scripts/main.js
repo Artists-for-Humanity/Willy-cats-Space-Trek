@@ -9,6 +9,8 @@ import BunkerScene from './Scenes/BunkerScene';
 import MapScene from './Scenes/MapScene';
 import LevelClear from './Scenes/LevelClear';
 import GameOver from './Scenes/gameOver';
+import ShopScene from './Scenes/shopScene';
+
 // Set configuration for phaser game instance
 const config = {
   type: Phaser.AUTO,
@@ -25,7 +27,7 @@ const config = {
       debug: true,
     },
   },
-  scene: [MenuScene, BunkerScene, TutorialScene, LevelClear, GameOver, MapScene],
+  scene: [MenuScene, BunkerScene, TutorialScene, LevelClear, GameOver, MapScene,ShopScene],
   audio: {
     disableWebAudio: true,
   },
@@ -39,7 +41,7 @@ const config = {
       {
         key: 'GlobalState',
         plugin: GlobalState,
-        start: true,
+        start: false,
         mapping: 'globalState'
       }
     ],

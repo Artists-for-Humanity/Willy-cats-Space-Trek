@@ -22,6 +22,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.score = 0;
         this.iFrames = false;
         this.iFramesTime = 0;
+
     }
 
     preload() {
@@ -58,10 +59,10 @@ export default class TutorialScene extends Phaser.Scene {
             fill: colors.black,
             align: 'center',
         });
-
+        // console.log(this.globalState, 'global')
         this.globalState.resetHealth();
         this.setHealthText();
-
+        
         this.globalState.resetScore();
         this.setScoreText();
 
@@ -175,7 +176,6 @@ export default class TutorialScene extends Phaser.Scene {
         for (let i = 1; i < this.borders.children.entries.length; i++) {
             this.borders.children.entreis[i].setVisible(false);
         }
-
     }
 
     // weapon mechanics
@@ -197,10 +197,10 @@ export default class TutorialScene extends Phaser.Scene {
         this.projectileImg.setVelocityY(0);
         this.projectileImg.visible = false;
         this.projectileImg.disableBody(true, true);
-
     }
 
     gameOver() {
+        this.enemies = []; 
         this.scene.start('GameOver');
         this.globalState.resetHealth();
     }
