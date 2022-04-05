@@ -23,13 +23,31 @@ export default class alien extends Phaser.Physics.Arcade.Sprite {
   }
 
   animate() {
-    if (this.getVelocityY() > 0) {
-      this.anims.play('alienRunFront', true);
-    }
-    if (this.getVelocityY() < 0) {
-      this.anims.play('alienRunBack', true);
+    // horizontal animations
+    if (Math.abs(this.getVelocityX()) > Math.abs(this.getVelocityY())) {
+      if (this.getVelocityX() > 0) {
+        this.anims.play('alienRunSide', true);  // right
+        this.flipX = false;
+        return;
+      }
+      if (this.getVelocityX() < 0) {
+        this.anims.play('alienRunSide', true);  // left
+        this.flipX = true;
+        return;
+      }
     }
 
+    // vertical animations
+    else {
+      if (this.getVelocityY() > 0) {
+        this.anims.play('alienRunFront', true); // front
+        return;
+      }
+      if (this.getVelocityY() < 0) {
+        this.anims.play('alienRunBack', true); // back
+        return;
+      }
+    }
   }
 
   getVelocityX() {
@@ -39,4 +57,5 @@ export default class alien extends Phaser.Physics.Arcade.Sprite {
   getVelocityY() {
     return this.body.velocity.y;
   }
+
 }
