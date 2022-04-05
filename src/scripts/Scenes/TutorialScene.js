@@ -7,11 +7,6 @@ import alien from '../Sprites/alien';
 
 export default class TutorialScene extends Phaser.Scene {
     player;
-    numEnemy = 6;
-    deadThings = 0
-    projectileState = 'ready';
-    projectileImg;
-    enemies = [];
     scoreText;
     healthText;
 
@@ -207,6 +202,7 @@ export default class TutorialScene extends Phaser.Scene {
 
     gameOver() {
         this.scene.start('GameOver');
+        this.globalState.resetHealth();
     }
 
     projectileEnemyHit() {

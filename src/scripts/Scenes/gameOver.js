@@ -10,7 +10,7 @@ export default class GameOver extends Phaser.Scene{
 
     preload(){
         this.load.image('gameover', new URL('../../assets/Game_Over_Placeholder.png', import.meta.url).href);
-        this.load.image('continue', new URL ('../../assets/Button_Continue.png', import.meta.url).href);
+        this.load.image('continue', new URL ('../../assets/buttonContinue.png', import.meta.url).href);
     }
     create(){
         this.GObg = this.add.image((this.game.config.width / 2) , (this.game.config.height /2), 'gameover' );
