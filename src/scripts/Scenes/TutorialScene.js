@@ -22,6 +22,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.score = 0;
         this.iFrames = false;
         this.iFramesTime = 0;
+        this.scale = 1;
 
     }
 
@@ -126,7 +127,7 @@ export default class TutorialScene extends Phaser.Scene {
             });
         }
         for (let i = 0; i < this.numEnemy; i++) {
-            const enemy = new alien(this, enemyPosition[i].x, enemyPosition[i].y, 'alien');
+            const enemy = new alien(this, enemyPosition[i].x, enemyPosition[i].y);
             this.enemies.push(enemy);
         }
     }
@@ -201,6 +202,8 @@ export default class TutorialScene extends Phaser.Scene {
 
     gameOver() {
         this.enemies = []; 
+        this.numEnemy = 6;
+        this.deadThings = 0;
         this.scene.start('GameOver');
         this.globalState.resetHealth();
     }

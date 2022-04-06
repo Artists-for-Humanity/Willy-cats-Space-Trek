@@ -2,7 +2,7 @@ import Phaser, { Physics } from 'phaser';
 
 export default class alien extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
-    super(scene, x, y, 'alien');
+    super(scene, x, y, 'alienRunSide');
     scene.add.existing(this);
     scene.physics.world.enableBody(this);
     this.setCollideWorldBounds(true);

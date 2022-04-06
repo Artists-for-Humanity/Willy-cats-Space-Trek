@@ -5,7 +5,7 @@ import GameRule from '../GameRule';
 import GlobalState from '../GlobalState';
 export default class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, vertMovement = true, mapBorder = true) {
-    super(scene, x, y, 'willy');
+    super(scene, x, y, 'willyRunSide');
 
     scene.add.existing(this);
     scene.physics.world.enableBody(this);
