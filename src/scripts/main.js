@@ -24,7 +24,7 @@ const config = {
       gravity: {
         y: 0,
       },
-      debug: true,
+      debug: false,
     },
   },
   scene: [MenuScene, BunkerScene, TutorialScene, LevelClear, GameOver, MapScene,ShopScene],

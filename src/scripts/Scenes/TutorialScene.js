@@ -148,7 +148,6 @@ export default class TutorialScene extends Phaser.Scene {
             if (this.iFrames === false) {
                 this.globalState.decreaseHealth();
                 this.setHealthText();
-                console.log(`${this.globalState.health}`)
                 this.iFrames = true;  
                 this.iFramesTime = 0;
             }
