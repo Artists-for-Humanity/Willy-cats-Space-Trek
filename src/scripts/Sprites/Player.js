@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import TutorialScene from '../Scenes/TutorialScene';
 import { colors } from '../constants';
-import GameRule from '../GameRule';
-import GlobalState from '../GlobalState';
+
+
 export default class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, vertMovement = true, mapBorder = true) {
     super(scene, x, y, 'willyRunSide');
@@ -11,8 +11,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     scene.physics.world.enableBody(this);
     this.setCollideWorldBounds(true);
     this.cursors = scene.input.keyboard.createCursorKeys();
-    this.rule = GameRule;
-    this.globalState = GlobalState
     this.vertMovement = vertMovement;
     this.mapBorder = mapBorder;
     this.up = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
