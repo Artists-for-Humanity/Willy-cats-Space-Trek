@@ -157,6 +157,7 @@ export default class TutorialScene extends Phaser.Scene {
                 this.animateHealth();
                 this.setHealthText();
                 this.iFrames = true;
+
                 this.iFramesTime = 0;
             }
             if (this.iFrames === true && this.iFramesTime > 1000) {
