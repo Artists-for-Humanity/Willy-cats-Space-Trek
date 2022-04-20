@@ -45,7 +45,15 @@ export default class MenuScene extends Phaser.Scene {
             frameWidth: 52,
             frameHeight: 62
         });
-  }
+        
+        this.load.spritesheet('health', new URL('../../assets/spritesheet.png',
+        import.meta.url).href, {
+          frameWidth: 30,
+          frameHeight: 30
+
+        });
+    
+      }
 
   create() {
     //add start screen
@@ -228,5 +236,46 @@ export default class MenuScene extends Phaser.Scene {
       frameRate: 20,
       repeat: -1
     })
-    }
+    this.anims.create({
+      key: 'full',
+      frames:[{
+        key: 'health',
+        frame: 0
+      }],
+        frameRate: 20,
+        repeat: -1,
+    })
+    
+    this.anims.create({
+      key: '-1',
+      frames:[{
+        key: 'health',
+        frame: 1
+      }],
+      frameRate: 20,
+      repeat: -1,
+
+    })
+    
+    this.anims.create({
+      key: '-2',
+      frames:[{
+        key: 'health',
+        frame: 2
+      }],
+      frameRate: 20,
+      repeat: -1,
+
+    })
+    
+    this.anims.create({
+      key: 'empty',
+      frames:[{
+        key: 'health',
+        frame: 3
+      }],
+      frameRate: 20,
+      repeat: -1,
+    })
+  }
 }

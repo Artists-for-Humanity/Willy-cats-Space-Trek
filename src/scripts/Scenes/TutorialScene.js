@@ -2,13 +2,15 @@ import Phaser from 'phaser';
 import {
     colors
 } from '../constants';
+
 import Player from '../Sprites/Player';
 import alien from '../Sprites/alien';
-
+import HealthDisplay from '../Sprites/HealthDisplay';
 export default class TutorialScene extends Phaser.Scene {
     player;
     scoreText;
     healthText;
+
 
     constructor() {
         super({
@@ -23,6 +25,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.iFrames = false;
         this.iFramesTime = 0;
         this.scale = 1;
+
 
     }
 
@@ -44,6 +47,11 @@ export default class TutorialScene extends Phaser.Scene {
         this.SpawnEnemy();
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
         this.projectileImg.visible = false;
+        //HEALTH YARN
+        for (let i = 0; i < this.globalState.slotnum; i++) {
+            const health = new HealthDisplay(this, 1200 - (80 * i), 30).setScale(1.5);
+            this.globalState.healthslots.push(health);
+        }
 
         this.scoreText = this.add.text(16, 12, '', {
             fontFamily: 'Space Mono',
@@ -60,10 +68,9 @@ export default class TutorialScene extends Phaser.Scene {
             fill: colors.black,
             align: 'center',
         });
-        // console.log(this.globalState, 'global')
         this.globalState.resetHealth();
         this.setHealthText();
-        
+
         this.globalState.resetScore();
         this.setScoreText();
 
@@ -103,7 +110,7 @@ export default class TutorialScene extends Phaser.Scene {
     setScoreText() {
         this.scoreText.setText(`SCORE: ${this.globalState.score}`);
     }
-    
+
     setHealthText() {
         this.healthText.setText(`HEALTH: ${this.globalState.health}`)
     }
@@ -147,16 +154,29 @@ export default class TutorialScene extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.enemies, () => {
             if (this.iFrames === false) {
                 this.globalState.decreaseHealth();
+                this.animateHealth();
                 this.setHealthText();
-                this.iFrames = true;  
+                this.iFrames = true;
+
                 this.iFramesTime = 0;
             }
             if (this.iFrames === true && this.iFramesTime > 1000) {
-                    this.iFramesTime -= 1000;
-                    this.iFrames = false;
-                }
-            });
+                this.iFramesTime -= 1000;
+                this.iFrames = false;
+            }
+        });
 
+    }
+
+    animateHealth() {
+        if (this.globalState.health === 8) this.globalState.healthslots[0].anims.play('-1', true);
+        if (this.globalState.health === 7) this.globalState.healthslots[0].anims.play('-2', true);
+        if (this.globalState.health <= 6) this.globalState.healthslots[0].anims.play('empty', true);
+        if (this.globalState.health === 5) this.globalState.healthslots[1].anims.play('-1', true);
+        if (this.globalState.health === 4) this.globalState.healthslots[1].anims.play('-2', true);
+        if (this.globalState.health <= 3) this.globalState.healthslots[1].anims.play('empty', true);
+        if (this.globalState.health === 2) this.globalState.healthslots[2].anims.play('-1', true);
+        if (this.globalState.health === 1) this.globalState.healthslots[2].anims.play('-2', true);
     }
 
     playerXH1border(player) {
@@ -200,11 +220,12 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     gameOver() {
-        this.enemies = []; 
+        this.enemies = [];
         this.numEnemy = 6;
         this.deadThings = 0;
         this.scene.start('GameOver');
         this.globalState.resetHealth();
+        while (this.globalState.healthslots.length) this.globalState.healthslots.pop();
     }
 
     projectileEnemyHit() {
