@@ -64,11 +64,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   resetPlayerPosition(){
    //console.log(this.x,this.y)
     if (this.mapBorder) {
-      if (this.y <= 80){
-        this.y = 85;
+      if (this.y <= 130){
+        this.y = 130;
       }
-      if (this.y >= 650){
-        this.y = 645;
+      if (this.y >= 700){
+        this.y = 700;
       }
       if (this.x <= 95){
         this.x = 100;

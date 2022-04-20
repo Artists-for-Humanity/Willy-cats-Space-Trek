@@ -16,8 +16,8 @@ export default class MapScene extends Phaser.Scene {
     }
     
     create(){
-        this.background = this.add.image((this.game.config.width / 2) , (this.game.config.height /2), 'mapscene' );
-        this.player = new Player(this, 50, 340, false, false);
+        this.background = this.add.image(this.game.config.width / 2, this.game.config.height / 2 + 25, 'mapscene' );
+        this.player = new Player(this, 50, 390, false, false);
 
         this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 

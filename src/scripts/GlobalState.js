@@ -11,16 +11,12 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.slotnum = 3;
   }
 
-
-   
-
   decreaseHealth() {
       this.health--;
   }
 
   resetHealth() {
-      this.health = 9;
-      
+      this.health = 9;   
   }
 
   incrementScore() {
@@ -30,12 +26,31 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
   lives(){
     return this.health;
   }
+
   resetScore() {
     this.score = 0;
   }
+
   morefish(){
     this.fish++;
   }
+
+  clearHealth() {
+    while (this.healthslots.length) this.healthslots.pop();
+  }
+
+  initializeHealth(sceneNum) {
+    for (let i = 0; i < this.slotnum; i++) {
+      console.log(this.pluginManager.game.scene.scenes[sceneNum]);
+      const health = new HealthDisplay(this.pluginManager.game.scene.scenes[sceneNum], 1200 - (65 * i), 26).setScale(1.5);
+      this.healthslots.push(health);
+    }
+  }
+
+  // addUIBorder() {
+  //   let rect = this.add.rectangle(640, 25, 1280, 50)
+  //   rect.setStrokeStyle(5, '#000000')
+  // }
 }
 
 export default GlobalState;

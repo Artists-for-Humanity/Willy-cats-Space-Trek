@@ -15,7 +15,8 @@ import ShopScene from './Scenes/shopScene';
 const config = {
   type: Phaser.AUTO,
   width: 1280,
-  height: 720,
+  height: 770,
+  backgroundColor: '#D3D3D3',
 
   // Add physics, arcade, scene, and audio
   physics: {
@@ -24,10 +25,10 @@ const config = {
       gravity: {
         y: 0,
       },
-      debug: false,
+      debug: true,
     },
   },
-  scene: [MenuScene, BunkerScene, TutorialScene, LevelClear, GameOver, MapScene,ShopScene],
+  scene: [MenuScene, BunkerScene, TutorialScene, LevelClear, GameOver, MapScene, ShopScene],
   audio: {
     disableWebAudio: true,
   },

@@ -40,7 +40,7 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     create() {
-        this.l1bg = this.add.sprite((this.game.config.width / 2), (this.game.config.height / 2), 'L1');
+        this.l1bg = this.add.sprite(this.game.config.width / 2, this.game.config.height / 2 + 25, 'L1');
         this.borders = this.physics.add.staticGroup();
 
         this.player = new Player(this, 1000, 380);
@@ -48,10 +48,8 @@ export default class TutorialScene extends Phaser.Scene {
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
         this.projectileImg.visible = false;
         //HEALTH YARN
-        for (let i = 0; i < this.globalState.slotnum; i++) {
-            const health = new HealthDisplay(this, 1200 - (80 * i), 30).setScale(1.5);
-            this.globalState.healthslots.push(health);
-        }
+        console.log(this);
+        this.globalState.initializeHealth(this.scene.getIndex(this.key));
 
         this.scoreText = this.add.text(16, 12, '', {
             fontFamily: 'Space Mono',
@@ -100,10 +98,12 @@ export default class TutorialScene extends Phaser.Scene {
             this.enemies = [];
             this.deadThings = 0;
             console.log(this.globalState.fish, 'fish')
+            this.resetGame();
             this.scene.start('LevelClear');
         }
         if (this.globalState.health === 0) {
-            this.gameOver()
+            this.resetGame();
+            this.scene.start('GameOver');
         }
     }
 
@@ -219,13 +219,12 @@ export default class TutorialScene extends Phaser.Scene {
         this.projectileImg.disableBody(true, true);
     }
 
-    gameOver() {
+    resetGame() {
         this.enemies = [];
         this.numEnemy = 6;
         this.deadThings = 0;
-        this.scene.start('GameOver');
         this.globalState.resetHealth();
-        while (this.globalState.healthslots.length) this.globalState.healthslots.pop();
+        this.globalState.clearHealth();
     }
 
     projectileEnemyHit() {
