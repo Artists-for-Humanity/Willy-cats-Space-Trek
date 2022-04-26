@@ -12,15 +12,6 @@ export default class HealthDisplay extends Phaser.Physics.Arcade.Sprite {
 
 
   update() {
-    if (this.globalState.health === 8) {
-      console.log(this.globalState.healthslots, 'health')
-        this.globalState.healthslots[0].forEach(() => {
-        this.anims.play( '-1', true);
-      });
-      
-
-  
-    }
   }
 }
   

@@ -36,15 +36,25 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
   }
 
   clearHealth() {
-    while (this.healthslots.length) this.healthslots.pop();
+    while (this.healthslots.length > 0) this.healthslots.pop();
   }
 
   initializeHealth(sceneNum) {
     for (let i = 0; i < this.slotnum; i++) {
-      console.log(this.pluginManager.game.scene.scenes[sceneNum]);
       const health = new HealthDisplay(this.pluginManager.game.scene.scenes[sceneNum], 1200 - (65 * i), 26).setScale(1.5);
       this.healthslots.push(health);
     }
+  }
+
+  animateHealth() {
+    if (this.health === 8) this.healthslots[0].anims.play('-1', true);
+    if (this.health === 7) this.healthslots[0].anims.play('-2', true);
+    if (this.health <= 6) this.healthslots[0].anims.play('empty', true);
+    if (this.health === 5) this.healthslots[1].anims.play('-1', true);
+    if (this.health === 4) this.healthslots[1].anims.play('-2', true);
+    if (this.health <= 3) this.healthslots[1].anims.play('empty', true);
+    if (this.health === 2) this.healthslots[2].anims.play('-1', true);
+    if (this.health === 1) this.healthslots[2].anims.play('-2', true);
   }
 
   // addUIBorder() {

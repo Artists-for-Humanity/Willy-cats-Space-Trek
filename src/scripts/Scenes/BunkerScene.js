@@ -58,12 +58,13 @@ export default class BunkerScene extends Phaser.Scene {
   }
 
   update() {
+    this.globalState.animateHealth();
     this.player.update();
   }
 
   playerdoordetect() {
+    // this.globalState.clearHealth();
     this.scene.start('TutorialScene');
-    this.globalState.clearHealth();
     GameRule.toggleBorder = true;
   }
 
