@@ -63,19 +63,18 @@ export default class BunkerScene extends Phaser.Scene {
   }
 
   playerdoordetect() {
-    // this.globalState.clearHealth();
     this.scene.start('TutorialScene');
     GameRule.toggleBorder = true;
   }
 
   mapDoorDetect() {
     this.scene.start('MapScene');
-    this.globalState.clearHealth();
+    // this.globalState.clearHealth();
   }
 
   ratmenu() {
     this.scene.start('ShopScene')
-    this.globalState.clearHealth();
+    // this.globalState.clearHealth();
   }
   
   playerXborder(player) {
