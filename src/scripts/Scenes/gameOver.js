@@ -13,7 +13,7 @@ export default class GameOver extends Phaser.Scene{
         this.load.image('continue', new URL ('../../assets/buttonContinue.png', import.meta.url).href);
     }
     create(){
-        this.GObg = this.add.image((this.game.config.width / 2) , (this.game.config.height /2), 'gameover' );
+        this.GObg = this.add.image((this.game.config.width / 2) , (this.game.config.height / 2 + 25), 'gameover' );
         const continueBtnX = this.game.config.width / 2;
         const continueBtny = (this.game.config.height / 2) + 175;
         const continueBtn = this.add.image (continueBtnX, continueBtny, 'continue')

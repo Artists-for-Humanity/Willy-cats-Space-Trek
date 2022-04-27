@@ -2,13 +2,14 @@ import Phaser from 'phaser';
 import {
     colors
 } from '../constants';
+
 import Player from '../Sprites/Player';
 import alien from '../Sprites/alien';
-
 export default class TutorialScene extends Phaser.Scene {
     player;
     scoreText;
     healthText;
+
 
     constructor() {
         super({
@@ -23,7 +24,6 @@ export default class TutorialScene extends Phaser.Scene {
         this.iFrames = false;
         this.iFramesTime = 0;
         this.scale = 1;
-
     }
 
     preload() {
@@ -37,33 +37,22 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     create() {
-        this.l1bg = this.add.sprite((this.game.config.width / 2), (this.game.config.height / 2), 'L1');
+        this.globalState.addUIBorder(this.scene.getIndex(this.key));
+        this.l1bg = this.add.sprite(this.game.config.width / 2, this.game.config.height / 2 + 25, 'L1');
         this.borders = this.physics.add.staticGroup();
 
         this.player = new Player(this, 1000, 380);
         this.SpawnEnemy();
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
         this.projectileImg.visible = false;
-
-        this.scoreText = this.add.text(16, 12, '', {
-            fontFamily: 'Space Mono',
-            fontSize: '24px',
-            fontStyle: 'bold',
-            fill: colors.black,
-            align: 'center',
-        });
-
-        this.healthText = this.add.text(160, 12, '', {
-            fontFamily: 'Space Mono',
-            fontSize: '24px',
-            fontStyle: 'bold',
-            fill: colors.black,
-            align: 'center',
-        });
-        // console.log(this.globalState, 'global')
-        this.globalState.resetHealth();
-        this.setHealthText();
+        //HEALTH YARN
+        this.globalState.clearHealth();
+        this.globalState.initializeHealth(this.scene.getIndex(this.key));
         
+        this.healthText = this.add.text(160, 12, '')
+        this.scoreText = this.add.text(16, 12, '')
+
+        this.setHealthText();
         this.globalState.resetScore();
         this.setScoreText();
 
@@ -72,6 +61,7 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     update(time, delta) {
+        this.globalState.animateHealth();
         this.iFramesTime += delta;
         this.timer();
         this.enemyBulletCollision();
@@ -90,21 +80,36 @@ export default class TutorialScene extends Phaser.Scene {
         })
 
         if (this.deadThings === this.numEnemy) {
-            this.enemies = [];
-            this.deadThings = 0;
             console.log(this.globalState.fish, 'fish')
+            this.resetGame();
             this.scene.start('LevelClear');
         }
         if (this.globalState.health === 0) {
-            this.gameOver()
+            this.resetGame();
+            this.globalState.resetHealth();
+            this.scene.start('GameOver');
         }
     }
 
     setScoreText() {
+        this.scoreText.setStyle({
+            fontFamily: 'Space Mono',
+            fontSize: '24px',
+            fontStyle: 'bold',
+            fill: colors.black,
+            align: 'center',
+        });
         this.scoreText.setText(`SCORE: ${this.globalState.score}`);
     }
-    
+
     setHealthText() {
+        this.healthText.setStyle({
+            fontFamily: 'Space Mono',
+            fontSize: '24px',
+            fontStyle: 'bold',
+            fill: colors.black,
+            align: 'center',
+        });
         this.healthText.setText(`HEALTH: ${this.globalState.health}`)
     }
 
@@ -148,15 +153,15 @@ export default class TutorialScene extends Phaser.Scene {
             if (this.iFrames === false) {
                 this.globalState.decreaseHealth();
                 this.setHealthText();
-                console.log(`${this.globalState.health}`)
-                this.iFrames = true;  
+                this.iFrames = true;
+
                 this.iFramesTime = 0;
             }
             if (this.iFrames === true && this.iFramesTime > 1000) {
-                    this.iFramesTime -= 1000;
-                    this.iFrames = false;
-                }
-            });
+                this.iFramesTime -= 1000;
+                this.iFrames = false;
+            }
+        });
 
     }
 
@@ -200,19 +205,10 @@ export default class TutorialScene extends Phaser.Scene {
         this.projectileImg.disableBody(true, true);
     }
 
-    gameOver() {
-        this.enemies = []; 
+    resetGame() {
+        this.enemies = [];
         this.numEnemy = 6;
         this.deadThings = 0;
-        this.scene.start('GameOver');
-        this.globalState.resetHealth();
-    }
-
-    projectileEnemyHit() {
-        b.destroyAliens();
-        this.resetProjectile();
-        this.globalState.incrementScore();
-        this.setScoreText();
-        this.deadThings += 1;
+        this.globalState.clearHealth();
     }
 }

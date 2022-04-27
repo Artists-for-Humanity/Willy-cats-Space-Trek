@@ -15,7 +15,7 @@ export default class LevelClear extends Phaser.Scene{
 
     }
     create(){
-        this.LCBG = this.add.sprite((this.game.config.width / 2) , (this.game.config.height /2), 'LevelClearBG' );
+        this.LCBG = this.add.sprite((this.game.config.width / 2) , (this.game.config.height / 2 + 25), 'LevelClearBG' );
         const continueBtnX = this.game.config.width / 2;
         const continueBtny = (this.game.config.height / 2) + 175;
         const continueBtn = this.add.image (continueBtnX, continueBtny, 'continue')

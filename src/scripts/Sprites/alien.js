@@ -18,7 +18,7 @@ export default class alien extends Phaser.Physics.Arcade.Sprite {
 
   destroyAliens() {
     this.body.destroy();
-    this.clearAlpha();
+
     this.setVisible(false);
   }
 

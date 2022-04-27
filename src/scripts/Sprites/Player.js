@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import TutorialScene from '../Scenes/TutorialScene';
 import { colors } from '../constants';
-import GameRule from '../GameRule';
-import GlobalState from '../GlobalState';
+
+
 export default class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, vertMovement = true, mapBorder = true) {
     super(scene, x, y, 'willyRunSide');
@@ -11,8 +11,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     scene.physics.world.enableBody(this);
     this.setCollideWorldBounds(true);
     this.cursors = scene.input.keyboard.createCursorKeys();
-    this.rule = GameRule;
-    this.globalState = GlobalState
     this.vertMovement = vertMovement;
     this.mapBorder = mapBorder;
     this.up = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -32,27 +30,27 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   move() {      
       if (this.up.isDown && this.vertMovement) {
         this.y -= 5;
-        this.anims.play('run', true);
+        this.anims.play('willyRunBack', true);
         return;
         //up and walking up animation//
       }
       if (this.down.isDown && this.vertMovement) {
         this.y += 5;
-        this.anims.play('run', true);
+        this.anims.play('willyRunFront', true);
         return;
       //down and walking down animation//
       }
       if (this.left.isDown) {
         this.x -= 5;
         this.flipX = true;
-        this.anims.play('run', true);
+        this.anims.play('willyRunSide', true);
         return;
         //left and walking left animation//
       }
       if (this.right.isDown) {
         this.x += 5;
         this.flipX = false;
-        this.anims.play('run', true);
+        this.anims.play('willyRunSide', true);
         return;
       //right and walking right animation//
       }
@@ -66,11 +64,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   resetPlayerPosition(){
    //console.log(this.x,this.y)
     if (this.mapBorder) {
-      if (this.y <= 80){
-        this.y = 85;
+      if (this.y <= 130){
+        this.y = 130;
       }
-      if (this.y >= 650){
-        this.y = 645;
+      if (this.y >= 700){
+        this.y = 700;
       }
       if (this.x <= 95){
         this.x = 100;

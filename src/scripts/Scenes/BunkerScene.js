@@ -24,19 +24,23 @@ export default class BunkerScene extends Phaser.Scene {
   }
 
   create() {
-    this.background = this.add.image((this.game.config.width / 2), (this.game.config.height / 2), 'background');
+    // this.globalState.addUIBorder();
+    this.globalState.addUIBorder(this.scene.getIndex(this.key));
+    this.background = this.add.image(this.game.config.width / 2, this.game.config.height / 2 + 25, 'background');
     this.player = new Player(this, this.game.config.width / 2, this.game.config.height / 2, true, false);
+    this.globalState.clearHealth();
+    this.globalState.initializeHealth(this.scene.getIndex(this.key));
 
     //rat speach and stuff
-    this.ratHB = this.physics.add.staticImage(640, 100, 'tutorialdoor')
+    this.ratHB = this.physics.add.staticImage(640, 150, 'tutorialdoor')
     this.ratHB.visible = false;
     
     //tutorial door physics + creation
-    this.tdoor = this.physics.add.image(300, 100, 'tutorialdoor');
+    this.tdoor = this.physics.add.image(300, 150, 'tutorialdoor');
     this.tdoor.visible = false;
 
     //level selection
-    this.mapDoor = this.physics.add.image(640, 720, 'tutorialdoor');
+    this.mapDoor = this.physics.add.image(640, 770, 'tutorialdoor');
     this.mapDoor.visible = false;
 
     //collision detection 
@@ -47,7 +51,7 @@ export default class BunkerScene extends Phaser.Scene {
 
 
     // borders
-    this.border = this.physics.add.sprite(640, 50, 'border', );
+    this.border = this.physics.add.sprite(640, 100, 'border', );
     this.border.scaleX = 2;
     this.border.scaleY = 1.6;
     this.border.visible = false;
@@ -56,27 +60,26 @@ export default class BunkerScene extends Phaser.Scene {
   }
 
   update() {
+    this.globalState.animateHealth();
     this.player.update();
-    // this.ratmenu();ww
   }
 
   playerdoordetect() {
-    // console.log('reachme 00');
     this.scene.start('TutorialScene');
     GameRule.toggleBorder = true;
-    // console.log('reachme 01');
   }
 
   mapDoorDetect() {
     this.scene.start('MapScene');
-  }
-
-  playerXborder(player, ) {
-    player.y = 160
-
+    // this.globalState.clearHealth();
   }
 
   ratmenu() {
     this.scene.start('ShopScene')
+    // this.globalState.clearHealth();
+  }
+  
+  playerXborder(player) {
+    player.y = 210
   }
 }

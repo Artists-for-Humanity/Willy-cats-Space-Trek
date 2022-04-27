@@ -22,10 +22,12 @@ export default class ShopScene extends Phaser.Scene {
   }
 
   create() {
+
     this.background = this.add.image((this.game.config.width / 2), (this.game.config.height / 2), 'background');
     this.XBtn = this.add.image(900,200, 'XBtn')
     this.XBtn.setInteractive();
     this.XBtn.on('pointerdown', () => {
+
       this.scene.start('BunkerScene');
     });
     this.InvBG =  this.add.image(635, 360, 'InvBG' ).setScale(.85)
