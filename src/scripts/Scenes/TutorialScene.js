@@ -39,6 +39,7 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     create() {
+        this.globalState.addUIBorder(this.scene.getIndex(this.key));
         this.l1bg = this.add.sprite(this.game.config.width / 2, this.game.config.height / 2 + 25, 'L1');
         this.borders = this.physics.add.staticGroup();
 
@@ -49,22 +50,27 @@ export default class TutorialScene extends Phaser.Scene {
         //HEALTH YARN
         this.globalState.clearHealth();
         this.globalState.initializeHealth(this.scene.getIndex(this.key));
+        
+        this.healthText = this.add.text(160, 12, '')
+        this.scoreText = this.add.text(16, 12, '')
+        
+        
+        
+        // this.scoreText = this.add.text(16, 12, '', {
+                // fontFamily: 'Space Mono',
+                // fontSize: '24px',
+                // fontStyle: 'bold',
+                // fill: colors.black,
+                // align: 'center',
+        // });
 
-        this.scoreText = this.add.text(16, 12, '', {
-            fontFamily: 'Space Mono',
-            fontSize: '24px',
-            fontStyle: 'bold',
-            fill: colors.black,
-            align: 'center',
-        });
-
-        this.healthText = this.add.text(160, 12, '', {
-            fontFamily: 'Space Mono',
-            fontSize: '24px',
-            fontStyle: 'bold',
-            fill: colors.black,
-            align: 'center',
-        });
+        // this.healthText = this.add.text(160, 12, '', {
+        //     fontFamily: 'Space Mono',
+        //     fontSize: '24px',
+        //     fontStyle: 'bold',
+        //     fill: colors.black,
+        //     align: 'center',
+        // });
 
         this.setHealthText();
 
@@ -107,10 +113,24 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     setScoreText() {
+        this.scoreText.setStyle({
+            fontFamily: 'Space Mono',
+            fontSize: '24px',
+            fontStyle: 'bold',
+            fill: colors.black,
+            align: 'center',
+        });
         this.scoreText.setText(`SCORE: ${this.globalState.score}`);
     }
 
     setHealthText() {
+        this.healthText.setStyle({
+            fontFamily: 'Space Mono',
+            fontSize: '24px',
+            fontStyle: 'bold',
+            fill: colors.black,
+            align: 'center',
+        });
         this.healthText.setText(`HEALTH: ${this.globalState.health}`)
     }
 

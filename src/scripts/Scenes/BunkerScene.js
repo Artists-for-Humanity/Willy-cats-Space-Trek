@@ -25,8 +25,10 @@ export default class BunkerScene extends Phaser.Scene {
 
   create() {
     // this.globalState.addUIBorder();
+    this.globalState.addUIBorder(this.scene.getIndex(this.key));
     this.background = this.add.image(this.game.config.width / 2, this.game.config.height / 2 + 25, 'background');
     this.player = new Player(this, this.game.config.width / 2, this.game.config.height / 2, true, false);
+    this.globalState.clearHealth();
     this.globalState.initializeHealth(this.scene.getIndex(this.key));
 
     //rat speach and stuff

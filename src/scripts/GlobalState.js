@@ -57,10 +57,10 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     if (this.health === 1) this.healthslots[2].anims.play('-2', true);
   }
 
-  // addUIBorder() {
-  //   let rect = this.add.rectangle(640, 25, 1280, 50)
-  //   rect.setStrokeStyle(5, '#000000')
-  // }
+  addUIBorder(sceneNum) {
+    let rect = this.pluginManager.game.scene.scenes[sceneNum].add.rectangle(640, 25, 1280, 50);
+    rect.setStrokeStyle(6, '#000000');
+  }
 }
 
 export default GlobalState;

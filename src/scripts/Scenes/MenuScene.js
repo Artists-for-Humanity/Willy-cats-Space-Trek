@@ -57,7 +57,7 @@ export default class MenuScene extends Phaser.Scene {
 
   create() {
     //add start screen
-    this.add.image(this.game.config.width / 2, this.game.config.height / 2 + 25, 'start-screen');
+    this.add.image(this.game.config.width / 2, this.game.config.height / 2, 'start-screen');
 
     //add start button
     const gameStartBtnX = this.game.config.width / 2 - 320;
