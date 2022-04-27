@@ -24,8 +24,6 @@ export default class TutorialScene extends Phaser.Scene {
         this.iFrames = false;
         this.iFramesTime = 0;
         this.scale = 1;
-
-
     }
 
     preload() {
@@ -53,27 +51,8 @@ export default class TutorialScene extends Phaser.Scene {
         
         this.healthText = this.add.text(160, 12, '')
         this.scoreText = this.add.text(16, 12, '')
-        
-        
-        
-        // this.scoreText = this.add.text(16, 12, '', {
-                // fontFamily: 'Space Mono',
-                // fontSize: '24px',
-                // fontStyle: 'bold',
-                // fill: colors.black,
-                // align: 'center',
-        // });
-
-        // this.healthText = this.add.text(160, 12, '', {
-        //     fontFamily: 'Space Mono',
-        //     fontSize: '24px',
-        //     fontStyle: 'bold',
-        //     fill: colors.black,
-        //     align: 'center',
-        // });
 
         this.setHealthText();
-
         this.globalState.resetScore();
         this.setScoreText();
 
@@ -231,13 +210,5 @@ export default class TutorialScene extends Phaser.Scene {
         this.numEnemy = 6;
         this.deadThings = 0;
         this.globalState.clearHealth();
-    }
-
-    projectileEnemyHit() {
-        b.destroyAliens();
-        this.resetProjectile();
-        this.globalState.incrementScore();
-        this.setScoreText();
-        this.deadThings += 1;
     }
 }
