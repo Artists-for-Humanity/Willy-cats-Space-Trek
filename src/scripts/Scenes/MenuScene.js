@@ -23,10 +23,22 @@ export default class MenuScene extends Phaser.Scene {
     );
 
     this.load.spritesheet('willyRunSide', new URL('../../assets/willyRunSide.png',
-      import.meta.url).href, {
-      frameWidth: 70,
-      frameHeight: 90
-    });
+          import.meta.url).href, {
+          frameWidth: 70,
+          frameHeight: 90
+        });
+
+    this.load.spritesheet('willyRunBack', new URL('../../assets/willyRunBack.png',
+          import.meta.url).href, {
+          frameWidth: 70,
+          frameHeight: 90
+        });
+        
+    this.load.spritesheet('willyRunFront', new URL('../../assets/willyRunFront.png',
+          import.meta.url).href, {
+          frameWidth: 70,
+          frameHeight: 90
+        });
 
     this.load.spritesheet('alienRunFront', new URL('../../assets/alienRunFront.png',
             import.meta.url).href, {
@@ -75,14 +87,96 @@ export default class MenuScene extends Phaser.Scene {
       key: 'idle',
       frames: [{
         key: 'willyRunSide',
-        frame: 0
+        frame: 4
       }],
       frameRate: 20
     })
 
     this.anims.create({
-      key: 'run',
+      key: 'willyRunBack',
       frames: [{
+          key: 'willyRunBack',
+          frame: 1
+        },
+        {
+          key: 'willyRunBack',
+          frame: 2
+        },
+        {
+          key: 'willyRunBack',
+          frame: 3
+        },
+        {
+          key: 'willyRunBack',
+          frame: 4
+        },
+        {
+          key: 'willyRunBack',
+          frame: 5
+        },
+        {
+          key: 'willyRunBack',
+          frame: 6
+        },
+        {
+          key: 'willyRunBack',
+          frame: 7
+        },
+        {
+          key: 'willyRunBack',
+          frame: 8
+        }
+      ],
+      frameRate: 15,
+      repeat: -1
+    })
+
+    this.anims.create({
+      key: 'willyRunFront',
+      frames: [{
+          key: 'willyRunFront',
+          frame: 0
+        },
+        {
+          key: 'willyRunFront',
+          frame: 1
+        },
+        {
+          key: 'willyRunFront',
+          frame: 2
+        },
+        {
+          key: 'willyRunFront',
+          frame: 3
+        },
+        {
+          key: 'willyRunFront',
+          frame: 4
+        },
+        {
+          key: 'willyRunFront',
+          frame: 5
+        },
+        {
+          key: 'willyRunFront',
+          frame: 6
+        },
+        {
+          key: 'willyRunFront',
+          frame: 7
+        }
+      ],
+      frameRate: 15,
+      repeat: -1
+    })
+
+    this.anims.create({
+      key: 'willyRunSide',
+      frames: [{
+          key: 'willyRunSide',
+          frame: 0
+        },
+        {
           key: 'willyRunSide',
           frame: 1
         },
@@ -109,10 +203,6 @@ export default class MenuScene extends Phaser.Scene {
         {
           key: 'willyRunSide',
           frame: 7
-        },
-        {
-          key: 'willyRunSide',
-          frame: 8
         }
       ],
       frameRate: 20,
