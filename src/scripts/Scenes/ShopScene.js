@@ -22,8 +22,10 @@ export default class ShopScene extends Phaser.Scene {
   }
 
   create() {
-
-    this.background = this.add.image((this.game.config.width / 2), (this.game.config.height / 2), 'background');
+    this.globalState.addUIBorder(this.scene.getIndex(this.key));
+    this.background = this.add.image((this.game.config.width / 2), (this.game.config.height / 2 + 25), 'background');
+    this.globalState.clearHealth();
+    this.globalState.initializeHealth(this.scene.getIndex(this.key));
     this.XBtn = this.add.image(900,200, 'XBtn')
     this.XBtn.setInteractive();
     this.XBtn.on('pointerdown', () => {
@@ -38,6 +40,6 @@ export default class ShopScene extends Phaser.Scene {
   }
 
   update() {
-
+    this.globalState.animateHealth();
   }
 }
