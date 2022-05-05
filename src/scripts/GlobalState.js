@@ -11,6 +11,10 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.slotnum = 3;
   }
 
+  getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
   decreaseHealth() {
       this.health--;
   }
