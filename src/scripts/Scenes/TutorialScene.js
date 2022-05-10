@@ -6,11 +6,6 @@ import {
 import Player from '../Sprites/Player';
 import alien from '../Sprites/alien';
 export default class TutorialScene extends Phaser.Scene {
-    player;
-    scoreText;
-    healthText;
-
-
     constructor() {
         super({
             key: 'TutorialScene'
@@ -24,6 +19,10 @@ export default class TutorialScene extends Phaser.Scene {
         this.iFrames = false;
         this.iFramesTime = 0;
         this.scale = 1;
+        this.player;
+        this.scoreText;
+        this.healthText;
+        this.powerUp = [];
     }
 
     preload() {
@@ -58,6 +57,8 @@ export default class TutorialScene extends Phaser.Scene {
 
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
         this.projectileImg.visible = false;
+        
+        this.globalState.setAvailablePowerUps(1);
     }
 
     update(time, delta) {
@@ -140,6 +141,14 @@ export default class TutorialScene extends Phaser.Scene {
     enemyBulletCollision() {
         this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
             b.destroyAliens();
+            if (this.globalState.availablePowerUps > 0) {
+                let randVal = this.globalState.getRandomInt(10);
+                if ( randVal === 0) {
+                    console.log(randVal);
+                    this.dropPowerUp(Math.floor(b.x), Math.floor(b.y));
+                    this.globalState.availablePowerUps--;
+                }
+            }
             this.resetProjectile();
             this.globalState.incrementScore();
             this.setScoreText();
@@ -210,5 +219,9 @@ export default class TutorialScene extends Phaser.Scene {
         this.numEnemy = 6;
         this.deadThings = 0;
         this.globalState.clearHealth();
+    }
+
+    dropPowerUp(x, y) {
+        console.log(x, y);
     }
 }
