@@ -13,6 +13,11 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
   }
   moreRegen(){
     this.regen++;
+    this.availablePowerUps;
+  }
+
+  setAvailablePowerUps(num) {
+    this.availablePowerUps = num;
   }
 
   getRandomInt(max) {
