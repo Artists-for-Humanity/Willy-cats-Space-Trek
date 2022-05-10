@@ -10,10 +10,11 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.healthslots = [];
     this.slotnum = 3;
     this.regen = 1;
+    this.availablePowerUps;
   }
   moreRegen(){
     this.regen++;
-    this.availablePowerUps;
+    
   }
 
   setAvailablePowerUps(num) {
