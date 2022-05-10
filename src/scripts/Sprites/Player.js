@@ -57,8 +57,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     
      this.anims.play('idle', true);
   }
-
-  // getPosition(){ 
+ 
 
   
   resetPlayerPosition(){

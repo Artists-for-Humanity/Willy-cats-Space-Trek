@@ -79,14 +79,10 @@ export default class ShopScene extends Phaser.Scene {
       if (pointer.isDown)
       {
           this.bandage.y += (pointer.velocity.y / 8);
-
-        
           this.bomb.y += (pointer.velocity.y / 8);
           this.boots.y += (pointer.velocity.y/8);
-
-        
-        
-      }
+          
+        }
     
   });
 
