@@ -47,7 +47,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.globalState.addUIBorder(this.scene.getIndex(this.key));
         this.l1bg = this.add.sprite(this.game.config.width / 2, this.game.config.height / 2 + 25, 'L1');
         this.borders = this.physics.add.staticGroup();
-        this.player = new Player(this, 1000, 380);
+        this.player = new Player(this, 1000, 380, true, true);
         this.SpawnEnemy();
 
         //HEALTH & UI
@@ -65,6 +65,12 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     update(time, delta) {
+        if (this.projectileState === "fire") {
+            if (this.player.space.isDown && this.player.tp) {
+                this.player.copyPosition(this.projectileImg);
+                this.resetProjectile();
+            }
+        }
         this.globalState.animateHealth();
         if (this.bomb) {
             this.physics.add.overlap(this.player, this.bomb, () => {

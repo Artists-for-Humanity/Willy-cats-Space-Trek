@@ -4,7 +4,7 @@ import { colors } from '../constants';
 
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y, vertMovement = true, mapBorder = true) {
+  constructor(scene, x, y, vertMovement, tp, mapBorder) {
     super(scene, x, y, 'willyRunSide');
 
     scene.add.existing(this);
@@ -17,7 +17,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.left = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.down = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.right = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    this.space = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.playerSpeed = 5;
+    this.tp = tp;
     return this;
   }
 
@@ -55,7 +57,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         return;
       //right and walking right animation//
       }
-    
+
      this.anims.play('idle', true);
   }
  
