@@ -67,6 +67,7 @@ export default class TutorialScene extends Phaser.Scene {
 
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
         this.projectileImg.visible = false;
+        this.globalState.setAvailablePowerUps(1);
     }
 
     update(time, delta) {
@@ -159,14 +160,18 @@ export default class TutorialScene extends Phaser.Scene {
     enemyBulletCollision() {
         this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
             b.destroyAliens();
+            console.log('reachme 00')
             if (this.globalState.availablePowerUps > 0) {
+                console.log('reachme 01')
                 let randVal = this.globalState.getRandomInt(2);
-                if ( randVal === 0) {
+                if (randVal === 0) {
+                    console.log('reachme 02')
                     console.log(randVal);
                     this.dropPowerUp(Math.floor(b.x), Math.floor(b.y));
                     this.globalState.availablePowerUps--;
                 }
             }
+            console.log('reachme 03')
             this.resetProjectile();
             this.globalState.incrementScore();
             this.setScoreText();
@@ -243,7 +248,7 @@ export default class TutorialScene extends Phaser.Scene {
         console.log(x, y , 'drop');
         // const randVal = this.globalState.getRandomInt(5);
         // if(randVal > 2){
-            this.bomb = this.physics.add.image( x,y,'bomb');
+            this.bomb = this.physics.add.image(x,y,'bomb');
             
             this.globalState.availablePowerUps--;
         // }
