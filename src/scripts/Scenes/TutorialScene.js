@@ -6,11 +6,6 @@ import {
 import Player from '../Sprites/Player';
 import alien from '../Sprites/alien';
 export default class TutorialScene extends Phaser.Scene {
-    player;
-    scoreText;
-    healthText;
-
-
     constructor() {
         super({
             key: 'TutorialScene'
@@ -29,6 +24,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.healthText;
         this.bomb;
         this.ammo = 0;
+
     }
 
     preload() {
@@ -65,7 +61,6 @@ export default class TutorialScene extends Phaser.Scene {
 
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
         this.projectileImg.visible = false;
-
         this.globalState.setAvailablePowerUps(1);
     }
 
@@ -160,8 +155,10 @@ export default class TutorialScene extends Phaser.Scene {
         this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
             b.destroyAliens();
             if (this.globalState.availablePowerUps > 0) {
+
                 let randVal = this.globalState.getRandomInt(2);
                 if (randVal === 0) {
+
                     this.dropPowerUp(Math.floor(b.x), Math.floor(b.y));
                     this.globalState.availablePowerUps--;
                 }
@@ -245,14 +242,8 @@ export default class TutorialScene extends Phaser.Scene {
         // const randVal = this.globalState.getRandomInt(5);
         // if(randVal > 2){
             this.bomb = this.physics.add.image(x,y,'bomb');
-            
             this.globalState.availablePowerUps--;
             this.globalState.ammo = 2;
         // }
-
-       
-        
     }
-    
-
 }
