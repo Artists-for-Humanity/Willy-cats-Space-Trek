@@ -22,7 +22,9 @@ export default class TutorialScene extends Phaser.Scene {
         this.player;
         this.scoreText;
         this.healthText;
-        this.powerUp = [];
+        this.bomb;
+        this.ammo = 0;
+
     }
 
     preload() {
@@ -33,36 +35,47 @@ export default class TutorialScene extends Phaser.Scene {
         //bullets
         this.load.image('projectile', new URL('../../assets/projectile.png',
             import.meta.url).href);
+        //powerup
+        this.load.image('bomb', new URL('../../assets/Bomb_icon.png',
+        import.meta.url).href);
+
+
     }
 
     create() {
+        //INITIALIZING GAME RULES AND SPAWNING STUFF
         this.globalState.addUIBorder(this.scene.getIndex(this.key));
         this.l1bg = this.add.sprite(this.game.config.width / 2, this.game.config.height / 2 + 25, 'L1');
         this.borders = this.physics.add.staticGroup();
-
         this.player = new Player(this, 1000, 380);
         this.SpawnEnemy();
-        this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
-        this.projectileImg.visible = false;
-        //HEALTH YARN
+
+        //HEALTH & UI
         this.globalState.clearHealth();
         this.globalState.initializeHealth(this.scene.getIndex(this.key));
-        
         this.healthText = this.add.text(160, 12, '')
         this.scoreText = this.add.text(16, 12, '')
-
         this.setHealthText();
         this.globalState.resetScore();
         this.setScoreText();
 
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
         this.projectileImg.visible = false;
-        
         this.globalState.setAvailablePowerUps(1);
     }
 
     update(time, delta) {
         this.globalState.animateHealth();
+        if (this.bomb) {
+            this.physics.add.overlap(this.player, this.bomb, () => {
+                this.ammo = 2;
+                this.bomb.destroy();
+            });
+        }
+        if (this.ammo > 0) {
+            this.projectileImg.setScale(2);
+        } else this.projectileImg.setScale(1);
+
         this.iFramesTime += delta;
         this.timer();
         this.enemyBulletCollision();
@@ -142,9 +155,10 @@ export default class TutorialScene extends Phaser.Scene {
         this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
             b.destroyAliens();
             if (this.globalState.availablePowerUps > 0) {
-                let randVal = this.globalState.getRandomInt(10);
-                if ( randVal === 0) {
-                    console.log(randVal);
+
+                let randVal = this.globalState.getRandomInt(2);
+                if (randVal === 0) {
+
                     this.dropPowerUp(Math.floor(b.x), Math.floor(b.y));
                     this.globalState.availablePowerUps--;
                 }
@@ -202,6 +216,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.projectileImg.y = this.player.y;
         this.physics.moveTo(this.projectileImg, this.game.input.mousePointer.x,
             this.game.input.mousePointer.y, 500);
+
     }
 
     resetProjectile() {
@@ -212,6 +227,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.projectileImg.setVelocityY(0);
         this.projectileImg.visible = false;
         this.projectileImg.disableBody(true, true);
+        this.ammo--;
     }
 
     resetGame() {
@@ -222,6 +238,12 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     dropPowerUp(x, y) {
-        console.log(x, y);
+        console.log(x, y , 'drop');
+        // const randVal = this.globalState.getRandomInt(5);
+        // if(randVal > 2){
+            this.bomb = this.physics.add.image(x,y,'bomb');
+            this.globalState.availablePowerUps--;
+            this.globalState.ammo = 2;
+        // }
     }
 }
