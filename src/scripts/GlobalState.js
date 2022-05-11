@@ -9,6 +9,22 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.fish = 0
     this.healthslots = [];
     this.slotnum = 3;
+    this.regen = 1;
+    this.availablePowerUps;
+    this.bombsize = 1;
+    this.boomgun = false; 
+  }
+  moreRegen(){
+    this.regen++;
+    
+  }
+
+  setAvailablePowerUps(num) {
+    this.availablePowerUps = num;
+  }
+
+  getRandomInt(max) {
+    return Math.floor(Math.random() * max);
   }
 
   decreaseHealth() {

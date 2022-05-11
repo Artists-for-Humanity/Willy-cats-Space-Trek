@@ -24,6 +24,11 @@ export default class TutorialScene extends Phaser.Scene {
         this.iFrames = false;
         this.iFramesTime = 0;
         this.scale = 1;
+        this.player;
+        this.scoreText;
+        this.healthText;
+        this.powerUp = [];
+        this.bomb;
     }
 
     preload() {
@@ -34,6 +39,11 @@ export default class TutorialScene extends Phaser.Scene {
         //bullets
         this.load.image('projectile', new URL('../../assets/projectile.png',
             import.meta.url).href);
+        //powerup
+        this.load.image('bomb', new URL('../../assets/Bomb_icon.png',
+        import.meta.url).href);
+
+
     }
 
     create() {
@@ -43,8 +53,7 @@ export default class TutorialScene extends Phaser.Scene {
 
         this.player = new Player(this, 1000, 380);
         this.SpawnEnemy();
-        this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
-        this.projectileImg.visible = false;
+
         //HEALTH YARN
         this.globalState.clearHealth();
         this.globalState.initializeHealth(this.scene.getIndex(this.key));
@@ -62,6 +71,16 @@ export default class TutorialScene extends Phaser.Scene {
 
     update(time, delta) {
         this.globalState.animateHealth();
+        if (this.bomb) {
+            this.physics .add.overlap(this.player, this.bomb, () => {
+                this.globalState.boomgun = true; 
+                if (this.globalState.boomgun === true){
+                    this.globalState.bombsize += 1;
+                    this.projectileImg.setScale(this.globalState.bombsize)
+                }
+                this.bomb.destroy()
+            });
+        }
         this.iFramesTime += delta;
         this.timer();
         this.enemyBulletCollision();
@@ -140,6 +159,14 @@ export default class TutorialScene extends Phaser.Scene {
     enemyBulletCollision() {
         this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
             b.destroyAliens();
+            if (this.globalState.availablePowerUps > 0) {
+                let randVal = this.globalState.getRandomInt(2);
+                if ( randVal === 0) {
+                    console.log(randVal);
+                    this.dropPowerUp(Math.floor(b.x), Math.floor(b.y));
+                    this.globalState.availablePowerUps--;
+                }
+            }
             this.resetProjectile();
             this.globalState.incrementScore();
             this.setScoreText();
@@ -211,4 +238,19 @@ export default class TutorialScene extends Phaser.Scene {
         this.deadThings = 0;
         this.globalState.clearHealth();
     }
+
+    dropPowerUp(x, y) {
+        console.log(x, y , 'drop');
+        // const randVal = this.globalState.getRandomInt(5);
+        // if(randVal > 2){
+            this.bomb = this.physics.add.image( x,y,'bomb');
+            
+            this.globalState.availablePowerUps--;
+        // }
+
+       
+        
+    }
+    
+
 }
