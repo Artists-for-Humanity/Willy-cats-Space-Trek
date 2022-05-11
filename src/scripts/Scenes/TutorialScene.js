@@ -72,7 +72,7 @@ export default class TutorialScene extends Phaser.Scene {
     update(time, delta) {
         this.globalState.animateHealth();
         if (this.bomb) {
-            this.physics .add.overlap(this.player, this.bomb, () => {
+            this.physics.add.overlap(this.player, this.bomb, () => {
                 this.globalState.boomgun = true; 
                 if (this.globalState.boomgun === true){
                     this.globalState.bombsize += 1;
