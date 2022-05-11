@@ -11,12 +11,12 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.slotnum = 3;
     this.regen = 1;
     this.availablePowerUps;
-    this.bombsize = 1;
-    this.boomgun = false; 
+    this.boomgun = false;
   }
+
+
   moreRegen(){
-    this.regen++;
-    
+    this.regen++;  
   }
 
   setAvailablePowerUps(num) {
@@ -37,10 +37,6 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
 
   incrementScore() {
     this.score++;
-  }
-
-  lives(){
-    return this.health;
   }
 
   resetScore() {
