@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
-import GlobalState from '../GlobalState';
 import {
   colors
 } from '../constants';
+import Player from '../Sprites/Player';
 export default class ShopScene extends Phaser.Scene {
   
   constructor() {
@@ -11,7 +11,7 @@ export default class ShopScene extends Phaser.Scene {
 
 
     });
-
+    this.speedcard;
     this.interact = false;
     this.iter = 0;
 
@@ -64,43 +64,46 @@ export default class ShopScene extends Phaser.Scene {
 
     this.bandage = this.physics.add.sprite(575, 170, 'Bandage').setScale(4, 4).setOrigin(0)
     this.bomb = this.physics.add.sprite(575, 330, 'Bomb').setScale(4, 4).setOrigin(0)
-    this.boots = this.physics.add.sprite(575,490, 'speed').setScale(4,4).setOrigin(0)
+    this.boots = this.physics.add.sprite(575,490, 'speed').setScale(4,4).
+    this.bleed = this.physics.add.sprite(575,650, 'bleed').setScale(4,4).setOrigin(0)
+    this.shield = this.physics.add.sprite(575,810, 'shield').setScale(4,4).setOrigin(0)
+
+
     console.log('You should see me');
     //masking objects
     this.bandage.setMask(this.mask);
     this.bomb.setMask(this.mask);
     this.boots.setMask(this.mask);
+    this.bleed.setMask(this.mask);
+    this.shield.setMask(this.mask);
 
     //scroll thingy
     this.zone = this.add.zone(450,155, 400, 400).setOrigin(0).setInteractive();
 
     this.zone.on('pointermove', (pointer) => {
-
+      
       if (pointer.isDown)
       {
-          this.bandage.y += (pointer.velocity.y / 8);
-          this.bomb.y += (pointer.velocity.y / 8);
-          this.boots.y += (pointer.velocity.y/8);
+          this.bandage.y += (pointer.velocity.y / 4);
+          this.bomb.y += (pointer.velocity.y / 4);
+          this.boots.y += (pointer.velocity.y/4);
+          this.bleed.y += (pointer.velocity.y/4);
+          this.shield.y += (pointer.velocity.y/4);
+          
           
         }
     
   });
 
 
-  let rect = this.add.rectangle(450, 155, 400, 400).setOrigin(0);
-  rect.setStrokeStyle(6, '#000000');
+  // let rect = this.add.rectangle(450, 155, 400, 400).setOrigin(0);
+  // rect.setStrokeStyle(6, '#000000');
 
   }
 
   update() {
     this.globalState.animateHealth();
-    // console.log(this.image)
-    // var halfHeight = this.InvBG.texture.source[0].height / 2;
-    // var quarterHeight = halfHeight / 2;
-    // this.cam1.scrollY = (halfHeight - quarterHeight + (Math.sin(this.iter) * quarterHeight))|0;
-    // this.iter += 0.02;
-
-    // this.scrolling();
+   
   }
 
   scrolling() {
@@ -112,5 +115,9 @@ export default class ShopScene extends Phaser.Scene {
       this.cam1.scrollY += 1;
     }
   }
-
+  SpeedCard(){
+    console.log('speed++');
+    // this.speedcard = this.add.text( 213,450,'upgrade speed');
+  }
+  
 }
