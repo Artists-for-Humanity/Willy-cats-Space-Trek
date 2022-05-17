@@ -64,8 +64,8 @@ export default class ShopScene extends Phaser.Scene {
 
     this.bandage = this.physics.add.sprite(575, 170, 'Bandage').setScale(4, 4).setOrigin(0)
     this.bomb = this.physics.add.sprite(575, 330, 'Bomb').setScale(4, 4).setOrigin(0)
-    this.boots = this.physics.add.sprite(575,490, 'speed').setScale(4,4).
-    this.bleed = this.physics.add.sprite(575,650, 'bleed').setScale(4,4).setOrigin(0)
+    this.boots = this.physics.add.sprite(575,490, 'speed').setScale(4,4).setOrigin(0)
+    this.bleed = this.physics.add.image(575,650, 'bleed').setScale(4,4).setOrigin(0)
     this.shield = this.physics.add.sprite(575,810, 'shield').setScale(4,4).setOrigin(0)
 
 
