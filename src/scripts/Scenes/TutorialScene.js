@@ -24,6 +24,8 @@ export default class TutorialScene extends Phaser.Scene {
         this.healthText;
         this.bomb;
         this.ammo = 0;
+        // this.rails = 2;
+        // this.rail;
 
     }
 
@@ -65,6 +67,23 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     update(time, delta) {
+        // if (this.player.q.isDown && this.rails > 0) {
+        //     this.rail = this.add.graphics();
+        //     this.rail.lineBetween(this.player.x, this.player.y, this.game.input.mousePointer.x, this.game.input.mousePointer.y);
+        //     this.rail.lineStyle(200, 0xA020F0);
+        //     this.rails--;
+        //     this.physics.add.overlap(this.rail, this.enemies, (a, b) => {
+        //         b.destroyAliens();
+        //     });
+        //     setTimeout(this.breakRailGun
+        //         , 1000, this.rail);
+        //     console.log('rail');
+        // }
+
+        if (this.game.input.mousePointer.isDown) {
+            this.physics.moveTo(this.projectileImg, this.game.input.mousePointer.x,
+                this.game.input.mousePointer.y, 500);
+        }
         if (this.projectileState === "fire") {
             if (this.player.space.isDown && this.player.tp) {
                 this.player.copyPosition(this.projectileImg);
@@ -183,7 +202,6 @@ export default class TutorialScene extends Phaser.Scene {
                 this.globalState.decreaseHealth();
                 this.setHealthText();
                 this.iFrames = true;
-
                 this.iFramesTime = 0;
             }
             if (this.iFrames === true && this.iFramesTime > 1000) {
@@ -241,6 +259,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.numEnemy = 6;
         this.deadThings = 0;
         this.globalState.clearHealth();
+        // this.rails = 2;
     }
 
     dropPowerUp(x, y) {
@@ -252,4 +271,9 @@ export default class TutorialScene extends Phaser.Scene {
             this.globalState.ammo = 2;
         // }
     }
+
+    // breakRailGun(x) {
+    //     x.destroy();
+    //     this.rails--;
+    // }
 }
