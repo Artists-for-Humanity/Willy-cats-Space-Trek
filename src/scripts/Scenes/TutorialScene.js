@@ -42,8 +42,10 @@ export default class TutorialScene extends Phaser.Scene {
         //bullets
         this.load.image('projectile', new URL('../../assets/projectile.png',
             import.meta.url).href);
-        //powerups
-        this.load.image('bomb', new URL('../../assets/Bomb_icon.png',
+
+        //powerup
+        this.load.image('bomb', new URL('../../assets/Bomb_Icon.png',
+
         import.meta.url).href);
     
         this.load.image('speed', new URL('../../assets/Boots.png',
