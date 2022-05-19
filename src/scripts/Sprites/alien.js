@@ -7,6 +7,7 @@ export default class alien extends Phaser.Physics.Arcade.Sprite {
     scene.physics.world.enableBody(this);
     this.setCollideWorldBounds(true);
     this.running = false;
+    this.alienHP = 3;
   }
 
   //movement ai for the enemies
