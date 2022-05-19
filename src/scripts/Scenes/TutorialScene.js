@@ -96,6 +96,11 @@ export default class TutorialScene extends Phaser.Scene {
             }
         }
 
+        if (this.game.input.mousePointer.isDown) {
+            this.physics.moveTo(this.projectileImg, this.game.input.mousePointer.x,
+                 this.game.input.mousePointer.y, 500);
+        }
+
         //bomb powerup
         if (this.bomb) {
             this.physics.add.overlap(this.player, this.bomb, () => {
@@ -303,40 +308,36 @@ export default class TutorialScene extends Phaser.Scene {
         this.deadThings = 0;
         this.player.playerSpeed = 5;
         this.globalState.clearHealth();
+        this.bleedToggle = false;
     }
 
     dropPowerUp(x, y) {
         console.log(x, y , 'drop');
         const randVal = this.globalState.getRandomInt(1);
-        // if (randVal === 0){
-        //     //bomb
-        //     // console.log('bomb')
-        //     this.bomb = this.physics.add.image(x,y,'bomb');
-        //     this.globalState.availablePowerUps--;
-        //     this.globalState.ammo = 2;
-        //  }
         if (randVal === 0){
+            //bomb
+            this.bomb = this.physics.add.image(x, y, 'bomb');
+            this.globalState.availablePowerUps--;
+            this.globalState.ammo = 2;
+         }
+        if (randVal === 1){
             //bleed
-            // console.log('bleed');
-            this.bleed = this.physics.add.image(x,y, 'bleed');
+            this.bleed = this.physics.add.image(x , y, 'bleed');
         }
-        // if (randVal === 2){
-        //     //speed
-        //     // console.log('speed');
-        //     this.speed = this.physics.add.image(x,y, 'speed');
+        if (randVal === 2){
+            //speed
+            this.speed = this.physics.add.image(x, y, 'speed');
 
-        // }
-        // if (randVal === 3){
-        //     //evil force field
-        //     // console.log('eff');
-        //     this.eff = this.physics.add.image(x,y, 'eff');
+        }
+        if (randVal === 3){
+            //evil force field
+            this.eff = this.physics.add.image(x, y, 'eff');
 
-        // }
-        // if (randVal === 4){
-        //     //bandage (heal)
-        //     // console.log('heals');
-        //     this.heals = this.physics.add.image(x,y, 'heals');
+        }
+        if (randVal === 4){
+            //bandage (heal)
+            this.heals = this.physics.add.image(x, y, 'heals');
 
-        // }
+        }
     }
 }
