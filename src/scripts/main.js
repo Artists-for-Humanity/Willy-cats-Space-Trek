@@ -5,11 +5,10 @@ import BunkerScene from './Scenes/BunkerScene';
 import GlobalState from './GlobalState';
 import TutorialScene from './Scenes/TutorialScene';
 import GameRule from './GameRule';
-import BunkerScene from './Scenes/BunkerScene';
 import MapScene from './Scenes/MapScene';
 import LevelClear from './Scenes/LevelClear';
 import GameOver from './Scenes/gameOver';
-import ShopScene from './Scenes/shopScene';
+import ShopScene from './Scenes/ShopScene';
 
 // Set configuration for phaser game instance
 const config = {

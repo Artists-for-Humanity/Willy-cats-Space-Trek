@@ -1,4 +1,4 @@
-import Phaser, { Physics } from 'phaser';
+import Phaser from 'phaser';
 
 export default class alien extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
