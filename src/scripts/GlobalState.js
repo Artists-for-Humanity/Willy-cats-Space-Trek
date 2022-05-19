@@ -26,7 +26,7 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
   }
 
   decreaseHealth() {
-      this.health--;
+      this.health --;
   }
 
   resetHealth() {
