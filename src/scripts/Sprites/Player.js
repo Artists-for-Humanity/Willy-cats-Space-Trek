@@ -18,6 +18,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.down = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.right = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.space = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.q = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
     this.playerSpeed = 5;
     this.tp = tp;
     return this;
