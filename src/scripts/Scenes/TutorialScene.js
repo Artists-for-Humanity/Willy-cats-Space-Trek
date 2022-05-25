@@ -138,7 +138,14 @@ export default class TutorialScene extends Phaser.Scene {
         this.enemies.map((enemy) => {
             enemy.update();
         });
-
+        
+        //heals power up
+        if (this.heals){
+            this.physics.add.overlap(this.player, this.heals, ()=> {
+                this.heals.destroy();
+                this.globalState.heal();
+            })
+        }
         this.input.on('pointerdown', pointer => {
             if (this.projectileState == 'ready') {
                 this.fireProjectile();
@@ -315,7 +322,7 @@ export default class TutorialScene extends Phaser.Scene {
 
     dropPowerUp(x, y) {
         console.log(x, y , 'drop');
-        const randVal = this.globalState.getRandomInt(1);
+        const randVal = this.globalState.getRandomInt(5);
         if (randVal === 0){
             //bomb
             this.bomb = this.physics.add.image(x, y, 'bomb');

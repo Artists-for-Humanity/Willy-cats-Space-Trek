@@ -13,7 +13,11 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.availablePowerUps;
   }
    
-   moreRegen(){
+  heal(){
+    this.health += this.regen;
+  }
+
+  moreRegen(){
     this.regen++;
   }
 
