@@ -89,11 +89,9 @@ export default class ShopScene extends Phaser.Scene {
     this.bleed.setMask(this.mask);
     this.shield.setMask(this.mask);
   }    
-
-
   update() {
     this.globalState.animateHealth();
-//navigating the menu(scrolling)
+  //navigating the menu(scrolling)
     if (this.cursors.up.isDown)
       {
       console.log('im moving up')
@@ -112,7 +110,7 @@ export default class ShopScene extends Phaser.Scene {
       this.bleed.y += 4
       this.shield.y += 4   
    }
-//making the descriptions
+  //making the descriptions
    //bandage card
    if (this.Displaynum === 1){
       this.description = this.add.image(250, 360, 'ItemDesc').setScale(.80);
@@ -173,7 +171,6 @@ export default class ShopScene extends Phaser.Scene {
         console.log('eff')
       });
       }
-
     }  
 
 
@@ -186,9 +183,4 @@ export default class ShopScene extends Phaser.Scene {
       this.cam1.scrollY += 6;
     }
   }
-  SpeedCard(){
-    console.log('speed++');
-    // this.speedcard = this.add.text( 213,450,'upgrade speed');
-  }
-  
 }
