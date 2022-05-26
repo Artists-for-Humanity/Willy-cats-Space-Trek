@@ -90,7 +90,6 @@ export default class ShopScene extends Phaser.Scene {
     this.shield.setMask(this.mask);
   }    
 
-          this.bandage.y += (pointer.velocity.y / 4);
 
   update() {
     this.globalState.animateHealth();
