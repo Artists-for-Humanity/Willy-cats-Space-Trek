@@ -10,7 +10,7 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.healthslots = [];
     this.slotnum = 3;
     this.regen = 1;
-    this.HealPrice = 1; 
+    this.HealPrice = 1;
     this.bombPrice = 2;
     this.SpeedLimit = 5000;
     this.SpeedLimPrice = 3;
@@ -18,12 +18,12 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.effPrice = 5;
     this.availablePowerUps;
   }
-   
-  heal(){
+
+  heal() {
     this.health += this.regen;
   }
 
-  moreRegen(){
+  moreRegen() {
     this.regen++;
   }
 
@@ -36,11 +36,11 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
   }
 
   decreaseHealth() {
-      this.health --;
+    this.health--;
   }
 
   resetHealth() {
-      this.health = 9;   
+    this.health = 9;
   }
 
   incrementScore() {
@@ -51,7 +51,7 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.score = 0;
   }
 
-  morefish(){
+  morefish() {
     this.fish++;
   }
 
@@ -80,6 +80,9 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
   addUIBorder(sceneNum) {
     let rect = this.pluginManager.game.scene.scenes[sceneNum].add.rectangle(640, 25, 1280, 50);
     rect.setStrokeStyle(6, '#000000');
+  }
+  inflation(price) {
+    price *= 2;
   }
 }
 
