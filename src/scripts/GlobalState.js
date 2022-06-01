@@ -10,13 +10,14 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.healthslots = [];
     this.slotnum = 3;
     this.regen = 1;
-    this.HealPrice = 1;
-    this.bombPrice = 2;
-    this.SpeedLimit = 5000;
-    this.SpeedLimPrice = 3;
-    this.bleedPrice = 4;
-    this.effPrice = 5;
+    this.price1 = 3;
+    this.price2 = 3;
+    this.price3 = 3;
+    this.price4 = 3;
+    this.price5 = 3;
+
     this.availablePowerUps;
+
   }
 
   heal() {
@@ -81,8 +82,8 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     let rect = this.pluginManager.game.scene.scenes[sceneNum].add.rectangle(640, 25, 1280, 50);
     rect.setStrokeStyle(6, '#000000');
   }
-  inflation(price) {
-    price *= 2;
+  inflation() {
+    this.price *= 2;
   }
 }
 

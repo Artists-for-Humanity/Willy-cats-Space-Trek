@@ -47,6 +47,7 @@ export default class ShopScene extends Phaser.Scene {
     this.XBtn = this.add.image(900, 200, 'XBtn')
     this.XBtn.setInteractive();
     this.XBtn.on('pointerdown', () => {
+      this.Displaynum = 0;
       this.scene.start('BunkerScene');
     });
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -115,18 +116,18 @@ export default class ShopScene extends Phaser.Scene {
     this.globalState.animateHealth();
     //navigating the menu(scrolling)
     if (this.cursors.up.isDown) {
-      this.bandage.y -= 4
-      this.bomb.y -= 4
-      this.boots.y -= 4
-      this.bleed.y -= 4
-      this.shield.y -= 4
+      this.bandage.y -= 7
+      this.bomb.y -= 7
+      this.boots.y -= 7
+      this.bleed.y -= 7
+      this.shield.y -= 7
     }
     if (this.cursors.down.isDown) {
-      this.bandage.y += 4
-      this.bomb.y += 4
-      this.boots.y += 4
-      this.bleed.y += 4
-      this.shield.y += 4
+      this.bandage.y += 7
+      this.bomb.y += 7
+      this.boots.y += 7
+      this.bleed.y += 7
+      this.shield.y += 7
     }
     //making the descriptions
     //bandage card
@@ -137,53 +138,24 @@ export default class ShopScene extends Phaser.Scene {
       this.descCost && this.descCost.destroy();
 
       if (this.Displaynum === 1) {
-        this.displaySection('more Regen', this.globalState.HealPrice, 'Bandage', () => {
-          if (this.fish >= this.globalState.HealPrice) {
-            this.fish -= this.globalState.HealPrice;
-            this.globalState.inflation(this.globalState.HealsPrice);
-          }
-        });
+        this.printHeal();
       }
       //bomb card
       if (this.Displaynum === 2) {
-        this.displaySection('more ammunition', this.globalState.bombPrice, 'Bomb', () => {
-          if (this.fish >= this.globalState.bombPrice) {
-            this.fish -= this.globalState.bombPrice;
-            this.globalState.bombPrice *= 2;
-            //filler code
-          }
-        });
+        this.printBomb();
       }
       //speedcard
       if (this.Displaynum === 3) {
-        this.displaySection('more time', this.globalState.SpeedLimPrice, 'speed', () => {
-          if (this.fish >= this.globalState.bombPrice) {
-            this.fish -= this.globalState.SpeedLimPrice;
-            this.globalState.SpeedLimPrice *= 2
-            //filler code
-          }
-        });
+        this.printSpeed();
       }
       //bleedcard
       if (this.Displaynum === 4) {
-        this.displaySection('more bleed damage', this.globalState.bleedPrice, 'bleed', () => {
-          if (this.fish >= this.globalState.bleedPrice) {
-            this.fish -= this.globalState.bleedPrice;
-            this.globalState.bleedPrice *= 2
-            //upgrade bleed time or dmg or somth
-          }
-        });
+        this.printBleed();
       }
 
       //effcard
       if (this.Displaynum === 5) {
-        this.displaySection('More Duration', this.globalState.effPrice, 'shield', () => {
-          if (this.fish >= this.globalState.bleedPrice) {
-            this.fish -= this.globalState.effprice;
-            this.globalState.effprice *= 2
-
-          }
-        });
+        this.printEff();
       }
       this.DisplaynumPrev = this.Displaynum;
     }
@@ -197,5 +169,61 @@ export default class ShopScene extends Phaser.Scene {
     if (this.cursors.down.isDown) {
       this.cam1.scrollY += 6;
     }
+  }
+
+  printHeal() {
+    this.displaySection('more Regen', this.globalState.price1, 'Bandage', () => {
+      if (this.globalState.fish >= this.globalState.price1) {
+        console.log('money')
+        this.globalState.fish -= this.globalState.price1;
+        this.globalState.price1 *= 2;
+        this.printbleed();
+        //filler code
+      }
+    });
+  }
+
+  printBomb() {
+    this.displaySection('more ammunition', this.globalState.price2, 'Bomb', () => {
+      if (this.globalState.fish >= this.globalState.price2) {
+        this.globalState.fish -= this.globalState.price2;
+        this.globalState.price2 *= 2;
+        this.printBomb();
+        //filler code
+      }
+    });
+  }
+
+  printSpeed() {
+    this.displaySection('more time', this.globalState.price3, 'speed', () => {
+      if (this.globalState.fish >= this.globalState.price3) {
+        this.globalState.fish -= this.globalState.price3;
+        this.globalState.price3 *= 2
+        this.printSpeed();
+        //fillercode
+      }
+    });
+  }
+
+  printBleed() {
+    this.displaySection('more bleed damage', this.globalState.price4, 'bleed', () => {
+      if (this.globalState.fish >= this.globalState.price4) {
+        this.globalState.fish -= this.globalState.price4;
+        this.globalState.price4 *= 2
+        this.printbleed();
+        //upgrade bleed time or dmg or somth
+      }
+    });
+  }
+
+  printEff() {
+    this.displaySection('More Duration', this.globalState.price5, 'shield', () => {
+      if (this.globalState.fish >= this.globalState.price5) {
+        this.globalState.fish -= this.globalState.price5;
+        this.globalState.price5 *= 2
+        this.printEff();
+        //filler code
+      }
+    });
   }
 }
