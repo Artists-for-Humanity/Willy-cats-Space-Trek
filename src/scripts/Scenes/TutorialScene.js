@@ -185,9 +185,9 @@ export default class TutorialScene extends Phaser.Scene {
 
     setScoreText() {
         this.scoreText.setStyle({
-            fontFamily: 'Space Mono',
-            fontSize: '24px',
-            fontStyle: 'bold',
+            // fontFamily: '',
+            fontSize: '25px',
+            // fontStyle: 'bold',
             fill: colors.black,
             align: 'center',
         });
@@ -196,9 +196,9 @@ export default class TutorialScene extends Phaser.Scene {
 
     setHealthText() {
         this.healthText.setStyle({
-            fontFamily: 'Space Mono',
-            fontSize: '24px',
-            fontStyle: 'bold',
+            // fontFamily: '',
+            fontSize: '25px',
+            // fontStyle: 'bold',
             fill: colors.black,
             align: 'center',
         });
