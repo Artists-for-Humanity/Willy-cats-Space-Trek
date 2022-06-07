@@ -27,6 +27,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.speed;
         this.heals;
         this.eff;
+        this.bleedcount = 0;
         this.bleed;
         this.ammo = 0;
         this.bleedToggle = false;
@@ -93,8 +94,8 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     update(time, delta) {
-        this.globalState.animateHealth();
 
+        this.globalState.animateHealth();
         if (this.player.q.isDown) {
             setTimeout(this.qPressed(), Phaser.Timer.SECOND * 3);
         }
@@ -137,9 +138,10 @@ export default class TutorialScene extends Phaser.Scene {
             this.physics.add.overlap(this.player, this.bleed, () => {
                 this.bleed.destroy();
                 this.bleedToggle = true;
-            })
+            });
         }
 
+        //eff functiion
         if (this.eff) {
             this.physics.add.overlap(this.player, this.eff, () => {
                 this.eff.destroy();
@@ -147,7 +149,6 @@ export default class TutorialScene extends Phaser.Scene {
             })
         }
 
-        // this.bleedCD += delta;
         this.iFramestime += delta;
         this.enemyCollision();
         this.enemyBulletCollision();
@@ -170,7 +171,7 @@ export default class TutorialScene extends Phaser.Scene {
             if (this.projectileImg.y <= 25 || this.projectileImg.y >= 695 || this.projectileImg.x <= 25 || this.projectileImg.x >= 1255) {
                 this.resetProjectile();
             }
-        })
+        });
 
         if (this.deadThings === this.numEnemy) {
             console.log(this.globalState.fish, 'fish')
@@ -232,19 +233,15 @@ export default class TutorialScene extends Phaser.Scene {
 
     enemyBulletCollision() {
         this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
-            b.alienHP -= 1;
-            this.globalState.bombHP -= 0.5;
+            b.alienHP -= this.globalState.bulletDMG;
+            this.globalState.bombHP -= 1;
             if (this.bleedToggle === true) {
-                const bleedchance = this.globalState.getRandomInt(1)
+                const bleedchance = this.globalState.getRandomInt(this.bleedcount)
+                console.log(bleedchance, 'bleedchance');
                 if (bleedchance === 0) {
-                    let a = false;
-                    if (a === false) {
-                        b.alienHP -= .5;
-                        a = true;
-                    }
-                    if (a === true && this.bleedCD > 0)
-                        this.bleedCD -= 1000;
-                    a = false;
+                    b.alienHP -= this.globalState.bleedDmg;
+                    this.bleedcount++;
+                    console.log('bleed');
                 }
             }
             if (b.alienHP <= 0) {
@@ -318,7 +315,6 @@ export default class TutorialScene extends Phaser.Scene {
             this.game.input.mousePointer.y, 500);
 
     }
-
     resetProjectile() {
         if (this.projectileState === 'ready') {
             return;
@@ -329,7 +325,6 @@ export default class TutorialScene extends Phaser.Scene {
         this.projectileImg.disableBody(true, true);
         this.ammo--;
     }
-
     resetGame() {
         this.enemies = [];
         this.numEnemy = 6;
@@ -337,18 +332,18 @@ export default class TutorialScene extends Phaser.Scene {
         this.player.playerSpeed = 5;
         this.globalState.clearHealth();
         this.bleedToggle = false;
+        this.bleedcount = 0;
     }
-
     dropPowerUp(x, y) {
         console.log(x, y, 'drop');
-        const randVal = this.globalState.getRandomInt(5);
-        if (randVal === 0) {
+        const randVal = this.globalState.getRandomInt(0);
+        if (randVal === 1) {
             //bomb
             this.bomb = this.physics.add.image(x, y, 'bomb');
             this.globalState.availablePowerUps--;
             this.globalState.ammo = 2;
         }
-        if (randVal === 1) {
+        if (randVal === 0) {
             //bleed
             this.bleed = this.physics.add.image(x, y, 'bleed');
         }
@@ -368,7 +363,6 @@ export default class TutorialScene extends Phaser.Scene {
 
         }
     }
-
     iFramesTimer() {
         if (this.iFrames === false) {
             this.globalState.decreaseHealth();
@@ -381,9 +375,5 @@ export default class TutorialScene extends Phaser.Scene {
             this.iFrames = false;
         }
         return;
-    }
-
-    qPressed() {
-        console.log('q');
     }
 }
