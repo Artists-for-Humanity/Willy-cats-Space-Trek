@@ -6,6 +6,7 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     super(pluginManager);
     this.score = 0;
     this.health = 9;
+    this.endlessWave = 1;
     this.fish = 0
     this.healthslots = [];
     this.slotnum = 3;
