@@ -9,6 +9,7 @@ import MapScene from './Scenes/MapScene';
 import LevelClear from './Scenes/LevelClear';
 import GameOver from './Scenes/gameOver';
 import ShopScene from './Scenes/ShopScene';
+import EndlessScene from './Scenes/EndlessScene';
 
 // Set configuration for phaser game instance
 const config = {
@@ -27,7 +28,7 @@ const config = {
       debug: true,
     },
   },
-  scene: [MenuScene, BunkerScene, TutorialScene, LevelClear, GameOver, MapScene, ShopScene],
+  scene: [MenuScene, BunkerScene, TutorialScene, LevelClear, GameOver, MapScene, ShopScene, EndlessScene],
   audio: {
     disableWebAudio: true,
   },
