@@ -36,9 +36,7 @@ export default class ShopScene extends Phaser.Scene {
     this.load.image('UpBtn', new URL('../../assets/UpBtnIcon.png',
       import.meta.url).href);
     this.load.image('zerobtn', new URL('../../assets/Willy_Death.png',
-      import.meta.url).href);
-    this.load.image('bullet', new URL('../../assets/bulletIcon.png',
-      import.meta.url).href);
+      import.meta.url).href)
   }
 
   create() {
@@ -92,18 +90,12 @@ export default class ShopScene extends Phaser.Scene {
       .on('pointerdown', () => {
         this.Displaynum = 5;
       });
-    this.bullet = this.physics.add.sprite(575, 970, 'bullet').setScale(4, 4).setOrigin(0).setInteractive({
-      useHandCursor: true
-    }).on('pointerdown', () => {
-      this.Displaynum = 6;
-    })
     //masking objects
     this.bandage.setMask(this.mask);
     this.bomb.setMask(this.mask);
     this.boots.setMask(this.mask);
     this.bleed.setMask(this.mask);
     this.shield.setMask(this.mask);
-    this.bullet.setMask(this.mask);
   }
 
   displaySection(description, cost, image, callback) {
@@ -129,8 +121,6 @@ export default class ShopScene extends Phaser.Scene {
       this.boots.y -= 7
       this.bleed.y -= 7
       this.shield.y -= 7
-      this.bullet.y -= 7
-
     }
     if (this.cursors.down.isDown) {
       this.bandage.y += 7
@@ -138,7 +128,6 @@ export default class ShopScene extends Phaser.Scene {
       this.boots.y += 7
       this.bleed.y += 7
       this.shield.y += 7
-      this.bullet.y += 7
     }
     //making the descriptions
     //bandage card
@@ -168,9 +157,6 @@ export default class ShopScene extends Phaser.Scene {
       if (this.Displaynum === 5) {
         this.printEff();
       }
-      if (this.Displaynum === 6) {
-        this.printDMG();
-      }
       this.DisplaynumPrev = this.Displaynum;
     }
   }
@@ -191,8 +177,8 @@ export default class ShopScene extends Phaser.Scene {
         console.log('money')
         this.globalState.fish -= this.globalState.price1;
         this.globalState.price1 *= 2;
-        this.printHeal();
-        this.globalState.regen++;
+        this.printbleed();
+        //filler code
       }
     });
   }
@@ -203,7 +189,7 @@ export default class ShopScene extends Phaser.Scene {
         this.globalState.fish -= this.globalState.price2;
         this.globalState.price2 *= 2;
         this.printBomb();
-        this.globalState.bombHP += 1;
+        //filler code
       }
     });
   }
@@ -214,7 +200,7 @@ export default class ShopScene extends Phaser.Scene {
         this.globalState.fish -= this.globalState.price3;
         this.globalState.price3 *= 2
         this.printSpeed();
-        this.globalState.speedIter += 0.1;
+        //fillercode
       }
     });
   }
@@ -224,8 +210,8 @@ export default class ShopScene extends Phaser.Scene {
       if (this.globalState.fish >= this.globalState.price4) {
         this.globalState.fish -= this.globalState.price4;
         this.globalState.price4 *= 2
-        this.printBleed();
-        this.globalState.bleedDmg += 0.5;
+        this.printbleed();
+        //upgrade bleed time or dmg or somth
       }
     });
   }
@@ -236,19 +222,8 @@ export default class ShopScene extends Phaser.Scene {
         this.globalState.fish -= this.globalState.price5;
         this.globalState.price5 *= 2
         this.printEff();
-        this.globalState.forcefieldHealth++;
+        //filler code
       }
     });
-  }
-  printDMG() {
-    this.displaySection('deal dmg per shot', this.globalState.price6, 'bullet', () => {
-      if (this.globalState.fish >= this.globalState.price6) {
-        this.globalState.fish -= this.globalState.price6;
-        this.globalState.price6 *= 2;
-        this.printDMG();
-        this.globalState.bulletDMG *= 2;
-      }
-
-    })
   }
 }
