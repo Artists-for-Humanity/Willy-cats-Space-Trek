@@ -21,6 +21,7 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.bleedDmg = 0.5
     this.availablePowerUps;
     this.bulletDMG = 1;
+    this.forcefieldHealth = 2;
 
   }
 

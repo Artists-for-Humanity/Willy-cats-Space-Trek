@@ -32,7 +32,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.ammo = 0;
         this.bleedToggle = false;
         this.forcefield = false;
-        this.forcefieldHealth;
+
 
 
     }
@@ -273,9 +273,9 @@ export default class TutorialScene extends Phaser.Scene {
 
     enemyCollision(time, delta) {
         this.physics.add.overlap(this.player, this.enemies, (a, b) => {
-            if (this.forcefield && this.forcefieldHealth > 0) {
+            if (this.forcefield && this.globalState.forcefieldHealth > 0) {
                 b.destroyAliens();
-                this.forcefieldHealth--;
+                this.globalState.forcefieldHealth--;
                 this.deadThings += 1;
                 this.globalState.incrementScore();
                 this.setScoreText();
@@ -343,16 +343,16 @@ export default class TutorialScene extends Phaser.Scene {
             this.globalState.availablePowerUps--;
             this.globalState.ammo = 2;
         }
-        if (randVal === 0) {
+        if (randVal === 2) {
             //bleed
             this.bleed = this.physics.add.image(x, y, 'bleed');
         }
-        if (randVal === 2) {
+        if (randVal === 3) {
             //speed
             this.speed = this.physics.add.image(x, y, 'speed');
 
         }
-        if (randVal === 3) {
+        if (randVal === 0) {
             //evil force field
             this.eff = this.physics.add.image(x, y, 'eff');
 
