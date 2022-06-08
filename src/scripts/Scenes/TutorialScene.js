@@ -79,7 +79,7 @@ export default class TutorialScene extends Phaser.Scene {
         //HEALTH & UI
         this.globalState.clearHealth();
         this.globalState.initializeHealth(this.scene.getIndex(this.key));
-        this.healthText = this.add.text(160, 12, '')
+        this.healthText = this.add.text(180, 12, '')
         this.scoreText = this.add.text(16, 12, '')
         this.setHealthText();
         this.globalState.resetScore();
@@ -95,10 +95,6 @@ export default class TutorialScene extends Phaser.Scene {
 
     update(time, delta) {
 
-        this.globalState.animateHealth();
-        if (this.player.q.isDown) {
-            setTimeout(this.qPressed(), Phaser.Timer.SECOND * 3);
-        }
 
         //spacebar tp
         if (this.projectileState === "fire") {
@@ -108,6 +104,7 @@ export default class TutorialScene extends Phaser.Scene {
             }
         }
 
+        //follow mouse when down
         if (this.game.input.mousePointer.isDown) {
             this.physics.moveTo(this.projectileImg, this.game.input.mousePointer.x,
                 this.game.input.mousePointer.y, 500);
@@ -141,13 +138,25 @@ export default class TutorialScene extends Phaser.Scene {
             });
         }
 
-        //eff functiion
-        if (this.eff) {
-            this.physics.add.overlap(this.player, this.eff, () => {
+        //forcefield
+        if (this.eff){
+            this.physics.add.overlap(this.player , this.eff, ()=>{
+
                 this.eff.destroy();
                 this.forcefield = true;
             })
         }
+
+
+
+        //bandage
+        if (this.heals){
+            this.physics.overlap(this.player, this.heals, ()=> {
+                this.heals.destroy();
+                this.globalState.health++;
+            });
+        }
+
 
         this.iFramestime += delta;
         this.enemyCollision();
@@ -335,24 +344,26 @@ export default class TutorialScene extends Phaser.Scene {
         this.bleedcount = 0;
     }
     dropPowerUp(x, y) {
+
         console.log(x, y, 'drop');
         const randVal = this.globalState.getRandomInt(0);
-        if (randVal === 1) {
+        if (randVal === 0) {
+
             //bomb
             this.bomb = this.physics.add.image(x, y, 'bomb');
             this.globalState.availablePowerUps--;
             this.globalState.ammo = 2;
         }
-        if (randVal === 2) {
+        if (randVal === 1) {
             //bleed
             this.bleed = this.physics.add.image(x, y, 'bleed');
         }
-        if (randVal === 3) {
+        if (randVal === 2) {
             //speed
             this.speed = this.physics.add.image(x, y, 'speed');
 
         }
-        if (randVal === 0) {
+        if (randVal === 3) {
             //evil force field
             this.eff = this.physics.add.image(x, y, 'eff');
 

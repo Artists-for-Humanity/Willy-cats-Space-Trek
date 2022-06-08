@@ -19,8 +19,8 @@ export default class GameOver extends Phaser.Scene{
         const continueBtn = this.add.image (continueBtnX, continueBtny, 'continue')
         .setInteractive({ useHandCursor: true })
         .on('pointerdown',  () => {
-         this.scene.start('BunkerScene');
-
+            if (this.globalState.currentScene === 0) this.scene.start('BunkerScene');
+            if (this.globalState.currentScene === 1) this.scene.start('MapScene');
         })
     }
 }
