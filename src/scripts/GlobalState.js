@@ -16,8 +16,13 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.price3 = 3;
     this.price4 = 3;
     this.price5 = 3;
-
+    this.price6 = 15;
+    this.bombHP = 4;
+    this.speediter = 0.2;
+    this.bleedDmg = 0.5
     this.availablePowerUps;
+    this.bulletDMG = 1;
+    this.forcefieldHealth = 2;
 
   }
 
@@ -84,7 +89,7 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     rect.setStrokeStyle(6, '#000000');
   }
   inflation() {
-    this.price *= 2;
+    this.price *= this.price;
   }
 }
 
