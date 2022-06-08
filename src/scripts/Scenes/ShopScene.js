@@ -189,7 +189,7 @@ export default class ShopScene extends Phaser.Scene {
         this.globalState.fish -= this.globalState.price2;
         this.globalState.price2 *= 2;
         this.printBomb();
-        //filler code
+        this.globalState.bombHPvalue += 1;
       }
     });
   }
