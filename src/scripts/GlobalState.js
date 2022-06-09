@@ -16,8 +16,14 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.price3 = 3;
     this.price4 = 3;
     this.price5 = 3;
+    this.price6 = 3;
+    this.speedIter += .2
     this.bombHPvalue = 3;
     this.availablePowerUps;
+    this.bleedRNG = 0;
+    this.bleedDMG = 1;
+    this.FFHvalue = 3;
+
 
   }
 
