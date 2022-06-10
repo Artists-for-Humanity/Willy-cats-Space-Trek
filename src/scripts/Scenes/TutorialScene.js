@@ -93,6 +93,8 @@ export default class TutorialScene extends Phaser.Scene {
         this.forcefieldHealth = 2;
 
         this.physics.add.collider(this.enemies, this.enemies, () => { });
+        // this.physics.add.collider(this.enemies, this.player, () => { });
+
     }
 
     update(time, delta) {
