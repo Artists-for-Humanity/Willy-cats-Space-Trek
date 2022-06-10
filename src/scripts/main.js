@@ -25,7 +25,7 @@ const config = {
       gravity: {
         y: 0,
       },
-      debug: true,
+      debug: false,
     },
   },
   scene: [MenuScene, BunkerScene, TutorialScene, LevelClear, GameOver, MapScene, ShopScene, EndlessScene],
@@ -34,17 +34,17 @@ const config = {
   },
   plugins: {
     global: [{
-        key: 'GameRule',
-        plugin: GameRule,
-        start: false,
-        mapping: 'GameRule'
-      },
-      {
-        key: 'GlobalState',
-        plugin: GlobalState,
-        start: false,
-        mapping: 'globalState'
-      }
+      key: 'GameRule',
+      plugin: GameRule,
+      start: false,
+      mapping: 'GameRule'
+    },
+    {
+      key: 'GlobalState',
+      plugin: GlobalState,
+      start: false,
+      mapping: 'globalState'
+    }
     ],
   },
 };

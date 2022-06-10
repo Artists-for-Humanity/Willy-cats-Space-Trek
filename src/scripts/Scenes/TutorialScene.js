@@ -193,6 +193,7 @@ export default class TutorialScene extends Phaser.Scene {
 
     setBombValue() {
         this.bombHP = this.globalState.bombHPvalue;
+        // console.log('bombHP = ' + this.bombHP);
     }
 
     setScoreText() {
@@ -243,12 +244,11 @@ export default class TutorialScene extends Phaser.Scene {
 
     enemyBulletCollision() {
         this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
-            console.log(b.alienHP, 'alienhp');
-            if (this.ammo > 0) {
-                this.ammo--;
-            }
+            // console.log(b.alienHP, 'alienhp');
 
             b.alienHP -= 1;
+            // console.log('alienHP on Hit = ' + b.alienHP);
+
 
             if (this.bleedToggle === true) {
                 const bleedchance = this.globalState.getRandomInt(1)
@@ -259,8 +259,9 @@ export default class TutorialScene extends Phaser.Scene {
             }
             if (b.alienHP <= 0) {
                 b.destroyAliens();
-                console.log('destroyed');
                 this.deadThings += 1;
+                console.log('deadThings = ' + this.deadThings);
+
                 this.globalState.incrementScore();
                 this.globalState.morefish();
 
@@ -275,11 +276,16 @@ export default class TutorialScene extends Phaser.Scene {
                 }
             }
             if (this.bombHP > 0) {
-                console.log(this.bombHP, 'bombhp');
+                // console.log('bombHP on Hit = ' + this.bombHP);
+
                 this.bombHP -= 1;
             }
             if (this.bombHP === 0) {
                 this.resetProjectile();
+            }
+            if (this.ammo > 0 && this.bombHP === 0) {
+                this.ammo--;
+                // console.log('Ammo Count = ' + this.ammo);
             }
             this.setScoreText();
         });
