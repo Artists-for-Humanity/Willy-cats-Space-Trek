@@ -79,8 +79,8 @@ export default class TutorialScene extends Phaser.Scene {
         //HEALTH & UI
         this.globalState.clearHealth();
         this.globalState.initializeHealth(this.scene.getIndex(this.key));
-        this.healthText = this.add.text(180, 12, '')
-        this.scoreText = this.add.text(16, 12, '')
+        this.healthText = this.add.text(450, 12, '')
+        this.scoreText = this.add.text(300, 12, '')
         this.setHealthText();
         this.globalState.resetScore();
         this.setScoreText();
@@ -91,6 +91,8 @@ export default class TutorialScene extends Phaser.Scene {
         this.globalState.setAvailablePowerUps(1);
         this.forcefield = false;
         this.forcefieldHealth = 2;
+
+        this.physics.add.collider(this.enemies, this.enemies, () => { });
     }
 
     update(time, delta) {

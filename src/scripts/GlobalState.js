@@ -23,9 +23,14 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.bleedRNG = 0;
     this.bleedDMG = 1;
     this.FFHvalue = 3;
+    // this.text;
 
 
   }
+
+  // addText() {
+  //   this.text = this.game.add.text(100, 100, 'Hello World');
+  // }
 
   heal() {
     this.health += this.regen;
@@ -69,7 +74,7 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
 
   initializeHealth(sceneNum) {
     for (let i = 0; i < this.slotnum; i++) {
-      const health = new HealthDisplay(this.pluginManager.game.scene.scenes[sceneNum], 1200 - (65 * i), 26).setScale(1.5);
+      const health = new HealthDisplay(this.pluginManager.game.scene.scenes[sceneNum], 200 - (65 * i), 26).setScale(1.5);
       this.healthslots.push(health);
     }
   }
