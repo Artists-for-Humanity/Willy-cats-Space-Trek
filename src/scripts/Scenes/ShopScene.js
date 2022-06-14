@@ -124,18 +124,20 @@ export default class ShopScene extends Phaser.Scene {
     this.globalState.animateHealth();
     //navigating the menu(scrolling)
     if (this.cursors.up.isDown) {
-      this.bandage.y -= 7
-      this.bomb.y -= 7
-      this.boots.y -= 7
-      this.bleed.y -= 7
-      this.shield.y -= 7
+      this.bandage.y -= 7;
+      this.bomb.y -= 7;
+      this.boots.y -= 7;
+      this.bleed.y -= 7;
+      this.shield.y -= 7;
+      this.shot.y -= 7;
     }
     if (this.cursors.down.isDown) {
-      this.bandage.y += 7
-      this.bomb.y += 7
-      this.boots.y += 7
-      this.bleed.y += 7
-      this.shield.y += 7
+      this.bandage.y += 7;
+      this.bomb.y += 7;
+      this.boots.y += 7;
+      this.bleed.y += 7;
+      this.shield.y += 7;
+      this.shot.y += 7;
     }
     //making the descriptions
     //bandage card
@@ -167,7 +169,7 @@ export default class ShopScene extends Phaser.Scene {
       }
       //shotDMGcard
       if (this.Displaynum === 6) {
-        this.printShotDMG();
+        this.printShotDmg();
       }
       this.DisplaynumPrev = this.Displaynum;
     }
@@ -238,12 +240,13 @@ export default class ShopScene extends Phaser.Scene {
       }
     });
   }
-  printShotDMG() {
+  printShotDmg() {
     this.displaySection('more dmg per hit', this.globalState.price6, 'shot', () => {
       if (this.globalState.fish >= this.globalState.price6) {
         this.globalState.fish -= this.globalState.price6;
         this.globalState.price6 *= 6
-        this.shotDMG();
+        this.printShotDmg();
+        this.globalState.playerDmg += 1;
       }
     });
   }

@@ -23,6 +23,7 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.bleedRNG = 0;
     this.bleedDMG = 1;
     this.FFHvalue = 3;
+    this.playerDmg = 1;
     // this.text;
 
 

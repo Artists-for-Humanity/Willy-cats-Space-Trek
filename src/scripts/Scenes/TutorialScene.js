@@ -92,7 +92,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.forcefield = false;
         this.forcefieldHealth = 2;
 
-        this.physics.add.collider(this.enemies, this.enemies, () => { });
+        this.physics.add.collider(this.enemies, this.enemies, () => {});
         // this.physics.add.collider(this.enemies, this.player, () => { });
 
     }
@@ -250,7 +250,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
             // console.log(b.alienHP, 'alienhp');
 
-            b.alienHP -= 1;
+            b.alienHP -= this.globalState.playerDmg;
             // console.log('alienHP on Hit = ' + b.alienHP);
 
 
@@ -359,6 +359,9 @@ export default class TutorialScene extends Phaser.Scene {
         this.player.playerSpeed = 5;
         this.globalState.clearHealth();
         this.bleedToggle = false;
+        this.ammo = 0;
+        this.bombHP = 0;
+        this.forcefield = false;
     }
 
     dropPowerUp(x, y) {
