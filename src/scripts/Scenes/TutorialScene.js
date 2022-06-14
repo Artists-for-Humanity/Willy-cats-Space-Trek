@@ -69,7 +69,7 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     create() {
-        //INITIALIZING GAME RULES AND SPAWNING STUFF
+        //SPAWNING STUFF
         this.globalState.addUIBorder(this.scene.getIndex(this.key));
         this.l1bg = this.add.sprite(this.game.config.width / 2, this.game.config.height / 2 + 25, 'L1');
         this.borders = this.physics.add.staticGroup();
@@ -84,7 +84,8 @@ export default class TutorialScene extends Phaser.Scene {
         this.setHealthText();
         this.globalState.resetScore();
         this.setScoreText();
-
+        this.currencyText = this.add.text(750, 12, '')
+        this.setFishText();
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
         this.projectileImg.visible = false;
 
@@ -230,6 +231,17 @@ export default class TutorialScene extends Phaser.Scene {
         return position;
     }
 
+    setFishText() {
+        this.currencyText.setStyle({
+            // fontFamily: '',
+            fontSize: '25px',
+            // fontStyle: 'bold',
+            fill: colors.black,
+            align: 'center',
+        });
+        this.currencyText.setText(`Fish: ${this.globalState.fish}`);
+    }
+
     SpawnEnemy() {
         const enemyPosition = [];
         for (let i = 0; i < this.numEnemy; i++) {
@@ -292,6 +304,7 @@ export default class TutorialScene extends Phaser.Scene {
                 // console.log('Ammo Count = ' + this.ammo);
             }
             this.setScoreText();
+            this.setFishText();
         });
     }
 
