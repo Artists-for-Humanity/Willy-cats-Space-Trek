@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import HealthDisplay from '../scripts/Sprites/HealthDisplay';
 
-class GlobalState extends Phaser.Plugins.BasePlugin {
+class globalState extends Phaser.Plugins.BasePlugin {
   constructor(pluginManager) {
     super(pluginManager);
     this.score = 0;
@@ -22,16 +22,22 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
     this.availablePowerUps;
     this.bleedRNG = 0;
     this.bleedDMG = 1;
-    this.FFHvalue = 3;
+    this.FFHvalue = 2;
     this.playerDmg = 1;
-    // this.text;
-
+    this.deadThings = 0;
+    this.enemies = [];
+    this.numEnemy = 6;
+    this.iFrames = false;
+    this.iFramestime = 0;
+    this.currentScene = 0;
+    this.bombHP = 0;
+    this.projState = 'ready';
+    this.ammo = 0;
+    this.bleedToggle = false;
+    this.forcefield = false;
+    this.forcefieldHealth = 0;
 
   }
-
-  // addText() {
-  //   this.text = this.game.add.text(100, 100, 'Hello World');
-  // }
 
   heal() {
     this.health += this.regen;
@@ -98,6 +104,20 @@ class GlobalState extends Phaser.Plugins.BasePlugin {
   inflation() {
     this.price *= 2;
   }
+
+  resetGame() {
+    this.enemies = [];
+    this.numEnemy = 6;
+    this.deadThings = 0;
+    this.clearHealth();
+    this.bleedToggle = false;
+    this.ammo = 0;
+    this.bombHP = 0;
+    this.forcefield = false;
+  }
+  setBombValue() {
+    this.bombHP = this.bombHPvalue;
+  }
 }
 
-export default GlobalState;
+export default globalState;

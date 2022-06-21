@@ -10,31 +10,6 @@ export default class TutorialScene extends Phaser.Scene {
         super({
             key: 'TutorialScene'
         });
-        this.projectileImg;
-        this.projectileState = 'ready';
-        this.deadThings = 0
-        this.enemies = [];
-        this.numEnemy = 6;
-        this.score = 0;
-        this.iFrames = false;
-        this.iFramestime = 0;
-        this.bleedCD = 0;
-        this.scale = 1;
-        this.player;
-        this.scoreText;
-        this.healthText;
-        this.bomb;
-        this.speed;
-        this.heals;
-        this.eff;
-        this.bleed;
-        this.ammo = 0;
-        this.bleedToggle = false;
-        this.forcefield = false;
-        this.forcefieldHealth = 0;
-        this.bombHP = 0;
-
-
     }
 
     preload() {
@@ -62,47 +37,39 @@ export default class TutorialScene extends Phaser.Scene {
 
         this.load.image('heals', new URL('../../assets/Bandage.png',
             import.meta.url).href);
-
-
-
-
     }
 
     create() {
         //SPAWNING STUFF
-        this.globalState.addUIBorder(this.scene.getIndex(this.key));
+        this.gS.addUIBorder(this.scene.getIndex(this.key));
         this.l1bg = this.add.sprite(this.game.config.width / 2, this.game.config.height / 2 + 25, 'L1');
         this.borders = this.physics.add.staticGroup();
         this.player = new Player(this, 1000, 380, true, true);
         this.SpawnEnemy();
 
         //HEALTH & UI
-        this.globalState.clearHealth();
-        this.globalState.initializeHealth(this.scene.getIndex(this.key));
+        this.gS.clearHealth();
+        this.gS.initializeHealth(this.scene.getIndex(this.key));
         this.healthText = this.add.text(450, 12, '')
         this.scoreText = this.add.text(300, 12, '')
         this.setHealthText();
-        this.globalState.resetScore();
+        this.gS.resetScore();
         this.setScoreText();
         this.currencyText = this.add.text(750, 12, '')
         this.setFishText();
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
         this.projectileImg.visible = false;
 
-        this.globalState.setAvailablePowerUps(1);
-        this.forcefield = false;
-        this.forcefieldHealth = 2;
+        this.gS.setAvailablePowerUps(1);
+        this.gS.forcefield = false;
+        this.gS.forcefieldHealth = 2;
 
-        this.physics.add.collider(this.enemies, this.enemies, () => {});
-        // this.physics.add.collider(this.enemies, this.player, () => { });
-
+        this.physics.add.collider(this.gS.enemies, this.gS.enemies, () => {})
     }
 
     update(time, delta) {
-        this.globalState.animateHealth();
-
-        //spacebar tp
-        if (this.projectileState === "fire") {
+        this.gS.animateHealth();
+        if (this.gS.projState === "fire") {
             if (this.player.space.isDown && this.player.tp) {
                 this.player.copyPosition(this.projectileImg);
                 this.resetProjectile();
@@ -118,12 +85,12 @@ export default class TutorialScene extends Phaser.Scene {
         //bomb powerup
         if (this.bomb) {
             this.physics.add.overlap(this.player, this.bomb, () => {
-                this.ammo = 2;
+                this.gS.ammo = 2;
                 this.bomb.destroy();
             });
         }
-        if (this.ammo > 0) {
-            this.setBombValue();
+        if (this.gS.ammo > 0) {
+            this.gS.setBombValue();
             this.projectileImg.setScale(2);
         } else this.projectileImg.setScale(1);
 
@@ -131,7 +98,7 @@ export default class TutorialScene extends Phaser.Scene {
         if (this.speed) {
             this.physics.add.overlap(this.player, this.speed, () => {
                 this.speed.destroy();
-                this.player.playerSpeed += this.globalState.speedIter;
+                this.player.playerSpeed += this.gS.speedIter;
             })
         }
 
@@ -139,7 +106,7 @@ export default class TutorialScene extends Phaser.Scene {
         if (this.bleed) {
             this.physics.add.overlap(this.player, this.bleed, () => {
                 this.bleed.destroy();
-                this.bleedToggle = true;
+                this.gS.bleedToggle = true;
             })
         }
 
@@ -147,8 +114,8 @@ export default class TutorialScene extends Phaser.Scene {
         if (this.eff) {
             this.physics.add.overlap(this.player, this.eff, () => {
                 this.eff.destroy();
-                this.forcefield = true;
-                this.forcefieldHealth = this.globalState.FFHvalue;
+                this.gS.forcefield = true;
+                this.gS.forcefieldHealth = this.gS.FFHvalue;
             })
         }
 
@@ -156,15 +123,15 @@ export default class TutorialScene extends Phaser.Scene {
         if (this.heals) {
             this.physics.overlap(this.player, this.heals, () => {
                 this.heals.destroy();
-                this.globalState.health++;
+                this.gS.health++;
             });
         }
 
-        this.iFramestime += delta;
+        this.gS.iFramestime += delta;
         this.enemyCollision();
         this.enemyBulletCollision();
         this.player.update();
-        this.enemies.map((enemy) => {
+        this.gS.enemies.map((enemy) => {
             enemy.update();
         });
 
@@ -172,11 +139,11 @@ export default class TutorialScene extends Phaser.Scene {
         if (this.heals) {
             this.physics.add.overlap(this.player, this.heals, () => {
                 this.heals.destroy();
-                this.globalState.heal();
+                this.gS.heal();
             })
         }
         this.input.on('pointerdown', pointer => {
-            if (this.projectileState == 'ready') {
+            if (this.gS.projState == 'ready') {
                 this.fireProjectile();
             }
             if (this.projectileImg.y <= 25 || this.projectileImg.y >= 695 || this.projectileImg.x <= 25 || this.projectileImg.x >= 1255) {
@@ -184,43 +151,36 @@ export default class TutorialScene extends Phaser.Scene {
             }
         })
 
-        if (this.deadThings === this.numEnemy) {
-            console.log(this.globalState.fish, 'fish')
-            this.resetGame();
+        if (this.gS.deadThings === this.gS.numEnemy) {
+            this.gS.resetGame();
+            this.player.playerSpeed = 5;
+
             this.scene.start('LevelClear');
         }
-        if (this.globalState.health === 0) {
-            this.resetGame();
-            this.globalState.resetHealth();
+        if (this.gS.health === 0) {
+            this.gS.resetGame();
+            this.player.playerSpeed = 5;
+            this.gS.resetHealth();
             this.scene.start('GameOver');
         }
     }
 
-    setBombValue() {
-        this.bombHP = this.globalState.bombHPvalue;
-        // console.log('bombHP = ' + this.bombHP);
-    }
-
     setScoreText() {
         this.scoreText.setStyle({
-            // fontFamily: '',
             fontSize: '25px',
-            // fontStyle: 'bold',
             fill: colors.black,
             align: 'center',
         });
-        this.scoreText.setText(`SCORE: ${this.globalState.score}`);
+        this.scoreText.setText(`SCORE: ${this.gS.score}`);
     }
 
     setHealthText() {
         this.healthText.setStyle({
-            // fontFamily: '',
             fontSize: '25px',
-            // fontStyle: 'bold',
             fill: colors.black,
             align: 'center',
         });
-        this.healthText.setText(`HEALTH: ${this.globalState.health}`)
+        this.healthText.setText(`HEALTH: ${this.gS.health}`)
     }
 
     getRandomPosition() {
@@ -233,18 +193,16 @@ export default class TutorialScene extends Phaser.Scene {
 
     setFishText() {
         this.currencyText.setStyle({
-            // fontFamily: '',
             fontSize: '25px',
-            // fontStyle: 'bold',
             fill: colors.black,
             align: 'center',
         });
-        this.currencyText.setText(`Fish: ${this.globalState.fish}`);
+        this.currencyText.setText(`Fish: ${this.gS.fish}`);
     }
 
     SpawnEnemy() {
         const enemyPosition = [];
-        for (let i = 0; i < this.numEnemy; i++) {
+        for (let i = 0; i < this.gS.numEnemy; i++) {
             const position = this.getRandomPosition();
 
             enemyPosition.push({
@@ -252,56 +210,49 @@ export default class TutorialScene extends Phaser.Scene {
                 y: position.y,
             });
         }
-        for (let i = 0; i < this.numEnemy; i++) {
+        for (let i = 0; i < this.gS.numEnemy; i++) {
             const enemy = new alien(this, enemyPosition[i].x, enemyPosition[i].y);
-            this.enemies.push(enemy);
+            this.gS.enemies.push(enemy);
         }
     }
 
     enemyBulletCollision() {
-        this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
-            // console.log(b.alienHP, 'alienhp');
+        this.physics.add.overlap(this.projectileImg, this.gS.enemies, (a, b) => {
+            b.alienHP -= this.gS.playerDmg;
 
-            b.alienHP -= this.globalState.playerDmg;
-            // console.log('alienHP on Hit = ' + b.alienHP);
-
-
-            if (this.bleedToggle === true) {
-                const bleedchance = this.globalState.getRandomInt(1)
+            if (this.gS.bleedToggle === true) {
+                const bleedchance = this.gS.getRandomInt(1)
                 if (bleedchance === 0) {
-                    this.globalState.bleedRNG += 1;
-                    b.alienHP -= this.globalState.bleedDMG;
+                    this.gS.bleedRNG += 1;
+                    b.alienHP -= this.gS.bleedDMG;
                 }
             }
             if (b.alienHP <= 0) {
                 b.destroyAliens();
-                this.deadThings += 1;
-                console.log('deadThings = ' + this.deadThings);
+                this.gS.deadThings += 1;
+                console.log('deadThings = ' + this.gS.deadThings);
 
-                this.globalState.incrementScore();
-                this.globalState.morefish();
+                this.gS.incrementScore();
+                this.gS.morefish();
 
-                if (this.globalState.availablePowerUps > 0) {
+                if (this.gS.availablePowerUps > 0) {
 
-                    let randVal = this.globalState.getRandomInt(2);
+                    let randVal = this.gS.getRandomInt(2);
                     if (randVal === 0) {
 
                         this.dropPowerUp(Math.floor(b.x), Math.floor(b.y));
-                        this.globalState.availablePowerUps--;
+                        this.gS.availablePowerUps--;
                     }
                 }
             }
-            if (this.bombHP > 0) {
-                // console.log('bombHP on Hit = ' + this.bombHP);
-
-                this.bombHP -= 1;
+            if (this.gS.bombHP > 0) {
+                this.gS.bombHP -= 1;
             }
-            if (this.bombHP === 0) {
+            if (this.gS.bombHP === 0) {
                 this.resetProjectile();
             }
-            if (this.ammo > 0 && this.bombHP === 0) {
-                this.ammo--;
-                // console.log('Ammo Count = ' + this.ammo);
+            if (this.gS.ammo > 0 && this.gS.bombHP === 0) {
+                this.gS.ammo--;
             }
             this.setScoreText();
             this.setFishText();
@@ -309,14 +260,14 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     enemyCollision(time, delta) {
-        this.physics.add.overlap(this.player, this.enemies, (a, b) => {
-            if (this.forcefield && this.forcefieldHealth > 0) {
+        this.physics.add.overlap(this.player, this.gS.enemies, (a, b) => {
+            if (this.gS.forcefield && this.gS.forcefieldHealth > 0) {
                 b.destroyAliens();
-                this.forcefieldHealth--;
-                this.deadThings += 1;
-                this.globalState.incrementScore();
+                this.gS.forcefieldHealth--;
+                this.gS.deadThings += 1;
+                this.gS.incrementScore();
                 this.setScoreText();
-                this.globalState.fish++;
+                this.gS.fish++;
             } else this.iFramesTimer();
         });
 
@@ -342,9 +293,8 @@ export default class TutorialScene extends Phaser.Scene {
         }
     }
 
-    // weapon mechanics
     fireProjectile() {
-        this.projectileState = 'fire';
+        this.gS.projState = 'fire';
         this.projectileImg.visible = true;
         this.projectileImg.body.enable = true;
         this.projectileImg.x = this.player.x;
@@ -355,35 +305,22 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     resetProjectile() {
-        if (this.projectileState === 'ready') {
+        if (this.gS.projState === 'ready') {
             return;
         }
-        this.projectileState = 'ready';
+        this.gS.projState = 'ready';
         this.projectileImg.setVelocityY(0);
         this.projectileImg.visible = false;
         this.projectileImg.disableBody(true, true);
-        // this.ammo--;
     }
 
-    resetGame() {
-        this.enemies = [];
-        this.numEnemy = 6;
-        this.deadThings = 0;
-        this.player.playerSpeed = 5;
-        this.globalState.clearHealth();
-        this.bleedToggle = false;
-        this.ammo = 0;
-        this.bombHP = 0;
-        this.forcefield = false;
-    }
 
     dropPowerUp(x, y) {
-        const randVal = this.globalState.getRandomInt(0);
-        if (randVal === 0) {
+        const randVal = this.gS.getRandomInt(0);
+        if (randVal === 1) {
             //bomb
             this.bomb = this.physics.add.image(x, y, 'bomb');
-            this.globalState.availablePowerUps--;
-            // this.globalState.ammo = 2;
+            this.gS.availablePowerUps--;
         }
         if (randVal === 1) {
             //bleed
@@ -394,7 +331,7 @@ export default class TutorialScene extends Phaser.Scene {
             this.speed = this.physics.add.image(x, y, 'speed');
 
         }
-        if (randVal === 3) {
+        if (randVal === 0) {
             //evil force field
             this.eff = this.physics.add.image(x, y, 'eff');
 
@@ -407,15 +344,15 @@ export default class TutorialScene extends Phaser.Scene {
     }
 
     iFramesTimer() {
-        if (this.iFrames === false) {
-            this.globalState.decreaseHealth();
+        if (this.gS.iFrames === false) {
+            this.gS.decreaseHealth();
             this.setHealthText();
-            this.iFrames = true;
-            this.iFramestime = 0;
+            this.gS.iFrames = true;
+            this.gS.iFramestime = 0;
         }
-        if (this.iFrames === true && this.iFramestime > 1000) {
-            this.iFramestime -= 1000;
-            this.iFrames = false;
+        if (this.gS.iFrames === true && this.gS.iFramestime > 1000) {
+            this.gS.iFramestime -= 1000;
+            this.gS.iFrames = false;
         }
         return;
     }

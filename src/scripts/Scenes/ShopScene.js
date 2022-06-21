@@ -42,10 +42,10 @@ export default class ShopScene extends Phaser.Scene {
   }
 
   create() {
-    this.globalState.addUIBorder(this.scene.getIndex(this.key));
+    this.gS.addUIBorder(this.scene.getIndex(this.key));
     this.background = this.add.image((0), (50), 'background').setOrigin(0);
-    this.globalState.clearHealth();
-    this.globalState.initializeHealth(this.scene.getIndex(this.key));
+    this.gS.clearHealth();
+    this.gS.initializeHealth(this.scene.getIndex(this.key));
     this.XBtn = this.add.image(900, 200, 'XBtn')
     this.XBtn.setInteractive();
     this.XBtn.on('pointerdown', () => {
@@ -121,7 +121,7 @@ export default class ShopScene extends Phaser.Scene {
   }
 
   update() {
-    this.globalState.animateHealth();
+    this.gS.animateHealth();
     //navigating the menu(scrolling)
     if (this.cursors.up.isDown) {
       this.bandage.y -= 7;
@@ -186,67 +186,67 @@ export default class ShopScene extends Phaser.Scene {
   }
 
   printHeal() {
-    this.displaySection('more Regen', this.globalState.price1, 'Bandage', () => {
-      if (this.globalState.fish >= this.globalState.price1) {
+    this.displaySection('more Re.gSandage', () => {
+      if (this.gS.fish >= this.gS.price1) {
         console.log('money')
-        this.globalState.fish -= this.globalState.price1;
-        this.globalState.price1 *= 2;
+        this.gS.fish -= this.gS.price1;
+        this.gS.price1 *= 2;
         this.printHeal();
-        this.globalState.regen++;
+        this.gS.regen++;
       }
     });
   }
 
   printBomb() {
-    this.displaySection('more ammunition', this.globalState.price2, 'Bomb', () => {
-      if (this.globalState.fish >= this.globalState.price2) {
-        this.globalState.fish -= this.globalState.price2;
-        this.globalState.price2 *= 2;
+    this.displaySection('more ammunition', this.gS.price2, 'Bomb', () => {
+      if (this.gS.fish >= this.gS.price2) {
+        this.gS.fish -= this.gS.price2;
+        this.gS.price2 *= 2;
         this.printBomb();
-        this.globalState.bombHPvalue += 1;
+        this.gS.bombHPvalue += 1;
       }
     });
   }
 
   printSpeed() {
-    this.displaySection('more time', this.globalState.price3, 'speed', () => {
-      if (this.globalState.fish >= this.globalState.price3) {
-        this.globalState.fish -= this.globalState.price3;
-        this.globalState.price3 *= 2
+    this.displaySection('more time', this.gS.price3, 'speed', () => {
+      if (this.gS.fish >= this.gS.price3) {
+        this.gS.fish -= this.gS.price3;
+        this.gS.price3 *= 2
         this.printSpeed();
-        this.globalState.speedIter += .1;
+        this.gS.speedIter += .1;
       }
     });
   }
 
   printBleed() {
-    this.displaySection('more bleed damage', this.globalState.price4, 'bleed', () => {
-      if (this.globalState.fish >= this.globalState.price4) {
-        this.globalState.fish -= this.globalState.price4;
-        this.globalState.price4 *= 2
+    this.displaySection('more bleed damage', this.gS.price4, 'bleed', () => {
+      if (this.gS.fish >= this.gS.price4) {
+        this.gS.fish -= this.gS.price4;
+        this.gS.price4 *= 2
         this.printbleed();
-        this.globalState.bleedDMG += 1;
+        this.gS.bleedDMG += 1;
       }
     });
   }
 
   printEff() {
-    this.displaySection('More Duration', this.globalState.price5, 'shield', () => {
-      if (this.globalState.fish >= this.globalState.price5) {
-        this.globalState.fish -= this.globalState.price5;
-        this.globalState.price5 *= 2
+    this.displaySection('More Duration', this.gS.price5, 'shield', () => {
+      if (this.gS.fish >= this.gS.price5) {
+        this.gS.fish -= this.gS.price5;
+        this.gS.price5 *= 2
         this.printEff();
-        this.globalState.FFHvalue += 1;
+        this.gS.FFHvalue += 1;
       }
     });
   }
   printShotDmg() {
-    this.displaySection('more dmg per hit', this.globalState.price6, 'shot', () => {
-      if (this.globalState.fish >= this.globalState.price6) {
-        this.globalState.fish -= this.globalState.price6;
-        this.globalState.price6 *= 6
+    this.displaySection('more dmg per hit', this.gS.price6, 'shot', () => {
+      if (this.gS.fish >= this.gS.price6) {
+        this.gS.fish -= this.gS.price6;
+        this.gS.price6 *= 6
         this.printShotDmg();
-        this.globalState.playerDmg += 1;
+        this.gS.playerDmg += 1;
       }
     });
   }
