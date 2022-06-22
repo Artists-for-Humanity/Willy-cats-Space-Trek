@@ -45,9 +45,7 @@ export default class BunkerScene extends Phaser.Scene {
     //collision detection 
     this.physics.add.overlap(this.player, this.tdoor, () => this.playerdoordetect())
     this.physics.add.overlap(this.player, this.mapDoor, () => this.mapDoorDetect())
-
     this.physics.add.overlap(this.player, this.ratHB, () => this.ratmenu())
-
 
     // borders
     this.border = this.physics.add.sprite(640, 100, 'border', );
