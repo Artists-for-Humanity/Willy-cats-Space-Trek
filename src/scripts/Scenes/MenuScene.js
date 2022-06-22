@@ -8,6 +8,8 @@ export default class MenuScene extends Phaser.Scene {
   }
 
   preload() {
+
+
     //start screen
     this.load.image(
       'start-screen',
@@ -23,49 +25,49 @@ export default class MenuScene extends Phaser.Scene {
     );
 
     this.load.spritesheet('willyRunSide', new URL('../../assets/willyRunSide.png',
-          import.meta.url).href, {
-          frameWidth: 70,
-          frameHeight: 90
-        });
+      import.meta.url).href, {
+      frameWidth: 70,
+      frameHeight: 90
+    });
 
     this.load.spritesheet('willyRunBack', new URL('../../assets/willyRunBack.png',
-          import.meta.url).href, {
-          frameWidth: 70,
-          frameHeight: 90
-        });
-        
+      import.meta.url).href, {
+      frameWidth: 70,
+      frameHeight: 90
+    });
+
     this.load.spritesheet('willyRunFront', new URL('../../assets/willyRunFront.png',
-          import.meta.url).href, {
-          frameWidth: 70,
-          frameHeight: 90
-        });
+      import.meta.url).href, {
+      frameWidth: 70,
+      frameHeight: 90
+    });
 
     this.load.spritesheet('alienRunFront', new URL('../../assets/alienRunFront.png',
-            import.meta.url).href, {
-            frameWidth: 52,
-            frameHeight: 62
-        });
+      import.meta.url).href, {
+      frameWidth: 52,
+      frameHeight: 62
+    });
 
     this.load.spritesheet('alienRunBack', new URL('../../assets/alienRunBack.png',
-            import.meta.url).href, {
-            frameWidth: 52,
-            frameHeight: 62
-        });
+      import.meta.url).href, {
+      frameWidth: 52,
+      frameHeight: 62
+    });
 
     this.load.spritesheet('alienRunSide', new URL('../../assets/alienRunSide.png',
-            import.meta.url).href, {
-            frameWidth: 52,
-            frameHeight: 62
-        });
-        
-        this.load.spritesheet('health', new URL('../../assets/spritesheet.png',
-        import.meta.url).href, {
-          frameWidth: 30,
-          frameHeight: 30
+      import.meta.url).href, {
+      frameWidth: 52,
+      frameHeight: 62
+    });
 
-        });
-    
-      }
+    this.load.spritesheet('health', new URL('../../assets/spritesheet.png',
+      import.meta.url).href, {
+      frameWidth: 30,
+      frameHeight: 30
+
+    });
+
+  }
 
   create() {
     //add start screen
@@ -75,13 +77,13 @@ export default class MenuScene extends Phaser.Scene {
     const gameStartBtnX = this.game.config.width / 2 - 320;
     const gameStartBtnY = this.game.config.height / 2 + 160;
     const startButton = this.add.image(gameStartBtnX, gameStartBtnY, 'start-button')
-    .setInteractive({
-      useHandCursor: true
-    })
-    .on('pointerdown', () => {
-      this.scene.start('BunkerScene');
-    });
-    
+      .setInteractive({
+        useHandCursor: true
+      })
+      .on('pointerdown', () => {
+        this.scene.start('BunkerScene');
+      });
+
     //willy animations
     this.anims.create({
       key: 'idle',
@@ -239,7 +241,7 @@ export default class MenuScene extends Phaser.Scene {
         {
           key: 'alienRunFront',
           frame: 6
-        } ,
+        },
         {
           key: 'alienRunFront',
           frame: 7
@@ -278,7 +280,7 @@ export default class MenuScene extends Phaser.Scene {
         {
           key: 'alienRunBack',
           frame: 6
-        } ,
+        },
         {
           key: 'alienRunBack',
           frame: 7
@@ -317,7 +319,7 @@ export default class MenuScene extends Phaser.Scene {
         {
           key: 'alienRunSide',
           frame: 6
-        } ,
+        },
         {
           key: 'alienRunSide',
           frame: 7
@@ -328,17 +330,17 @@ export default class MenuScene extends Phaser.Scene {
     })
     this.anims.create({
       key: 'full',
-      frames:[{
+      frames: [{
         key: 'health',
         frame: 0
       }],
-        frameRate: 20,
-        repeat: -1,
+      frameRate: 20,
+      repeat: -1,
     })
-    
+
     this.anims.create({
       key: '-1',
-      frames:[{
+      frames: [{
         key: 'health',
         frame: 1
       }],
@@ -346,10 +348,10 @@ export default class MenuScene extends Phaser.Scene {
       repeat: -1,
 
     })
-    
+
     this.anims.create({
       key: '-2',
-      frames:[{
+      frames: [{
         key: 'health',
         frame: 2
       }],
@@ -357,15 +359,17 @@ export default class MenuScene extends Phaser.Scene {
       repeat: -1,
 
     })
-    
+
     this.anims.create({
       key: 'empty',
-      frames:[{
+      frames: [{
         key: 'health',
         frame: 3
       }],
       frameRate: 20,
       repeat: -1,
     })
+
+
   }
 }

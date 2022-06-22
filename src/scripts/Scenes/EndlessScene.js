@@ -27,15 +27,15 @@ export default class EndlessScene extends Phaser.Scene {
 
         this.iFrames = false;
         this.iFramestime = 0;
-        
-        this.bleedCD = 0; 
+
+        this.bleedCD = 0;
         this.bomb;
         this.speed;
         this.heals;
         this.eff;
         this.bleed;
         this.ammo = 0;
-        this.bleedToggle = false; 
+        this.bleedToggle = false;
         this.forcefield = false;
         this.forcefieldHealth;
     }
@@ -70,17 +70,17 @@ export default class EndlessScene extends Phaser.Scene {
 
     create() {
         //INITIALIZING GAME RULES AND SPAWNING STUFF
-        this.globalState.addUIBorder(this.scene.getIndex(this.key));
+        this.gS.addUIBorder(this.scene.getIndex(this.key));
         this.l1bg = this.add.sprite(this.game.config.width / 2, this.game.config.height / 2 + 25, 'L1');
         this.borders = this.physics.add.staticGroup();
         this.player = new Player(this, 1000, 380, true, true);
         this.SpawnEnemy();
 
         //HEALTH & UI
-        this.globalState.clearHealth();
-        this.globalState.initializeHealth(this.scene.getIndex(this.key));
-        this.globalState.resetScore();
-        this.healthText = this.add.text(180, 12, '') 
+        this.gS.clearHealth();
+        this.gS.initializeHealth(this.scene.getIndex(this.key));
+        this.gS.resetScore();
+        this.healthText = this.add.text(180, 12, '')
         this.setHealthText();
         this.scoreText = this.add.text(16, 12, '')
         this.setScoreText();
@@ -90,13 +90,13 @@ export default class EndlessScene extends Phaser.Scene {
         this.projectileImg = this.physics.add.sprite(-920, -780, 'projectile');
         this.projectileImg.visible = false;
 
-        this.globalState.setAvailablePowerUps(1);
+        this.gS.setAvailablePowerUps(1);
         this.forcefield = false;
         this.forcefieldHealth = 2;
     }
 
     update(time, delta) {
-        this.globalState.animateHealth();
+        this.gS.animateHealth();
 
         this.player.update();
         this.enemies.map((enemy) => {
@@ -114,7 +114,7 @@ export default class EndlessScene extends Phaser.Scene {
         //follow mouse when down
         if (this.game.input.mousePointer.isDown) {
             this.physics.moveTo(this.projectileImg, this.game.input.mousePointer.x,
-                 this.game.input.mousePointer.y, 500);
+                this.game.input.mousePointer.y, 500);
         }
 
         //fire
@@ -136,19 +136,19 @@ export default class EndlessScene extends Phaser.Scene {
             while (this.enemies.length > 0) this.enemies.pop();
             while (this.enemySpawnPosition.length > 0) this.enemySpawnPosition.pop();
             this.wave++;
-            this.globalState.endlessWave++;
+            this.gS.endlessWave++;
             this.numEnemy = 5 + this.wave * 1;
             this.deadThings = 0;
             this.bleedToggle = false;
             this.player.playerSpeed = 5;
             setTimeout(this.SpawnEnemy(), 3000);
             this.setWaveText();
-            this.globalState.setAvailablePowerUps(Math.floor(this.wave/5 + 1));
+            this.gS.setAvailablePowerUps(Math.floor(this.wave / 5 + 1));
         }
 
-        if (this.globalState.health === 0) {
+        if (this.gS.health === 0) {
             this.resetGame();
-            this.globalState.resetHealth();
+            this.gS.resetHealth();
             this.scene.start('GameOver');
         }
 
@@ -164,24 +164,24 @@ export default class EndlessScene extends Phaser.Scene {
         } else this.projectileImg.setScale(1);
 
         //speed powerup
-        if (this.speed){
+        if (this.speed) {
             this.physics.add.overlap(this.player, this.speed, () => {
-                this.speed.destroy(); 
+                this.speed.destroy();
                 this.player.playerSpeed += 2;
             })
         }
 
         //bleed power up
-        if(this.bleed){
-            this.physics.add.overlap(this.player , this.bleed, ()=>{
+        if (this.bleed) {
+            this.physics.add.overlap(this.player, this.bleed, () => {
                 this.bleed.destroy();
-                this.bleedToggle = true; 
+                this.bleedToggle = true;
             })
         }
 
         //shield
-        if (this.eff){
-            this.physics.add.overlap(this.player , this.eff, ()=>{
+        if (this.eff) {
+            this.physics.add.overlap(this.player, this.eff, () => {
                 this.eff.destroy();
                 this.forcefield = true;
             })
@@ -189,10 +189,10 @@ export default class EndlessScene extends Phaser.Scene {
         if (this.forcefieldHealth === 0) this.forcefield = false;
 
         //bandage
-        if (this.heals){
-            this.physics.overlap(this.player, this.heals, ()=> {
+        if (this.heals) {
+            this.physics.overlap(this.player, this.heals, () => {
                 this.heals.destroy();
-                this.globalState.health++;
+                this.gS.health++;
             });
         }
     }
@@ -205,7 +205,7 @@ export default class EndlessScene extends Phaser.Scene {
             fill: colors.black,
             align: 'center',
         });
-        this.healthText.setText(`HEALTH: ${this.globalState.health}`)
+        this.healthText.setText(`HEALTH: ${this.gS.health}`)
     }
 
     setScoreText() {
@@ -216,7 +216,7 @@ export default class EndlessScene extends Phaser.Scene {
             fill: colors.black,
             align: 'center',
         });
-        this.scoreText.setText(`SCORE: ${this.globalState.score}`);
+        this.scoreText.setText(`SCORE: ${this.gS.score}`);
     }
 
     setWaveText() {
@@ -227,7 +227,7 @@ export default class EndlessScene extends Phaser.Scene {
             fill: colors.black,
             align: 'center',
         });
-        this.waveText.setText(`WAVE: ${this.globalState.endlessWave}`);
+        this.waveText.setText(`WAVE: ${this.gS.endlessWave}`);
     }
 
     SpawnEnemy() {
@@ -246,12 +246,12 @@ export default class EndlessScene extends Phaser.Scene {
     }
 
     getRandomPosition() {
-            const position = {
-                x: Math.floor(Phaser.Math.Between(100, 860)),
-                y: Math.floor(Phaser.Math.Between(100, 720)),
-            };
-            return position;
-        }
+        const position = {
+            x: Math.floor(Phaser.Math.Between(100, 860)),
+            y: Math.floor(Phaser.Math.Between(100, 720)),
+        };
+        return position;
+    }
 
     fireProjectile() {
         this.projectileState = 'fire';
@@ -278,37 +278,37 @@ export default class EndlessScene extends Phaser.Scene {
     enemyBulletCollision() {
         this.physics.add.overlap(this.projectileImg, this.enemies, (a, b) => {
             b.alienHP -= 1;
-            if (this.bleedToggle === true){
-                const bleedchance = this.globalState.getRandomInt(1)
-                if (bleedchance === 0){
+            if (this.bleedToggle === true) {
+                const bleedchance = this.gS.getRandomInt(1)
+                if (bleedchance === 0) {
                     let a = false;
-                    if (a === false){
+                    if (a === false) {
                         b.alienHP -= .5;
                         a = true;
                     }
-                    if(a === true && this.bleedCD > 0 )
+                    if (a === true && this.bleedCD > 0)
                         this.bleedCD -= 1000;
-                        a = false; 
+                    a = false;
                 }
             }
-            if(b.alienHP <= 0 ){
+            if (b.alienHP <= 0) {
                 b.destroyAliens();
                 this.deadThings += 1;
-                this.globalState.incrementScore();
-            
-                if (this.globalState.availablePowerUps > 0) {
+                this.gS.incrementScore();
 
-                    let randVal = this.globalState.getRandomInt(2);
+                if (this.gS.availablePowerUps > 0) {
+
+                    let randVal = this.gS.getRandomInt(2);
                     if (randVal === 0) {
 
-                    this.dropPowerUp(Math.floor(b.x), Math.floor(b.y));
-                    this.globalState.availablePowerUps--;
+                        this.dropPowerUp(Math.floor(b.x), Math.floor(b.y));
+                        this.gS.availablePowerUps--;
                     }
                 }
             }
-            this.resetProjectile();         
+            this.resetProjectile();
             this.setScoreText();
-            this.globalState.morefish();
+            this.gS.morefish();
         });
     }
 
@@ -318,17 +318,16 @@ export default class EndlessScene extends Phaser.Scene {
                 b.destroyAliens();
                 this.forcefieldHealth--;
                 this.deadThings += 1;
-                this.globalState.incrementScore();
+                this.gS.incrementScore();
                 this.setScoreText();
-            }
-            else this.iFramesTimer();
+            } else this.iFramesTimer();
         });
 
     }
 
-    iFramesTimer(){
+    iFramesTimer() {
         if (this.iFrames === false) {
-            this.globalState.decreaseHealth();
+            this.gS.decreaseHealth();
             this.setHealthText();
             this.iFrames = true;
             this.iFramestime = 0;
@@ -341,32 +340,32 @@ export default class EndlessScene extends Phaser.Scene {
     }
 
     dropPowerUp(x, y) {
-        const randVal = this.globalState.getRandomInt(5);
-        if (randVal === 0){
+        const randVal = this.gS.getRandomInt(5);
+        if (randVal === 0) {
             //bomb
             this.bomb = this.physics.add.image(x, y, 'bomb');
-            this.globalState.availablePowerUps--;
-            this.globalState.ammo = 2;
+            this.gS.availablePowerUps--;
+            this.gS.ammo = 2;
         }
-        if (randVal === 1){
+        if (randVal === 1) {
             //bleed
-            this.bleed = this.physics.add.image(x , y, 'bleed');
-            this.globalState.availablePowerUps--;
+            this.bleed = this.physics.add.image(x, y, 'bleed');
+            this.gS.availablePowerUps--;
         }
-        if (randVal === 2){
+        if (randVal === 2) {
             //speed
             this.speed = this.physics.add.image(x, y, 'speed');
-            this.globalState.availablePowerUps--;
+            this.gS.availablePowerUps--;
         }
-        if (randVal === 3){
+        if (randVal === 3) {
             //evil force field
             this.eff = this.physics.add.image(x, y, 'eff');
-            this.globalState.availablePowerUps--;
+            this.gS.availablePowerUps--;
         }
-        if (randVal === 4){
+        if (randVal === 4) {
             //bandage (heal)
             this.heals = this.physics.add.image(x, y, 'heals');
-            this.globalState.availablePowerUps--;
+            this.gS.availablePowerUps--;
         }
     }
 
@@ -375,7 +374,7 @@ export default class EndlessScene extends Phaser.Scene {
         this.numEnemy = 6;
         this.deadThings = 0;
         this.player.playerSpeed = 5;
-        this.globalState.clearHealth();
+        this.gS.clearHealth();
         this.bleedToggle = false;
     }
 }
