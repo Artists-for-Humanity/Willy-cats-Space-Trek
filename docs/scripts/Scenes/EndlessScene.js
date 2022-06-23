@@ -1,4 +1,4 @@
-import WillyScene from './WillyScene';
+import WillyScene from './WillyScene.js';
 
 export default class EndlessScene extends WillyScene {
   constructor() {

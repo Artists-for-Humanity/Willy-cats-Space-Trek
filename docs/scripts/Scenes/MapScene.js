@@ -18,9 +18,9 @@ export default class MapScene extends Phaser.Scene {
   }
 
   create() {
-    this.globalState.addUIBorder(this.scene.getIndex(this.key));
+    this.gS.addUIBorder(this.scene.getIndex(this.key));
     this.background = this.add.image(this.game.config.width / 2, this.game.config.height / 2 + 25, 'mapscene');
-    this.player = new Player(this, 50, 390, false, false);
+    this.player = new Player(this, this.gS.mapSceneX, 390, false, false);
 
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
@@ -75,9 +75,14 @@ export default class MapScene extends Phaser.Scene {
   }
 
   select() {
-    if (this.player.x < 100) {
+    if (this.player.x <= 80) {
+      this.gS.mapSceneX = this.player.x;
       this.scene.start("BunkerScene");
-      console.log('selected');
-    } else console.log('not available');
+    }
+    if (this.player.x <= 310 && this.player.x >= 240) {
+      this.gS.mapSceneX = this.player.x;
+      this.scene.start("EndlessScene");
+    }
   }
+
 }

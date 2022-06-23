@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import MenuScene from './Scenes/MenuScene';
 import BunkerScene from './Scenes/BunkerScene';
 // import BossScene from './Scenes/BossScene';
-import globalState from './GlobalState';
+import GlobalState from './GlobalState';
 import TutorialScene from './Scenes/TutorialScene';
 import GameRule from './GameRule';
 import MapScene from './Scenes/MapScene';
@@ -11,9 +11,7 @@ import GameOver from './Scenes/gameOver';
 import ShopScene from './Scenes/ShopScene';
 import EndlessScene from './Scenes/EndlessScene';
 
-
 // import gameTemp from './gameTemp';
-
 
 // Set configuration for phaser game instance
 const config = {
@@ -32,12 +30,22 @@ const config = {
       debug: true,
     },
   },
-  scene: [MenuScene, BunkerScene, TutorialScene, LevelClear, GameOver, MapScene, ShopScene, EndlessScene],
+  scene: [
+    MenuScene,
+    BunkerScene,
+    TutorialScene,
+    LevelClear,
+    GameOver,
+    MapScene,
+    ShopScene,
+    EndlessScene,
+  ],
   audio: {
     disableWebAudio: true,
   },
   plugins: {
-    global: [{
+    global: [
+      {
         key: 'GameRule',
         plugin: GameRule,
         start: false,
@@ -45,11 +53,10 @@ const config = {
       },
       {
         key: 'gS',
-        plugin: globalState,
+        plugin: GlobalState,
         start: false,
         mapping: 'gS',
       },
-
     ],
   },
 };
