@@ -9,6 +9,9 @@ import MapScene from './Scenes/MapScene.js';
 import LevelClear from './Scenes/LevelClear.js';
 import GameOver from './Scenes/gameOver.js';
 import ShopScene from './Scenes/ShopScene.js';
+import EndlessScene from './Scenes/EndlessScene.js';
+
+// import gameTemp from './gameTemp';
 
 // Set configuration for phaser game instance
 const config = {
@@ -27,23 +30,33 @@ const config = {
       debug: true,
     },
   },
-  scene: [MenuScene, BunkerScene, TutorialScene, LevelClear, GameOver, MapScene, ShopScene],
+  scene: [
+    MenuScene,
+    BunkerScene,
+    TutorialScene,
+    LevelClear,
+    GameOver,
+    MapScene,
+    ShopScene,
+    EndlessScene,
+  ],
   audio: {
     disableWebAudio: true,
   },
   plugins: {
-    global: [{
+    global: [
+      {
         key: 'GameRule',
         plugin: GameRule,
         start: false,
-        mapping: 'GameRule'
+        mapping: 'GameRule',
       },
       {
-        key: 'GlobalState',
+        key: 'gS',
         plugin: GlobalState,
         start: false,
-        mapping: 'globalState'
-      }
+        mapping: 'gS',
+      },
     ],
   },
 };

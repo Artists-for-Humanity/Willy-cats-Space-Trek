@@ -27,17 +27,16 @@ export default class BunkerScene extends Phaser.Scene {
   }
 
   create() {
-    // this.globalState.addUIBorder();
-    this.globalState.addUIBorder(this.scene.getIndex(this.key));
+    this.gS.addUIBorder(this.scene.getIndex(this.key));
     this.background = this.add.image(this.game.config.width / 2, this.game.config.height / 2 + 25, 'background');
     this.player = new Player(this, this.game.config.width / 2, this.game.config.height / 2, true, false);
-    this.globalState.clearHealth();
-    this.globalState.initializeHealth(this.scene.getIndex(this.key));
+    this.gS.clearHealth();
+    this.gS.initializeHealth(this.scene.getIndex(this.key));
 
     //rat speach and stuff
     this.ratHB = this.physics.add.staticImage(640, 150, 'tutorialdoor')
     this.ratHB.visible = false;
-    
+
     //tutorial door physics + creation
     this.tdoor = this.physics.add.image(300, 150, 'tutorialdoor');
     this.tdoor.visible = false;
@@ -49,9 +48,7 @@ export default class BunkerScene extends Phaser.Scene {
     //collision detection 
     this.physics.add.overlap(this.player, this.tdoor, () => this.playerdoordetect())
     this.physics.add.overlap(this.player, this.mapDoor, () => this.mapDoorDetect())
-
     this.physics.add.overlap(this.player, this.ratHB, () => this.ratmenu())
-
 
     // borders
     this.border = this.physics.add.sprite(640, 100, 'border', );
@@ -63,25 +60,25 @@ export default class BunkerScene extends Phaser.Scene {
   }
 
   update() {
-    this.globalState.animateHealth();
+    this.gS.animateHealth();
     this.player.update();
   }
 
   playerdoordetect() {
+    this.gS.currentScene = 0;
     this.scene.start('TutorialScene');
     GameRule.toggleBorder = true;
   }
 
   mapDoorDetect() {
+    this.gS.currentScene = 1;
     this.scene.start('MapScene');
-    // this.globalState.clearHealth();
   }
 
   ratmenu() {
-    this.scene.start('ShopScene')
-    // this.globalState.clearHealth();
+    this.scene.start('ShopScene');
   }
-  
+
   playerXborder(player) {
     player.y = 210
   }

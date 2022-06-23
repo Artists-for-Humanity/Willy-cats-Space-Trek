@@ -1,19 +1,19 @@
 import Phaser from '../../snowpack/pkg/phaser.js';
 
-export default class alien extends Phaser.Physics.Arcade.Sprite {
+export default class Alien extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'alienRunSide');
     scene.add.existing(this);
     scene.physics.world.enableBody(this);
     this.setCollideWorldBounds(true);
     this.running = false;
+    this.alienHP = 3;
   }
 
   //movement ai for the enemies
   update() {
     this.scene.physics.moveToObject(this, this.scene.player, 175);
     this.animate();
-    // console.log(this.getVelocityY());
   }
 
   destroyAliens() {
@@ -26,12 +26,12 @@ export default class alien extends Phaser.Physics.Arcade.Sprite {
     // horizontal animations
     if (Math.abs(this.getVelocityX()) > Math.abs(this.getVelocityY())) {
       if (this.getVelocityX() > 0) {
-        this.anims.play('alienRunSide', true);  // right
+        this.anims.play('alienRunSide', true); // right
         this.flipX = false;
         return;
       }
       if (this.getVelocityX() < 0) {
-        this.anims.play('alienRunSide', true);  // left
+        this.anims.play('alienRunSide', true); // left
         this.flipX = true;
         return;
       }
@@ -57,5 +57,4 @@ export default class alien extends Phaser.Physics.Arcade.Sprite {
   getVelocityY() {
     return this.body.velocity.y;
   }
-
 }

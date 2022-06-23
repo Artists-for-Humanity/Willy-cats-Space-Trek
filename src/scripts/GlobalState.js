@@ -1,13 +1,13 @@
 import Phaser from 'phaser';
 import HealthDisplay from '../scripts/Sprites/HealthDisplay';
 
-class globalState extends Phaser.Plugins.BasePlugin {
+class GlobalState extends Phaser.Plugins.BasePlugin {
   constructor(pluginManager) {
     super(pluginManager);
     this.score = 0;
     this.health = 9;
     this.endlessWave = 1;
-    this.fish = 0
+    this.fish = 0;
     this.healthslots = [];
     this.slotnum = 3;
     this.regen = 1;
@@ -17,7 +17,7 @@ class globalState extends Phaser.Plugins.BasePlugin {
     this.price4 = 3;
     this.price5 = 3;
     this.price6 = 3;
-    this.speedIter += .2
+    this.speedIter = 0.2;
     this.bombHPvalue = 3;
     this.availablePowerUps;
     this.bleedRNG = 0;
@@ -36,7 +36,6 @@ class globalState extends Phaser.Plugins.BasePlugin {
     this.bleedToggle = false;
     this.forcefield = false;
     this.forcefieldHealth = 0;
-
   }
 
   heal() {
@@ -81,7 +80,11 @@ class globalState extends Phaser.Plugins.BasePlugin {
 
   initializeHealth(sceneNum) {
     for (let i = 0; i < this.slotnum; i++) {
-      const health = new HealthDisplay(this.pluginManager.game.scene.scenes[sceneNum], 200 - (65 * i), 26).setScale(1.5);
+      const health = new HealthDisplay(
+        this.pluginManager.game.scene.scenes[sceneNum],
+        200 - 65 * i,
+        26
+      ).setScale(1.5);
       this.healthslots.push(health);
     }
   }
@@ -120,4 +123,4 @@ class globalState extends Phaser.Plugins.BasePlugin {
   }
 }
 
-export default globalState;
+export default GlobalState;

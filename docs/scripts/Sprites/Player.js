@@ -1,6 +1,8 @@
 import Phaser from '../../snowpack/pkg/phaser.js';
 import TutorialScene from '../Scenes/TutorialScene.js';
-import { colors } from '../constants.js';
+import {
+  colors
+} from '../constants.js';
 
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
@@ -18,6 +20,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.down = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.right = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.space = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.q = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
     this.playerSpeed = 5;
     this.tp = tp;
     return this;
@@ -25,63 +28,63 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   //player movement//
   update() {
-    this.resetPlayerPosition();  
+    this.resetPlayerPosition();
     this.move();
 
   }
-  
-  move() {      
-      if (this.up.isDown && this.vertMovement) {
-        this.y -= this.playerSpeed;
-        this.anims.play('willyRunBack', true);
-        return;
-        //up and walking up animation//
-      }
-      if (this.down.isDown && this.vertMovement) {
-        this.y += this.playerSpeed;
-        this.anims.play('willyRunFront', true);
-        return;
+
+  move() {
+    if (this.up.isDown && this.vertMovement) {
+      this.y -= this.playerSpeed;
+      this.anims.play('willyRunBack', true);
+      return;
+      //up and walking up animation//
+    }
+    if (this.down.isDown && this.vertMovement) {
+      this.y += this.playerSpeed;
+      this.anims.play('willyRunFront', true);
+      return;
       //down and walking down animation//
-      }
-      if (this.left.isDown) {
-        this.x -= this.playerSpeed;
-        this.flipX = true;
-        this.anims.play('willyRunSide', true);
-        return;
-        //left and walking left animation//
-      }
-      if (this.right.isDown) {
-        this.x += this.playerSpeed;
-        this.flipX = false;
-        this.anims.play('willyRunSide', true);
-        return;
+    }
+    if (this.left.isDown) {
+      this.x -= this.playerSpeed;
+      this.flipX = true;
+      this.anims.play('willyRunSide', true);
+      return;
+      //left and walking left animation//
+    }
+    if (this.right.isDown) {
+      this.x += this.playerSpeed;
+      this.flipX = false;
+      this.anims.play('willyRunSide', true);
+      return;
       //right and walking right animation//
-      }
+    }
 
-     this.anims.play('idle', true);
+    this.anims.play('idle', true);
   }
- 
 
-  
-  resetPlayerPosition(){
-   //console.log(this.x,this.y)
+
+
+  resetPlayerPosition() {
+    //console.log(this.x,this.y)
     if (this.mapBorder) {
-      if (this.y <= 130){
+      if (this.y <= 130) {
         this.y = 130;
       }
-      if (this.y >= 700){
+      if (this.y >= 700) {
         this.y = 700;
       }
-      if (this.x <= 95){
+      if (this.x <= 95) {
         this.x = 100;
       }
-      if (this.x >= 1185){
+      if (this.x >= 1185) {
         this.x = 1180;
       }
     }
   }
 
-  setPlayerSpeed(speed){
+  setPlayerSpeed(speed) {
     this.playerSpeed = speed;
   }
 }
