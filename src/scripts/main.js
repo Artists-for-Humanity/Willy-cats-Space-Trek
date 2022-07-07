@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-
+import WillyScene from './Scenes/WillyScene';
 // import BossScene from './Scenes/BossScene';
 
 // import gameTemp from './gameTemp';
@@ -21,7 +21,7 @@ const config = {
       debug: true,
     },
   },
-  scene: [],
+  scene: [WillyScene],
   audio: {
     disableWebAudio: true,
   },
