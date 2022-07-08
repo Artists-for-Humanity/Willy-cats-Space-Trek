@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
-import WillyScene from './Scenes/WillyScene';
+import TestingScene from './Scenes/TestingScene';
+import JustDownTest from './Scenes/JustDownTest';
+import StartAtTest from './Scenes/StartAtTest';
 // import BossScene from './Scenes/BossScene';
 
 // import gameTemp from './gameTemp';
@@ -21,7 +23,7 @@ const config = {
       debug: true,
     },
   },
-  scene: [WillyScene],
+  scene: [StartAtTest, JustDownTest, TestingScene],
   audio: {
     disableWebAudio: true,
   },
