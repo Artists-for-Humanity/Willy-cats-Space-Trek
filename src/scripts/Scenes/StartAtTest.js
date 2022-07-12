@@ -18,8 +18,10 @@ export default class StartAtTest extends Phaser.Scene {
       repeat: 3,
       startAt: 5000,
     });
+    this.input.on('pointerdown', () => {
+      this.timedEvent.paused = !this.timedEvent.paused;
+    });
   }
-
   update() {
     this.text.setText(
       'Event.progress: ' +
