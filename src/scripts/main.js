@@ -3,14 +3,14 @@ import TestingScene from './Scenes/TestingScene';
 import JustDownTest from './Scenes/JustDownTest';
 import StartAtTest from './Scenes/StartAtTest';
 // import BossScene from './Scenes/BossScene';
-
+import pathTest from './Scenes/pathTest';
 // import gameTemp from './gameTemp';
 
 // Set configuration for phaser game instance
 const config = {
   type: Phaser.AUTO,
-  width: 1280,
-  height: 770,
+  width: 1080,
+  height: 720,
   backgroundColor: '#808080',
 
   // Add physics, arcade, scene, and audio
@@ -23,7 +23,7 @@ const config = {
       debug: true,
     },
   },
-  scene: [StartAtTest, JustDownTest, TestingScene],
+  scene: [pathTest, StartAtTest, JustDownTest, TestingScene],
   audio: {
     disableWebAudio: true,
   },
